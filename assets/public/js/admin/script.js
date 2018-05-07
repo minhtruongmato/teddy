@@ -1,9 +1,9 @@
 switch(window.location.origin){
-    case 'http://commonadmin.com':
-        var HOSTNAME = 'http://commonadmin.com/';
+    case 'http://teddy.com':
+        var HOSTNAME = 'http://teddy.com/';
         break;
     default:
-        var HOSTNAME = 'http://localhost/commonadmin/';
+        var HOSTNAME = 'http://localhost/teddy/';
 }
 
 $(document).ready(function(){

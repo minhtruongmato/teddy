@@ -58,6 +58,16 @@ if($this->ion_auth->logged_in()) {
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo base_url('admin/product_category') ?>">
+                        <i class="fa fa-inbox"></i> <span>Danh Mục Sản Phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('admin/product') ?>">
+                        <i class="fa fa-envelope-o"></i> <span>Sản Phẩm</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo base_url('admin/menu') ?>">
                         <i class="fa fa-envelope-o"></i> <span>Menu</span>
                     </a>
