@@ -38,6 +38,9 @@ $(document).ready(function(){
     $('#title_vi').change(function(){
         $('#slug_shared').val(to_slug($('#title_vi').val()));
     });
+    $('#title').change(function(){
+        $('#slug_shared').val(to_slug($('#title').val()));
+    });
 });
 
 $(window).scroll(function () {

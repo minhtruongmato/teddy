@@ -68,6 +68,16 @@ if($this->ion_auth->logged_in()) {
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo base_url('admin/floor') ?>">
+                        <i class="fa fa-inbox"></i> <span>Danh Mục Tầng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('admin/desk') ?>">
+                        <i class="fa fa-envelope-o"></i> <span>Bàn</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo base_url('admin/menu') ?>">
                         <i class="fa fa-envelope-o"></i> <span>Menu</span>
                     </a>
