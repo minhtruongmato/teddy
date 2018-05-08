@@ -4,7 +4,7 @@
         <h1>
             Cập nhật
             <small>
-                Danh Mục
+                Bài Viết
             </small>
         </h1>
     </section>
@@ -53,17 +53,8 @@
                                 <?php
                                 echo form_label('Danh mục', 'parent_id_shared');
                                 echo form_error('parent_id_shared');
-                                echo form_dropdown('parent_id_shared', $category, $detail['parent_id'], 'class="form-control"');
-                                ?>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Kiểu danh mục', 'type_shared');
-                                echo form_error('type_shared');
-                                echo form_dropdown('type_shared', array(0 => 'Danh mục cho danh sách bài viết', 1 => 'Danh mục cho bài vết đơn'), $detail['type'], 'class="form-control"');
+                                echo form_dropdown('parent_id_shared', $category, $detail['post_category_id'], 'class="form-control"');
+                                
                                 ?>
                             </div>
                         </div>

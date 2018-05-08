@@ -59,7 +59,7 @@ function to_slug(str){
     return str;
 }
 
-var csrf_hash = $("input[name='csrf_seafood_token']").val();
+var csrf_hash = $("input[name='csrf_teddy_token']").val();
 function remove(controller, id){
     var url = HOSTNAME + 'admin/' + controller + '/remove';
     if(confirm('Chắc chắn xóa?')){
@@ -202,3 +202,88 @@ function active_avatar(controller, image) {
         });
     }
 }
+
+
+    
+$('#select_main').change(function(){
+    var url = HOSTNAME + 'admin/menu/show_sub_category';
+    var slug = $(this).val();
+    $.ajax({
+        method: "post",
+        url: url,
+        data: {
+            csrf_teddy_token : csrf_hash, slug : slug
+        },
+        success: function(response){
+            console.log(response);
+            if(response.status == 200){
+                csrf_hash = response.reponse.csrf_hash;
+                sub_cate = response.reponse.sub_cate,
+                posts = response.reponse.posts
+            }
+            $('#url').val(HOSTNAME + slug);
+            $.each(sub_cate, function(key, item){
+                $('#select_category').append($('<option>', {
+                    value: key,
+                    text: item
+                }));
+            });
+            $.each(posts, function(key, item){
+                $('#select_article').append($('<option>', {
+                    value: item.slug,
+                    text: item.title
+                }));
+            });
+        },
+        error: function(jqXHR, exception){
+            console.log(errorHandle(jqXHR, exception));
+        }
+    });
+});
+
+$('#select_category').change(function(){
+    var url = HOSTNAME + 'admin/menu/show_posts';
+    var slug = $(this).val();
+    $.ajax({
+        method: "post",
+        url: url,
+        data: {
+            csrf_teddy_token : csrf_hash, slug : slug
+        },
+        success: function(response){
+            console.log(response);
+            if(response.status == 200){
+                csrf_hash = response.reponse.csrf_hash;
+                posts = response.reponse.posts
+            }
+            $('#url').val(HOSTNAME + slug);
+            $.each(posts, function(key, item){
+                $('#select_article').append($('<option>', {
+                    value: item.slug,
+                    text: item.title
+                }));
+            });
+        },
+        error: function(jqXHR, exception){
+            console.log(errorHandle(jqXHR, exception));
+        }
+    });
+});
+
+$('#select_article').change(function(){
+    var url = HOSTNAME + 'admin/menu/select_posts';
+
+    var slug = $(this).val();
+    $('#url').val($('#url').val() + '/' + slug);
+});
+
+// $('.btn-dropdown-cate').each(function(){
+//     if(('.btn-dropdown-cate').hasClass('is_active')){
+//         $('.table-cate').removeAttr('id');
+//     }else{
+//         $('.table-cate').attr('id', 'sortable');
+//     }
+// })
+
+
+

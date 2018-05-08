@@ -60,6 +60,15 @@ if (!function_exists('handle_common_author_data')) {
         unset($new_data[$id]);
         return $new_data;
     }
+
+    function build_array_by_slug_for_dropdown($data = array()){
+        $new_data = array('' => 'Click để chọn');
+        foreach ($data as $key => $value) {
+            $new_data[$value['slug']] = $value['title'];
+
+        }
+        return $new_data;
+    }
 }
 
 //build title for input

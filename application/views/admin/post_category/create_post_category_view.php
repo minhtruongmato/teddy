@@ -4,19 +4,7 @@
         <h1>
             Thêm mới
             <small>
-                <?php 
-                    switch ($controller) {
-                        case 'post_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'post':
-                            echo "Bài Viết";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                 ?>
+                Danh Mục
             </small>
         </h1>
     </section>
@@ -60,6 +48,16 @@
                                 echo form_label('Danh mục', 'parent_id_shared');
                                 echo form_error('parent_id_shared');
                                 echo form_dropdown('parent_id_shared', $post_category, 0, 'class="form-control"');
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12">
+                            <div class="form-group col-xs-12">
+                                <?php
+                                echo form_label('Kiểu danh mục', 'type_shared');
+                                echo form_error('type_shared');
+                                echo form_dropdown('type_shared', array(0 => 'Danh mục cho danh sách bài viết', 1 => 'Danh mục cho bài vết đơn'), 0, 'class="form-control"');
                                 ?>
                             </div>
                         </div>

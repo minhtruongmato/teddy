@@ -67,14 +67,20 @@
             <h3>Quản lý menu chính</h3>
             <?php if ($menus): ?>
                 <div class="row">
-                    <div class="col-lg-12 numberlist" style="margin-top: 10px;">
+                    <div class="col-lg-10 numberlist" style="margin-top: 10px;">
                         <ol id="sortable">
                             <?php
                             if (!empty($menus)):
                             foreach ($menus as $key => $item):
                             ?>
                                 <li class="treeview ui-sortable-handle" id="<?php echo ($key + 1) . '-' . $item['id'] ?>" style="">
-                                    <strong><a style="color:#f02561" href="javascript:void(0)"><?php echo $item['title'] ?></a></strong>
+                                    <strong class="col-lg-8"><a style="color:#f02561" href="javascript:void(0)"><?php echo $item['title'] ?></a></strong>
+                                    <button type="button" class="btn btn-primary col-lg-1" onclick="location.href='<?php echo base_url('admin/menu/edit/' . $item['id']); ?>'" style="margin-top: 5px;">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button data-url="<?php echo base_url('admin/menu/active'); ?>" data-id="<?php echo $item['id']; ?>" data-active="" type="button" class="btn btn-success col-lg-1" style="margin-top: 5px;">
+                                        <i class="fa fa-check ?>" aria-hidden="true"></i>
+                                    </button>
                                 </li>
                             <?php
                             endforeach;
