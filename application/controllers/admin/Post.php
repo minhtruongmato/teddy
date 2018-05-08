@@ -59,7 +59,7 @@ class Post extends Admin_Controller{
         $this->data['result'] = $result;
         
         
-        $this->render('admin/post_category/list_post_category_view');
+        $this->render('admin/post/list_post_view');
     }
 
 	public function create(){
@@ -75,7 +75,7 @@ class Post extends Admin_Controller{
         $this->form_validation->set_rules('title_en', 'Title', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-        	$this->render('admin/post_category/create_post_category_view');
+        	$this->render('admin/post/create_post_view');
         } else {
         	if($this->input->post()){
         		$check_upload = true;
@@ -160,7 +160,7 @@ class Post extends Admin_Controller{
         $this->form_validation->set_rules('title_en', 'Title', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->render('admin/post_category/edit_post_category_view');
+            $this->render('admin/post/edit_post_view');
         } else {
             if($this->input->post()){
                 $check_upload = true;

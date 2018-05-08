@@ -46,16 +46,19 @@ class Post_category extends Admin_Controller{
         $this->pagination->initialize($config);
         $this->data['page_links'] = $this->pagination->create_links();
 
-        $result = $this->post_category_model->get_all_with_pagination_search('desc','vi' , $per_page, $this->data['page']);
+        $result = $this->post_category_model->get_all_with_pagination_and_sort_search('asc','vi' , $per_page, $this->data['page']);
         if($keywords != ''){
-            $result = $this->post_category_model->get_all_with_pagination_search('desc','vi' , $per_page, $this->data['page'], $keywords);
+            $result = $this->post_category_model->get_all_with_pagination_and_sort_search('asc','vi' , $per_page, $this->data['page'], $keywords);
         }
         foreach ($result as $key => $value) {
             $parent_title = $this->build_parent_title($value['parent_id']);
             $result[$key]['parent_title'] = $parent_title;
         }
         $this->data['result'] = $result;
+        $this->data['check'] = $this;
         
+
+        // print_r($result);die;
         
         $this->render('admin/'. $this->controller .'/list_post_category_view');
     }
@@ -86,6 +89,7 @@ class Post_category extends Admin_Controller{
                     $shared_request = array(
                         'slug' => $unique_slug,
                         'parent_id' => $this->input->post('parent_id_shared'),
+                        'type' => $this->input->post('type_shared'),
                         'created_at' => $this->author_data['created_at'],
                         'created_by' => $this->author_data['created_by'],
                         'updated_at' => $this->author_data['updated_at'],
@@ -169,6 +173,7 @@ class Post_category extends Admin_Controller{
                     $shared_request = array(
                         'slug' => $unique_slug,
                         'parent_id' => $this->input->post('parent_id_shared'),
+                        'type' => $this->input->post('type_shared'),
                         'created_at' => $this->author_data['created_at'],
                         'created_by' => $this->author_data['created_by'],
                         'updated_at' => $this->author_data['updated_at'],
@@ -222,5 +227,41 @@ class Post_category extends Admin_Controller{
             $title = 'Danh mục gốc';
         }
         return $title;
+    }
+
+    function build_new_category($categorie, $parent_id = 0, &$new_categorie){
+        $cate_child = array();
+        foreach ($categorie as $key => $item){
+            if ($item['parent_id'] == $parent_id){
+                $cate_child[] = $item;
+                unset($categorie[$key]);
+            }
+        }
+        if ($cate_child){
+            foreach ($cate_child as $key => $item){
+                $new_categorie[] = $item;
+                $this->build_new_category($categorie, $item['id'], $new_categorie);
+            }
+        }
+    }
+
+    public function sort(){
+        $params = array();
+        parse_str($this->input->get('sort'), $params);
+        // echo '<pre>';
+        // print_r($params);die;
+        $i = 1;
+        foreach($params as $value){
+            $this->post_category_model->update_sort($i, $value[0]);
+            $i++;
+        }
+    }
+
+    public function check_sub_category($id){
+        $check_sub_category = $this->post_category_model->get_by_parent_id($id);
+        if ($check_sub_category) {
+            return true;
+        }
+        return false;
     }
 }

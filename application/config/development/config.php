@@ -324,7 +324,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '5wXtoENlCAXa0MQwOcFkl8D2lAxraKVI';
+$config['encryption_key'] = 'ObMaHco1amRyLj3EJDrp6s3IsYtzTw1t';
 
 /*
 |--------------------------------------------------------------------------
@@ -449,8 +449,8 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'csrf_seafood_token';
-$config['csrf_cookie_name'] = 'csrf_seafood_cookie';
+$config['csrf_token_name'] = 'csrf_teddy_token';
+$config['csrf_cookie_name'] = 'csrf_teddy_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
