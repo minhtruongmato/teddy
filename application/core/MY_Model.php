@@ -156,4 +156,14 @@ class MY_Model extends CI_Model {
         }
         return $temp_slug;
     }
+
+
+    public function find_rows($data=array()){
+        $this->db->where($data);
+        return $this->db->count_all_results($this->table);
+    }
+    public function find($id){
+        $this->db->where(array('id' => $id,'is_deleted' => 0));
+        return $this->db->get($this->table)->row_array();
+    }
 }

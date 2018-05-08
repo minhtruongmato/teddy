@@ -93,7 +93,7 @@ class Product_category extends Admin_Controller{
         if($id &&  is_numeric($id) && ($id > 0)){
             $this->load->helper('form');
             $this->data['category'] = build_array_for_dropdown($this->product_category_model->get_all_with_pagination_search(),$id);
-            if($this->product_category_model->findcolumn(array('id' => $id,'is_deleted' => 0)) == 0){
+            if($this->product_category_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/'. $this->data['controller'] .'', 'refresh');
             }
@@ -161,15 +161,15 @@ class Product_category extends Admin_Controller{
         $this->load->model('product_model');
         if($id &&  is_numeric($id) && ($id > 0)){
             $product_category = $this->product_category_model->get_by_id($id, array('title'));
-            if($this->product_category_model->findcolumn(array('id' => $id,'is_deleted' => 0)) == 0){
+            if($this->product_category_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/product_category', 'refresh');
             }
             if($product_category){
                 $where = array('product_category_id' => $id,'is_deleted' => 0);
-                $product = $this->product_model->findcolumn($where);// lấy số bài viết thuộc về category
+                $product = $this->product_model->find_rows($where);// lấy số bài viết thuộc về category
                 $where = array('parent_id' => $id);
-                $parent_id = $this->product_category_model->findcolumn($where);//lấy số con của category
+                $parent_id = $this->product_category_model->find_rows($where);//lấy số con của category
                 if($product == 0 && $parent_id == 0){
                     $data = array('is_deleted' => 1);
                     $update = $this->product_category_model->common_update($id, $data);
@@ -190,18 +190,23 @@ class Product_category extends Admin_Controller{
     }
 
     public function detail($id){
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-        if($this->product_category_model->findcolumn(array('id' => $id,'is_deleted' => 0)) == 0){
-            $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
-            redirect('admin/'. $this->data['controller'] .'', 'refresh');
+        if($id &&  is_numeric($id) && ($id > 0)){
+            $this->load->helper('form');
+            $this->load->library('form_validation');
+            if($this->product_category_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
+                $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
+                redirect('admin/'. $this->data['controller'] .'', 'refresh');
+            }
+            $detail = $this->product_category_model->get_by_id($id, array('title'));
+            $detail = build_language($this->data['controller'], $detail, array('title'), $this->page_languages);
+            $parent_title = $this->build_parent_title($detail['parent_id']);
+            $detail['parent_title'] = $parent_title;
+            $this->data['detail'] = $detail;
+            $this->render('admin/'. $this->data['controller'] .'/detail_product_category_view');
+        }else{
+            $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
+            return redirect('admin/'.$this->data['controller'],'refresh');
         }
-        $detail = $this->product_category_model->get_by_id($id, array('title'));
-        $detail = build_language($this->data['controller'], $detail, array('title'), $this->page_languages);
-        $parent_title = $this->build_parent_title($detail['parent_id']);
-        $detail['parent_title'] = $parent_title;
-        $this->data['detail'] = $detail;
-        $this->render('admin/'. $this->data['controller'] .'/detail_product_category_view');
     }
 
 
