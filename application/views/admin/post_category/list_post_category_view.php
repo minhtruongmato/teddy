@@ -138,7 +138,6 @@
             axis: 'y',
             update: function (event, ui) {
                 var data = $(this).sortable('serialize');
-
                 $.ajax({
                     data: {
                         sort: data,
