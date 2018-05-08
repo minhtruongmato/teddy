@@ -29,7 +29,7 @@ class Product extends Admin_Controller{
         }
         $this->load->library('pagination');
         $per_page = 10;
-        $total_rows  = $this->product_category_model->count_search('vi', $this->data['keyword']);
+        $total_rows  = $this->product_model->count_search('vi', $this->data['keyword']);
         $config = $this->pagination_config(base_url('admin/'.$this->data['controller'].'/index'), $total_rows, $per_page, 4);
         $this->data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $this->pagination->initialize($config);
@@ -97,25 +97,29 @@ class Product extends Admin_Controller{
 	}
 
     public function detail($id){
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-
-        $detail = $this->product_model->get_by_id($id, array('title', 'description', 'content'));
-        
-
-        $detail = build_language($this->data['controller'], $detail, array('title', 'description', 'content'), $this->page_languages);
-        $parent_title = $this->build_parent_title($detail['product_category_id']);
-        $detail['parent_title'] = $parent_title;
-
-        $this->data['detail'] = $detail;
-        
-
-        $this->render('admin/product_category/detail_product_category_view');
+        if($id &&  is_numeric($id) && ($id > 0)){
+            if($this->product_model->find_rows(array('id' => $id,'is_deleted' => 0)) != 0){
+                $this->load->helper('form');
+                $this->load->library('form_validation');
+                $detail = $this->product_model->get_by_id($id, array('title', 'description', 'content'));
+                $detail = build_language($this->data['controller'], $detail, array('title', 'description', 'content'), $this->page_languages);
+                $parent_title = $this->build_parent_title($detail['product_category_id']);
+                $detail['parent_title'] = $parent_title;
+                $this->data['detail'] = $detail;
+                $this->render('admin/product_category/detail_product_category_view');
+            }else{
+                $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
+                redirect('admin/product', 'refresh');
+            }
+        }else{
+            $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
+            return redirect('admin/'.$this->data['controller'],'refresh');
+        }
     }
     function remove($id){
         if($id &&  is_numeric($id) && ($id > 0)){
             $product_category = $this->product_model->get_by_id($id, array('title'));
-            if($this->product_model->findcolumn(array('id' => $id,'is_deleted' => 0)) == 0){
+            if($this->product_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/product', 'refresh');
             }
@@ -129,9 +133,10 @@ class Product extends Admin_Controller{
                 $this->session->set_flashdata('message_error',MESSAGE_REMOVE_ERROR);
                 return redirect('admin/'.$this->data['controller'],'refresh');
             }
+        }else{
+            $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
+            return redirect('admin/'.$this->data['controller'],'refresh');
         }
-        $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
-        return redirect('admin/'.$this->data['controller'],'refresh');
     }
 
     public function edit($id){
@@ -139,7 +144,7 @@ class Product extends Admin_Controller{
             $this->load->helper('form');
             $this->data['category'] = build_array_for_dropdown($this->product_category_model->get_all_with_pagination_search(),$id);
             unset($this->data['category'][0]);
-            if($this->product_model->findcolumn(array('id' => $id,'is_deleted' => 0)) == 0){
+            if($this->product_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/product', 'refresh');
             }
