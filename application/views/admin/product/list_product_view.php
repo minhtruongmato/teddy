@@ -6,7 +6,7 @@
         <h1>
             Danh sách
             <small>
-                Danh Mục
+                Sản Phẩm
             </small>
         </h1>
     </section>
@@ -33,7 +33,7 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Danh Mục
+                            Sản Phẩm
                         </h3>
                     </div>
 
@@ -78,7 +78,8 @@
                                         <td><?php echo $i++ ?></td>
                                         <td>
                                             <div class="mask_sm">
-                                                <img src="<?php echo base_url('assets/upload/'.$controller.'/'.$value['slug'].'/' .$value['image']) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
+                                                <?php $image = json_decode($value['image']) ?>
+                                                <img src="<?php echo base_url('assets/upload/'.$controller.'/'.$value['slug'].'/' .$image[0]) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
                                             </div>
                                         </td>
                                         <td><?php echo $value['title'] ?></td>
@@ -105,7 +106,7 @@
                                     </tr>
                                 <?php else: ?>
                                     <tr>
-                                        Chưa có Danh Mục
+                                        Chưa có Sản Phẩm
                                     </tr>
                                 <?php endif; ?>
 

@@ -39,7 +39,7 @@ class Product extends Admin_Controller{
             $parent_title = $this->build_parent_title($value['product_category_id']);
             $this->data['result'][$key]['parent_title'] = $parent_title;
         }
-        $this->render('admin/product_category/list_product_category_view');
+        $this->render('admin/product/list_product_view');
     }
 
 	public function create(){
@@ -67,14 +67,15 @@ class Product extends Admin_Controller{
                     mkdir("assets/upload/".$this->data['controller']."/".$unique_slug.'/thumb', 0755);
                 }
                 if(!empty($_FILES['image_shared']['name'])){
-                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'.$this->data['controller']."/".$unique_slug, 'assets/upload/'.$this->data['controller']."/".$unique_slug .'/thumb');
+                    $image = $this->upload_file('./assets/upload/product/'.$unique_slug, 'image_shared', 'assets/upload/product/'. $unique_slug .'/thumb');
+                    $image_json = json_encode($image);
                 }
                 $shared_request = array(
                     'slug' => $unique_slug,
                     'product_category_id' => $this->input->post('parent_id_shared')
                 );
                 if(isset($image)){
-                    $shared_request['image'] = $image;
+                    $shared_request['image'] = $image_json;
                 }
                 $this->db->trans_begin();
                 $insert = $this->product_model->common_insert(array_merge($shared_request,$this->author_data));
@@ -85,7 +86,7 @@ class Product extends Admin_Controller{
                 if ($this->db->trans_status() === false) {
                     $this->db->trans_rollback();
                     $this->session->set_flashdata('message_error', MESSAGE_CREATE_ERROR);
-                    $this->render('admin/product_category/create_product_category_view');
+                    $this->render('admin/product/create_product_view');
                 } else {
                     $this->db->trans_commit();
                     $this->session->set_flashdata('message_success', MESSAGE_CREATE_SUCCESS);
@@ -93,7 +94,7 @@ class Product extends Admin_Controller{
                 }
             }
         }
-        $this->render('admin/product_category/create_product_category_view');
+        $this->render('admin/product/create_product_view');
 	}
 
     public function detail($id){
@@ -106,7 +107,7 @@ class Product extends Admin_Controller{
                 $parent_title = $this->build_parent_title($detail['product_category_id']);
                 $detail['parent_title'] = $parent_title;
                 $this->data['detail'] = $detail;
-                $this->render('admin/product_category/detail_product_category_view');
+                $this->render('admin/product/detail_product_view');
             }else{
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/product', 'refresh');
@@ -150,6 +151,9 @@ class Product extends Admin_Controller{
             }
             $detail = $this->product_model->get_by_id($id, array('title','description','content'));
             $this->data['detail'] = build_language($this->data['controller'], $detail, array('title','description','content'), $this->page_languages);
+            if($detail){
+                $detail['image'] = json_decode($detail['image']);
+            }
             if($this->input->post()){
                 $this->load->library('form_validation');
                 $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
@@ -159,19 +163,28 @@ class Product extends Admin_Controller{
                 $this->form_validation->set_rules('content_vi', 'Nội dung', 'required');
                 $this->form_validation->set_rules('content_en', 'Content', 'required');
                 if($this->form_validation->run() == TRUE){
-                    if(!empty($_FILES['image_shared']['name'])){
-                        $this->check_img($_FILES['image_shared']['name'], $_FILES['image_shared']['size']);
-                    }
                     $unique_slug = $this->data['detail']['slug'];
                     if($unique_slug !== $this->input->post('slug_shared')){
                         $unique_slug = $this->product_model->build_unique_slug($this->input->post('slug_shared'));
+                    }
+                    if(file_exists("assets/upload/product/".$detail['slug'])){
+                        rename("assets/upload/product/".$detail['slug'], "assets/upload/product/".$unique_slug);
                     }
                     if(!file_exists("assets/upload/".$this->data['controller']."/".$unique_slug) && !empty($_FILES['image_shared']['name'])){
                         mkdir("assets/upload/".$this->data['controller']."/".$unique_slug, 0755);
                         mkdir("assets/upload/".$this->data['controller']."/".$unique_slug.'/thumb', 0755);
                     }
                     if(!empty($_FILES['image_shared']['name'])){
-                        $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'.$this->data['controller']."/".$unique_slug, 'assets/upload/'.$this->data['controller']."/".$unique_slug .'/thumb');
+                        $image = $this->upload_file('./assets/upload/product/'.$unique_slug, 'image_shared', 'assets/upload/product/'. $unique_slug .'/thumb');
+                        $image_array = array();
+                        $image_array = $detail['image'];
+                        if($image){
+                            $this->check_img($_FILES['image_shared']['name'], $_FILES['image_shared']['size']);
+                            foreach ($image as $key => $value) {
+                                $image_array[] = $value;
+                            }
+                        }
+                        
                     }
                     $shared_request = array(
                         'product_category_id' => $this->input->post('parent_id_shared')
@@ -180,7 +193,7 @@ class Product extends Admin_Controller{
                         $shared_request['slug'] = $unique_slug;
                     }
                     if(isset($image)){
-                        $shared_request['image'] = $image;
+                        $shared_request['image'] = json_encode($image_array);
                     }
                     $this->db->trans_begin();
                     $update = $this->product_model->common_update($id,array_merge($shared_request,$this->author_data));
@@ -209,7 +222,42 @@ class Product extends Admin_Controller{
             $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
             redirect('admin/'. $this->data['controller'] .'', 'refresh');
         }
-        $this->render('admin/product_category/edit_product_category_view');
+        $this->render('admin/product/edit_product_view');
+    }
+
+    public function remove_image(){
+        $id = $this->input->post('id');
+        $image = $this->input->post('image');
+        $detail = $this->product_model->get_by_id($id);
+        $upload = [];
+        $upload = json_decode($detail['image']);
+        $key = array_search($image, $upload);
+        unset($upload[$key]);
+        $newUpload = [];
+        foreach ($upload as $key => $value) {
+            $newUpload[] = $value;
+        }
+        
+        $image_json = json_encode($newUpload);
+        $data = array('image' => $image_json);
+
+        $update = $this->product_model->common_update($id, $data);
+        if($update == 1){
+            $reponse = array(
+                'csrf_hash' => $this->security->get_csrf_hash()
+            );
+            if($image != '' && file_exists('assets/upload/product/'.$detail['slug'].'/'.$image)){
+                unlink('assets/upload/product/'.$detail['slug'].'/'.$image);
+            }
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+        }
+            return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(HTTP_BAD_REQUEST)
+                    ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
     }
 
 
@@ -233,13 +281,28 @@ class Product extends Admin_Controller{
         return $title;
     }
     protected function check_img($filename, $filesize){
-        $map = strripos($filename, '.')+1;
-        $fileextension = substr($filename, $map,(strlen($filename)-$map));
-        if(!($fileextension == 'jpg' || $fileextension == 'jpeg' || $fileextension == 'png' || $fileextension == 'gif')){
+        // print_r($filesize);die;
+        $images = array('jpg', 'jpeg', 'png', 'gif');
+        foreach ($filename as $key => $value) {
+            $map[] = explode('.',$value);
+        }
+        foreach ($map as $key => $value) {
+            $new_map[] = $value[1];
+        }
+        if(array_diff($new_map, $images) != null){
             $this->session->set_flashdata('message_error', MESSAGE_FILE_EXTENSION_ERROR);
             redirect('admin/'.$this->data['controller']);
         }
-        if ($filesize > 1228800) {
+        $image_size = array('success');
+
+        foreach ($filesize as $key => $value) {
+            if ($value > 1228800) {
+                $check_size[] = 'error';
+            }else{
+                $check_size[] = 'success';
+            }
+        }
+        if (array_diff($check_size, $image_size) != null) {
             $this->session->set_flashdata('message_error', sprintf(MESSAGE_PHOTOS_ERROR, 1200));
             redirect('admin/'.$this->data['controller']);
         }
