@@ -213,6 +213,25 @@ class Post extends Admin_Controller{
         }
     }
 
+    public function remove(){
+        $id = $this->input->post('id');
+        $data = array('is_deleted' => 1);
+        $update = $this->post_model->common_update($id, $data);
+        if($update == 1){
+            $reponse = array(
+                'csrf_hash' => $this->security->get_csrf_hash()
+            );
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => true)));
+        }
+            return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(HTTP_BAD_REQUEST)
+                    ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+    }
+
 
     /**
      * [build_parent_title description]
@@ -233,4 +252,6 @@ class Post extends Admin_Controller{
         }
         return $title;
     }
+
+
 }

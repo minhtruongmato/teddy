@@ -7,24 +7,13 @@
         <h1>
             Danh sách
             <small>
-                <?php 
-                    switch ($controller) {
-                        case 'post_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'post':
-                            echo "Bài Viết";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                 ?>
+                Danh Mục
             </small>
         </h1>
     </section>
 
     <!-- Main content -->
+    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf" />
     <section class="content">
         <div class="row">
             <?php if ($this->session->flashdata('message_error')): ?>
@@ -46,19 +35,7 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">
-                            <?php 
-                                switch ($controller) {
-                                    case 'post_category':
-                                        echo "Danh Mục";
-                                        break;
-                                    case 'post':
-                                        echo "Bài Viết";
-                                        break;
-                                    default:
-                                        # code...
-                                        break;
-                                }
-                             ?>
+                            Danh Mục
                         </h3>
                     </div>
 
@@ -88,6 +65,7 @@
                                     <th>Hình ảnh</th>
                                     <th>Tiêu đề</th>
                                     <th>Danh mục</th>
+                                    <th>Trạng thái</th>
                                     <th>Cấp danh mục</th>
                                     <th>Danh mục con</th>
                                     <th>Detail</th>
@@ -183,6 +161,9 @@
                     </td>
                     <td><?php echo $value['title'] ?></td>
                     <td><?php echo $value['parent_title'] ?></td>
+                    <td>
+                        <?php echo ($value['is_activated'] == 0)? '<span class="label label-success">Đang sử dụng</span>' : '<span class="label label-warning">Không sử dụng</span>' ?>   
+                    </td>
                     <td><strong style="color: blue">Danh mục cấp <?php echo $sort ?></strong></td>
                     <td>
                        <button class="btn btn-primary collapsed btn-margin btn-dropdown-cate" type="button" data-toggle="collapse" href="#<?php echo $value['id'] ?>" aria-expanded="true" aria-controls="messageContent">Xem</button>
@@ -192,12 +173,20 @@
                         <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">See Detail</button>
                     </td>
                     <td>
+                        <?php if ($value['is_activated'] == 0): ?>
+                            <a href="javascript:void(0);" onclick="deactive('post_category', <?php echo $value['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục"><i class="fa fa-low-vision" aria-hidden="true"></i> </a>
+                        <?php else: ?>
+                            <a href="javascript:void(0);" onclick="active('post_category', <?php echo $value['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                        <?php endif ?>
+                        
+                        &nbsp&nbsp&nbsp
                         <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                        <a href="javascript:void(0);" onclick="remove('event', <?php echo $value['id'] ?>)" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                        &nbsp&nbsp&nbsp
+                        <a href="javascript:void(0);" onclick="remove('post_category', <?php echo $value['id'] ?>)" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7" class="no_border" style="padding: 0">
+                    <td colspan="8" class="no_border" style="padding: 0">
                         <div class="collapse" id="<?php echo $value['id'] ?>" aria-expanded="true" style="">
                             <div clas="row">
                                 <div class="table-responsive col-md-11 col-md-offset-1" style="padding-right: 0">
@@ -207,6 +196,7 @@
                                                 <th>Hình ảnh</th>
                                                 <th>Tiêu đề</th>
                                                 <th>Danh mục</th>
+                                                <th>Trạng thái</th>
                                                 <th>Cấp danh mục</th>
                                                 <th>Danh mục con</th>
                                                 <th>Detail</th>
