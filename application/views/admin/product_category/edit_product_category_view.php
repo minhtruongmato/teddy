@@ -4,19 +4,7 @@
         <h1>
             Cập nhật
             <small>
-                <?php 
-                    switch ($controller) {
-                        case 'product_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'product':
-                            echo "Sản Phẩm";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                 ?>
+                Danh Mục
             </small>
         </h1>
     </section>

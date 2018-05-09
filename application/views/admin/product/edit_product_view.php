@@ -1,10 +1,11 @@
+<link rel="stylesheet" href="<?php echo site_url('assets/sass/admin/') ?>detail.css">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Thêm mới
+            Cập nhật
             <small>
-                Danh Mục
+                Sản Phẩm
             </small>
         </h1>
     </section>
@@ -13,29 +14,36 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <?php if ($this->session->flashdata('message_error')): ?>
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                        <?php echo $this->session->flashdata('message_error'); ?>
-                    </div>
-                <?php endif ?>
                 <div class="box box-default">
                     <div class="box-body">
                         <?php
                         echo form_open_multipart('', array('class' => 'form-horizontal'));
                         ?>
                         <div class="col-xs-12">
-                            <h4 class="box-title">Thông tin cơ bản</h4>
+                            <h4 class="box-title">Basic Information</h4>
                         </div>
                         <div class="row">
                             <span><?php echo $this->session->flashdata('message'); ?></span>
                         </div>
                         <div class="form-group col-xs-12">
+                            <label for="image_shared">Hình ảnh đang dùng</label>
+                            <br>
+                            <?php foreach (json_decode($detail['image']) as $key => $value): ?>
+                                <div class="item col-md-3 row_<?php echo $key ?>">
+                                    <div class="mask-sm">
+                                        <img src="<?php echo base_url('assets/upload/'. $controller .'/'. $detail['slug'] .'/'. $value); ?>" width=150px>
+                                        <i class="fa fa-times-circle fa-2x" onclick="remove_image('product',  <?php echo $detail['id'] ?>, '<?php echo $value ?>', <?php echo $key ?>)" ></i>
+                                    </div>
+                                </div>
+                            <?php endforeach ?>
+                            
+                            <br>
+                        </div>
+                        <div class="form-group col-xs-12">
                             <?php
                             echo form_label('Ảnh đại diện', 'image_shared');
                             echo form_error('image_shared');
-                            echo form_upload('image_shared', set_value('image_shared'), 'class="form-control"');
+                            echo form_upload('image_shared[]', set_value('image_shared'), 'class="form-control" multiple');
                             ?>
                             <br>
                         </div>
@@ -44,7 +52,7 @@
                                 <?php
                                 echo form_label('Slug', 'slug_shared');
                                 echo form_error('slug_shared');
-                                echo form_input('slug_shared', set_value('slug_shared'), 'class="form-control" id="slug_shared" readonly');
+                                echo form_input('slug_shared', $detail['slug'], 'class="form-control" id="slug_shared" readonly');
                                 ?>
                             </div>
                         </div>
@@ -54,7 +62,13 @@
                                 <?php
                                 echo form_label('Danh mục', 'parent_id_shared');
                                 echo form_error('parent_id_shared');
-                                echo form_dropdown('parent_id_shared', $product_category, 0, 'class="form-control"');
+                                if($controller == 'product_category'){
+                                    echo form_dropdown('parent_id_shared', $category, $detail['parent_id'], 'class="form-control"');
+                                }
+                                if($controller == 'product'){
+                                    echo form_dropdown('parent_id_shared', $category, $detail['product_category_id'], 'class="form-control"');
+                                }
+                                
                                 ?>
                             </div>
                         </div>
@@ -70,6 +84,7 @@
                                     </li>
                                 <?php $i++; ?>
                                 <?php endforeach ?>
+                                
                             </ul>
                             <hr>
                             <div class="tab-content">
@@ -82,15 +97,15 @@
                                                     if($k == 'title' && in_array($k, $request_language_template)){
                                                         echo form_label($val, $k .'_'. $key);
                                                         echo form_error($k .'_'. $key);
-                                                        echo form_input($k .'_'. $key, set_value($k .'_'. $key), 'class="form-control" id="title_'.$key.'"');
+                                                        echo form_input($k .'_'. $key, trim($detail['title_'. $key]), 'class="form-control" id="title_'.$key.'"');
                                                     }elseif($k == 'description' && in_array($k, $request_language_template)){
                                                         echo form_label($val, $k .'_'. $key);
                                                         echo form_error($k .'_'. $key);
-                                                        echo form_textarea($k .'_'. $key, set_value($k .'_'. $key, '', false), 'class="form-control" rows="5"');
+                                                        echo form_textarea($k .'_'. $key,  trim($detail['description_'. $key]), 'class="form-control" rows="5"');
                                                     }elseif($k == 'content' && in_array($k, $request_language_template)){
                                                         echo form_label($val, $k .'_'. $key);
                                                         echo form_error($k .'_'. $key);
-                                                        echo form_textarea($k .'_'. $key, set_value($k .'_'. $key, '', false), 'class="tinymce-area form-control" rows="5"');
+                                                        echo form_textarea($k .'_'. $key,  trim($detail['content_'. $key]), 'class="tinymce-area form-control" rows="5"');
                                                     }
                                                 ?>
                                             </div>
