@@ -115,6 +115,18 @@ class MY_Model extends CI_Model {
         return $this->db->update($this->table, $data);
     }
 
+    public function multiple_update_by_ids($ids = array(), $data) {
+        $this->db->where_in('id', $ids);
+
+        return $this->db->update($this->table, $data);
+    }
+
+    public function multiple_update_by_category_ids($category_ids = array(), $data) {
+        $this->db->where_in($this->table .'_category_id', $category_ids);
+
+        return $this->db->update($this->table, $data);
+    }
+
     public function count_active(){
         $query = $this->db->from($this->table)->where('is_activated', 1)->get();
         return $query->num_rows();

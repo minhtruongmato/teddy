@@ -67,12 +67,15 @@ function remove(controller, id){
             method: "post",
             url: url,
             data: {
-                id : id, csrf_seafood_token : csrf_hash
+                id : id, csrf_teddy_token : csrf_hash
             },
             success: function(response){
-                if(response.status == 200){
-                    csrf_hash = response.reponse.csrf_hash;
+                csrf_hash = response.reponse.csrf_hash;
+                if(response.status == 200 && response.isExisted == true){
                     $('.remove_' + id).fadeOut();
+                }
+                if(response.status == 200 && response.isExisted == false){
+                    alert('Danh mục này có chứa bài viết. Vui lòng xóa bài viết trước sau đó thực hiện lại thao tác');
                 }
             },
             error: function(jqXHR, exception){
@@ -82,41 +85,26 @@ function remove(controller, id){
     }
 }
 
-function active(controller, id, question, message = '') {
+function active(controller, id, question) {
     var url = HOSTNAME + 'admin/' + controller + '/active';
     if(confirm(question)){
         $.ajax({
             method: "post",
             url: url,
             data: {
-                id : id, csrf_seafood_token : csrf_hash
+                id : id, csrf_teddy_token : csrf_hash
             },
             success: function(response){
-                if(response.success == true){
-                    csrf_hash = response.reponse.csrf_hash;
+                csrf_hash = response.reponse.csrf_hash;
+                if(response.status == 200){
                     switch(controller){
-                        case 'event' :
-                            alert('Mở sự kiện thành công');
+                        case 'post_category' :
+                            alert('Bật danh mục thành công');
                             break;
                         case 'order' :
-                            alert('Xác nhận đặt bàn thành công');
-                            break;
-                        case 'upload' :
-                            alert('Thay đổi thành công');
+                            alert('Hủy đặt bàn thành công');
                             break;
                     }
-                    
-                    location.reload();
-                }else{
-                    switch(controller){
-                        case 'event' :
-                            alert('Hiện có 1 sự kiện đang được sử dụng. Vui lòng tắt sự kiện đó rồi thực hiện lại thao tác!');
-                            break;
-                        case 'upload' :
-                            alert(message);
-                            break;
-                    }
-                    
                     location.reload();
                 }
             },
@@ -134,15 +122,14 @@ function deactive(controller, id, question) {
             method: "post",
             url: url,
             data: {
-                id : id, csrf_seafood_token : csrf_hash
+                id : id, csrf_teddy_token : csrf_hash
             },
             success: function(response){
                 csrf_hash = response.reponse.csrf_hash;
                 if(response.status == 200){
-                    
                     switch(controller){
-                        case 'event' :
-                            alert('Tắt sự kiện thành công');
+                        case 'post_category' :
+                            alert('Tắt danh mục thành công');
                             break;
                         case 'order' :
                             alert('Hủy đặt bàn thành công');
@@ -165,13 +152,13 @@ function remove_image(controller, id, image, key){
             method: "post",
             url: url,
             data: {
-                id : id, csrf_seafood_token : csrf_hash, image : image
+                id : id, csrf_teddy_token : csrf_hash, image : image
             },
             success: function(response){
                 if(response.status == 200){
                     csrf_hash = response.reponse.csrf_hash;
                     $('.row_' + key).fadeOut();
-                    $("input[name='csrf_seafood_token']").val(csrf_hash);
+                    $("input[name='csrf_teddy_token']").val(csrf_hash);
                 }
             },
             error: function(jqXHR, exception){
@@ -188,7 +175,7 @@ function active_avatar(controller, image) {
             method: "post",
             url: url,
             data: {
-                csrf_seafood_token : csrf_hash, image : image
+                csrf_teddy_token : csrf_hash, image : image
             },
             success: function(response){
                 if(response.status == 200){

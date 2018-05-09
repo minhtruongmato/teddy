@@ -213,6 +213,114 @@ class Post_category extends Admin_Controller{
         }
     }
 
+    public function remove(){
+        $this->load->model('post_model');
+        $id = $this->input->post('id');
+        $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
+        $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
+        $this->get_multiple_posts_with_category($list_categories, $detail_catrgory['id'], $ids);
+        $ids = array_unique($ids);
+        $posts = array();
+        $reponse = array(
+            'csrf_hash' => $this->security->get_csrf_hash()
+        );
+        if(isset($ids)){
+            $posts = $this->post_model->get_by_multiple_ids(array_unique($ids), 'vi');
+        }
+        if(!isset($posts)){
+            $data = array('is_deleted' => 1);
+            $update = $this->post_category_model->common_update($id, $data);
+            if($update == 1){
+                
+                return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => true)));
+            }
+        }else{
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => false)));
+        }
+        return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_BAD_REQUEST)
+                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+    }
+
+    public function active(){
+        $this->load->model('post_model');
+        $id = $this->input->post('id');
+        $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
+        $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
+        $this->get_multiple_posts_with_category($list_categories, $detail_catrgory['id'], $ids);
+        $ids = array_unique($ids);
+
+        $data = array('is_activated' => 0);
+
+        $this->db->trans_begin();
+
+        $update = $this->post_category_model->multiple_update_by_ids($ids, $data);
+
+        if ($update == 1) {
+            $this->post_model->multiple_update_by_category_ids($ids, $data);
+        }
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        } else {
+            $this->db->trans_commit();
+            $reponse = array(
+                'csrf_hash' => $this->security->get_csrf_hash()
+            );
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+        }
+    }
+
+    public function deactive(){
+        $this->load->model('post_model');
+        $id = $this->input->post('id');
+        $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
+        $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
+        $this->get_multiple_posts_with_category($list_categories, $detail_catrgory['id'], $ids);
+        $ids = array_unique($ids);
+
+        $data = array('is_activated' => 1);
+
+        $this->db->trans_begin();
+
+        $update = $this->post_category_model->multiple_update_by_ids($ids, $data);
+
+        if ($update == 1) {
+            $this->post_model->multiple_update_by_category_ids($ids, $data);
+        }
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        } else {
+            $this->db->trans_commit();
+            $reponse = array(
+                'csrf_hash' => $this->security->get_csrf_hash()
+            );
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+        }
+    }
+
 
     protected function build_parent_title($parent_id){
         $sub = $this->post_category_model->get_by_id($parent_id, array('title'));
@@ -263,5 +371,15 @@ class Post_category extends Admin_Controller{
             return true;
         }
         return false;
+    }
+
+    function get_multiple_posts_with_category($categories, $parent_id = 0, &$ids){
+        foreach ($categories as $key => $item){
+            $ids[] = $parent_id;
+            if ($item['parent_id'] == $parent_id){
+                $ids[] = $item['id'];
+                $this->get_multiple_posts_with_category($categories, $item['id'], $ids);
+            }
+        }
     }
 }

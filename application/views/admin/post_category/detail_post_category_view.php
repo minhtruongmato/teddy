@@ -7,38 +7,14 @@
         <h1>
             Chi tiết
             <small>
-                <?php 
-                    switch ($controller) {
-                        case 'post_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'post':
-                            echo "Bài Viết";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                             ?>
+                Danh Mục
             </small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#"><i class="fa fa-dashboard"></i> Chi tiết</a></li>
             <li class="active">
-                <?php 
-                    switch ($controller) {
-                        case 'post_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'post':
-                            echo "Bài Viết";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                             ?>
+                Danh Mục
             </li>
         </ol>
     </section>
@@ -71,6 +47,12 @@
                                     <table class="table table-striped">
                                         <tr>
                                             <th colspan="2">Thông tin cơ bản</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Trạng thái</th>
+                                            <td>
+                                                <?php echo ($detail['is_activated'] == 0)? '<span class="label label-success">Đang sử dụng</span>' : '<span class="label label-warning">Không sử dụng</span>' ?>   
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Slug</th>
@@ -170,7 +152,7 @@
                             <?php 
                                 switch ($controller) {
                                     case 'post_category':
-                                        echo "Danh Mục";
+                                        echo "";
                                         break;
                                     case 'post':
                                         echo "Bài Viết";
