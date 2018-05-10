@@ -7,7 +7,7 @@ class Product_category_model extends MY_Model{
 	
 	public $table = 'product_category';
 
-	public function get_menu($parent_id, $order = 'desc',$lang = ''){
+	public function get_by_parent_id($parent_id, $order = 'desc',$lang = ''){
 		$this->db->select($this->table .'.*, '. $this->table_lang .'.title');
         $this->db->from($this->table);
         $this->db->join($this->table_lang, $this->table_lang .'.'. $this->table .'_id = '. $this->table .'.id');
@@ -20,7 +20,7 @@ class Product_category_model extends MY_Model{
         }
     	
         $this->db->group_by($this->table_lang .'.'. $this->table .'_id');
-        $this->db->order_by($this->table .".sort", $order);
+        $this->db->order_by($this->table .".id", $order);
 
         return $result = $this->db->get()->result_array();
 	}

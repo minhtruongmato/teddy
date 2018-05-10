@@ -33,7 +33,7 @@ class Product_category extends Admin_Controller{
         $this->data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $this->pagination->initialize($config);
         $this->data['page_links'] = $this->pagination->create_links();
-        $this->data['result'] = $this->product_category_model->get_all_with_pagination_search('desc','vi' , $per_page, $this->data['page'], $this->data['keyword']);
+        $this->data['result'] = $this->product_category_model->get_all_with_pagination_and_search_by_parent_id(0,'desc','vi' , $per_page, $this->data['page'], $this->data['keyword']);
         foreach ($this->data['result'] as $key => $value) {
             $parent_title = $this->build_parent_title($value['parent_id']);
             $this->data['result'][$key]['parent_title'] = $parent_title;
@@ -41,7 +41,12 @@ class Product_category extends Admin_Controller{
         $this->render('admin/'. $this->data['controller'] .'/list_product_category_view');
     }
 
-    public function create(){
+    public function create($id = ''){
+        if(isset($id) && is_numeric($id)){
+            $this->data['id'] = $id;
+        }else{
+            $this->data['id'] = 0;
+        }
         $this->load->helper('form');
         $product_category = $this->product_category_model->get_all_with_pagination_search('ASC');
         $this->data['product_category'] = build_array_for_dropdown($product_category);
@@ -83,7 +88,12 @@ class Product_category extends Admin_Controller{
                 } else {
                     $this->db->trans_commit();
                     $this->session->set_flashdata('message_success', MESSAGE_CREATE_SUCCESS);
-                    redirect('admin/'. $this->data['controller'] .'', 'refresh');
+                    if(isset($id) && is_numeric($id)){
+                        redirect('admin/'. $this->data['controller'] .'/detail/' . $id,'refresh');
+                    }else{
+                        redirect('admin/'. $this->data['controller'], 'refresh');
+                    }
+                    
                 }
             }
         }
@@ -193,6 +203,8 @@ class Product_category extends Admin_Controller{
         if($id &&  is_numeric($id) && ($id > 0)){
             $this->load->helper('form');
             $this->load->library('form_validation');
+            $sub_category = $this->product_category_model->get_by_parent_id($id);
+            $this->data['sub_category'] = $sub_category;
             if($this->product_category_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/'. $this->data['controller'] .'', 'refresh');
@@ -206,6 +218,77 @@ class Product_category extends Admin_Controller{
         }else{
             $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
             return redirect('admin/'.$this->data['controller'],'refresh');
+        }
+    }
+
+    public function active(){
+        $this->load->model('product_model');
+        $id = $this->input->post('id');
+        $list_categories = $this->product_category_model->get_by_parent_id(null, 'asc');
+        $this->get_multiple_products_with_category($list_categories, $id, $ids);
+        $ids = array_unique($ids);
+
+        $data = array('is_activated' => 0);
+
+        $this->db->trans_begin();
+
+        $update = $this->product_category_model->multiple_update_by_ids($ids, $data);
+
+        if ($update == 1) {
+            $this->product_model->multiple_update_by_category_ids($ids, $data);
+        }
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        } else {
+            $this->db->trans_commit();
+            $reponse = array(
+                'csrf_hash' => $this->security->get_csrf_hash()
+            );
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+        }
+    }
+
+    public function deactive(){
+        $this->load->model('product_model');
+        $id = $this->input->post('id');
+        $list_categories = $this->product_category_model->get_by_parent_id(null, 'asc');
+        $detail_catrgory = $this->product_category_model->get_by_id($id, $this->request_language_template);
+        $this->get_multiple_products_with_category($list_categories, $detail_catrgory['id'], $ids);
+        $ids = array_unique($ids);
+
+        $data = array('is_activated' => 1);
+
+        $this->db->trans_begin();
+
+        $update = $this->product_category_model->multiple_update_by_ids($ids, $data);
+
+        if ($update == 1) {
+            $this->product_model->multiple_update_by_category_ids($ids, $data);
+        }
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        } else {
+            $this->db->trans_commit();
+            $reponse = array(
+                'csrf_hash' => $this->security->get_csrf_hash()
+            );
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_SUCCESS)
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
         }
     }
 
@@ -234,6 +317,16 @@ class Product_category extends Admin_Controller{
         if ($filesize > 1228800) {
             $this->session->set_flashdata('message_error', sprintf(MESSAGE_PHOTOS_ERROR, 1200));
             redirect('admin/'.$this->data['controller']);
+        }
+    }
+
+    function get_multiple_products_with_category($categories, $parent_id = 0, &$ids){
+        foreach ($categories as $key => $item){
+            $ids[] = $parent_id;
+            if ($item['parent_id'] == $parent_id){
+                $ids[] = $item['id'];
+                $this->get_multiple_products_with_category($categories, $item['id'], $ids);
+            }
         }
     }
 }

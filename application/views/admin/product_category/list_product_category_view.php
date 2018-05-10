@@ -44,7 +44,7 @@
                         <div class="col-md-6">
                             <form action="<?php echo base_url('admin/'.$controller.'/index') ?>" method="get">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tìm kiếm ..." name="search" value="">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm ..." name="search" value="<?php echo $keyword; ?>">
                                     <span class="input-group-btn">
                                         <input type="submit" class="btn btn-block btn-primary" value="Tìm kiếm">
                                     </span>
@@ -64,6 +64,7 @@
                                     <th>Hình ảnh</th>
                                     <th>Tiêu đề</th>
                                     <th>Danh mục</th>
+                                    <th>Trạng thái</th>
                                     <th>Detail</th>
                                     <th>Action</th>
                                 </tr>
@@ -84,11 +85,21 @@
                                         <td><?php echo $value['title'] ?></td>
                                         <td><?php echo $value['parent_title'] ?></td>
                                         <td>
+                                            <?php echo ($value['is_activated'] == 0)? '<span class="label label-success">Đang sử dụng</span>' : '<span class="label label-warning">Không sử dụng</span>' ?>   
+                                        </td>
+                                        <td>
                                             <a href="<?php echo base_url('admin/'.$controller.'/detail/'.$value['id']) ?>"
                                             <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">See Detail</button>
                                         </td>
                                         <td>
+                                            <?php if ($value['is_activated'] == 0): ?>
+                                                <a href="javascript:void(0);" onclick="deactive('product_category', <?php echo $value['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục"><i class="fa fa-low-vision" aria-hidden="true"></i> </a>
+                                            <?php else: ?>
+                                                <a href="javascript:void(0);" onclick="active('product_category', <?php echo $value['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                                            <?php endif ?>
+                                            &nbsp&nbsp&nbsp
                                             <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                            &nbsp&nbsp&nbsp
                                             <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
                                         </td>
 
@@ -100,6 +111,7 @@
                                         <th>Hình ảnh</th>
                                         <th>Tiêu đề</th>
                                         <th>Danh mục</th>
+                                        <th>Trạng thái</th>
                                         <th>Detail</th>
                                         <th>Action</th>
                                     </tr>
