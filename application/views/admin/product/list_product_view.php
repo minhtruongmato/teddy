@@ -64,6 +64,7 @@
                                     <th>Hình ảnh</th>
                                     <th>Tiêu đề</th>
                                     <th>Danh mục</th>
+                                    <th>Trạng thái</th>
                                     <th>Detail</th>
                                     <th>Action</th>
                                 </tr>
@@ -85,11 +86,15 @@
                                         <td><?php echo $value['title'] ?></td>
                                         <td><?php echo $value['parent_title'] ?></td>
                                         <td>
+                                            <?php echo ($value['is_activated'] == 0)? '<span class="label label-success">Đang sử dụng</span>' : '<span class="label label-warning">Không sử dụng</span>' ?>   
+                                        </td>
+                                        <td>
                                             <a href="<?php echo base_url('admin/'.$controller.'/detail/'.$value['id']) ?>"
                                             <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">See Detail</button>
                                         </td>
                                         <td>
                                             <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                            &nbsp&nbsp&nbsp
                                             <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
                                         </td>
 
@@ -101,6 +106,7 @@
                                         <th>Hình ảnh</th>
                                         <th>Tiêu đề</th>
                                         <th>Danh mục</th>
+                                        <th>Trạng thái</th>
                                         <th>Detail</th>
                                         <th>Action</th>
                                     </tr>

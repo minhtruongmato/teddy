@@ -54,7 +54,7 @@
                                 <?php
                                 echo form_label('Danh mục', 'parent_id_shared');
                                 echo form_error('parent_id_shared');
-                                echo form_dropdown('parent_id_shared', $product_category, 0, 'class="form-control"');
+                                echo form_dropdown('parent_id_shared', $product_category, $id, 'class="form-control"');
                                 ?>
                             </div>
                         </div>

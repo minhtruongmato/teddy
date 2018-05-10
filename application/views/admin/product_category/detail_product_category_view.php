@@ -7,46 +7,30 @@
         <h1>
             Chi tiết
             <small>
-                <?php 
-                    switch ($controller) {
-                        case 'product_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'product':
-                            echo "Sản Phẩm";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                             ?>
+                Danh Mục
             </small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#"><i class="fa fa-dashboard"></i> Chi tiết</a></li>
             <li class="active">
-                <?php 
-                    switch ($controller) {
-                        case 'product_category':
-                            echo "Danh Mục";
-                            break;
-                        case 'product':
-                            echo "Sản Phẩm";
-                            break;
-                        default:
-                            # code...
-                            break;
-                    }
-                             ?>
+                Danh Mục
             </li>
         </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
+        <?php if ($this->session->flashdata('message_success')): ?>
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                <?php echo $this->session->flashdata('message_success'); ?>
+            </div>
+        <?php endif ?>
         <!-- Small boxes (Stat box) -->
         <div class="row">
+            <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf" />
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-header">
@@ -77,8 +61,31 @@
                                             <td><?php echo $detail['slug'] ?></td>
                                         </tr>
                                         <tr>
-                                            <th>Danh Mục</th>
-                                            <td><?php echo $detail['parent_title'] ?></td>
+                                            <th>
+                                                <?php if ($detail['parent_id'] != 0): ?>
+                                                    Danh Mục Cha
+                                                <?php else: ?>
+                                                    Danh Mục
+                                                <?php endif ?>
+                                            </th>
+                                            <td>
+                                                <?php if ($detail['parent_id'] != 0): ?>
+                                                    <a href="<?php echo base_url('admin/'. $controller .'/detail/'.$detail['parent_id']) ?>" class="btn btn-block btn-primary btn-flat" ><?php echo $detail['parent_title'] ?></a>
+                                                <?php else: ?>
+                                                    <a href="javascript:void(0)" class="btn btn-block btn-primary" ><?php echo $detail['parent_title'] ?></a>
+                                                <?php endif ?>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Trạng Thái</th>
+                                            <td>
+                                                <?php if ($detail['is_activated'] == 0): ?>
+                                                    <span class="label label-success" onclick="deactive('product_category', <?php echo $detail['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục" style="cursor: pointer;">Đang sử dụng</span>
+                                                <?php else: ?>
+                                                    <span class="label label-warning" onclick="active('product_category', <?php echo $detail['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục" style="cursor: pointer;">Không sử dụng</span>
+                                                <?php endif ?>
+                                            </td>
                                         </tr>
 
                                     </table>
@@ -166,25 +173,32 @@
             <div class="col-md-3">
                 <div class="box box-warning">
                     <div class="box-header">
-                        <h3 class="box-title">Chỉnh sửa 
-                            <?php 
-                                switch ($controller) {
-                                    case 'product_category':
-                                        echo "Danh Mục";
-                                        break;
-                                    case 'product':
-                                        echo "Sản Phẩm";
-                                        break;
-                                    default:
-                                        # code...
-                                        break;
-                                }
-                             ?>
-                         này?</h3>
+                        <h3 class="box-title">Hành Động</h3>
                     </div>
                     <div class="box-body">
                         <a href="<?php echo base_url('admin/'.$controller.'/edit/'.$detail['id']) ?>" class="btn btn-warning" role="button">Chỉnh sửa</a>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <a href="<?php echo base_url('admin/'.$controller.'/create/'.$detail['id']) ?>" class="btn btn-success" role="button">Thêm mới danh mục con</a>
                     </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Danh Mục Con</h3>
+                    </div>
+                    <?php if ($sub_category): ?>
+                        <?php foreach ($sub_category as $key => $value): ?>
+                            <div class="box-body">
+                                <a href="<?php echo base_url('admin/'.$controller.'/detail/'.$value['id']) ?>" class="btn btn-block btn-social btn-dropbox" role="button">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                    <?php echo $value['title'] ?>
+                                </a>
+                            </div>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <div class="box-body">
+                            Hiện không có danh mục nhỏ
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>

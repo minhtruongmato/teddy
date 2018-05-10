@@ -147,19 +147,7 @@
                 <div class="box box-warning">
                     <div class="box-header">
                         <h3 class="box-title">Chỉnh sửa 
-                            <?php 
-                                switch ($controller) {
-                                    case 'product_category':
-                                        echo "Danh Mục";
-                                        break;
-                                    case 'product':
-                                        echo "Sản Phẩm";
-                                        break;
-                                    default:
-                                        # code...
-                                        break;
-                                }
-                             ?>
+                            Sản Phẩm
                          này?</h3>
                     </div>
                     <div class="box-body">
