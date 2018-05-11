@@ -309,7 +309,18 @@ $("td #date").mousedown(function () {
 
 
 $(function () {
-$('#reservation').daterangepicker({format: 'DD/MM/YYYY'});
+    $('#reservation').mouseup(function() {
+        $('#reservation').daterangepicker({
+            format: 'DD/MM/YYYY',
+        });
+        $(".ranges").css("display","none");
+        $(".calendar").mouseover(function(){
+            $("#reservation").val($("input[name=daterangepicker_start]").val()+" - "+$("input[name=daterangepicker_end]").val());
+            $(".second.right .available").mousedown(function(){
+                $(".daterangepicker.dropdown-menu.show-calendar.opensleft").css("display","none");
+            });
+        });
+    });
 });
 
 $("#create_date_time").mousemove(function(){
