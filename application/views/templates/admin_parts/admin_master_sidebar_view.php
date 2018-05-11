@@ -82,6 +82,21 @@ if($this->ion_auth->logged_in()) {
                         <i class="fa fa-envelope-o"></i> <span>Menu</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="">
+                        <i class="fa fa-bars"></i>
+                        <span>Đặt Bàn</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?php echo base_url('admin/set_desk/status/1') ?>"><i class="fa fa-mail-forward"></i> Đơn Đặt Bàn</a></li>
+                       <!--  <li><a href="<?php echo base_url('admin/set_desk/status/2') ?>"><i class="fa fa-check-circle"></i> Đã Xác Nhận</a></li>
+                       <li><a href="<?php echo base_url('admin/set_desk/status/3') ?>"><i class="fa fa-check"></i> Đã Hoàn Thành</a></li> -->
+                        <li><a href="<?php echo base_url('admin/set_desk/status/0') ?>"><i class="fa fa-times"></i> Đơn Đã Hủy</a></li>
+                    </ul>
+                </li>
                 <li class="header">DOCUMENTATION</li>
                 <li>
                     <a href="<?php echo base_url('admin/documentation') ?>">
