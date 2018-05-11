@@ -53,7 +53,7 @@
                                         </tr>
                                         <tr>
                                             <th>Time</th>
-                                            <td><?php echo $detail['time'] ?></td>
+                                            <td><?php echo date_format(date_create($detail['time']),"d/m/Y H:i:s") ?></td>
                                         </tr>
                                         <tr>
                                             <th>Status</th>

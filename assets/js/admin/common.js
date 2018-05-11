@@ -307,13 +307,33 @@ $("td #date").mousedown(function () {
     }).data('datepicker');
 });
 
+
 $(function () {
-$('#reservation').daterangepicker({});
+$('#reservation').daterangepicker({format: 'DD/MM/YYYY'});
 });
 
-$("body").mouseup(function(){
+$("#create_date_time").mousemove(function(){
     if($("#date").val().length != 0){
         $("#hour").removeAttr('disabled');
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+        var hours = d.getHours();
+        var min = d.getMinutes();
+        if(month<10){
+             month = "0"+month.toString();
+        }
+        if(day<10){
+             day = "0"+day.toString();
+        }
+        if($("#date").val() == day+"-"+month+"-"+year){
+            $("#hour option").each(function(index,val){
+                if($(this).val() <= hours && $(this).val() != 0){
+                    $(this).css("display","none");
+                }
+            });
+        }
     }
     if($("#hour").val() != 0){
         $("#min").removeAttr('disabled');
@@ -333,9 +353,15 @@ var picker = new Pikaday({
     firstDay: 1,
     minDate: new Date(),
     toString(date, format) {
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        if(month<10){
+             month = "0"+month.toString();
+        }
+        if(day<10){
+             day = "0"+day.toString();
+        }
         return `${day}-${month}-${year}`;
     }
 });
