@@ -18,7 +18,7 @@
                     </div>
                 <?php endif ?>
                 <div class="box box-default">
-                    <div class="box-body">
+                    <div class="box-body"  id="create_date_time">
                         <?php
                         echo form_open_multipart('', array('class' => 'form-horizontal'));
                         ?>

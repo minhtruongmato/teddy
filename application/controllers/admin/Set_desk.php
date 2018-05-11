@@ -36,25 +36,26 @@ class Set_desk extends Admin_Controller{
             if($this->input->get('search')){
                 $this->data['keyword'] = $this->input->get('search');
             }
-            $date = array();
+            $datetime = array();
             if($this->input->get('date')){
                 $this->data['date'] = $this->input->get('date');
                 $date = explode(" - ", $this->input->get('date'));
                 foreach ($date as $key => $value) {
-                    $date[$key]=date('Y-m-d H:i:s', strtotime($value));
+                    $date= explode("/",$value);
+                    $datetime[$key]=date('Y-m-d H:i:s', strtotime($date[1]."/".$date[0]."/".$date[2]));
                     if($key == 1){
-                        $date[$key]=date('Y-m-d 23:59:59', strtotime($value));
+                        $datetime[$key]=date('Y-m-d 23:59:59', strtotime($date[1]."/".$date[0]."/".$date[2]));
                     }
                 }
             } 
             $this->load->library('pagination');
             $per_page = 10;
-            $total_rows  = $this->set_desk_model->count_total_rows($this->data['keyword'],$status,$date);
+            $total_rows  = $this->set_desk_model->count_total_rows($this->data['keyword'],$status,$datetime);
             $config = $this->pagination_config(base_url('admin/'.$this->data['controller'].'/index'), $total_rows, $per_page, 5);
             $this->data['page'] = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
             $this->pagination->initialize($config);
             $this->data['page_links'] = $this->pagination->create_links();
-            $this->data['result'] = $this->set_desk_model->get_all_search('desc', $per_page, $this->data['page'], $this->data['keyword'],$status,$date);
+            $this->data['result'] = $this->set_desk_model->get_all_search('desc', $per_page, $this->data['page'], $this->data['keyword'],$status,$datetime);
    /*         if(isset($date)){
                 foreach ($this->data['result'] as $key => $value) {
                     if(strtotime($value['time'])>=strtotime($date[0]) && strtotime($value['time'])<strtotime($date[1])){
