@@ -203,6 +203,28 @@ function active_avatar(controller, image) {
     }
 }
 
+function edit_status(controller,id,status){
+    var url = HOSTNAME + 'admin/' + controller + '/edit_status';
+    if(confirm('Chắc chắn thay đổi?')){
+        $.ajax({
+            method: "post",
+            url: url,
+            data: {
+                id : id,status : status,csrf_teddy_token : csrf_hash
+            },
+            success: function(response){
+                if(response.status == 200){
+                    csrf_hash = response.reponse.csrf_hash;
+                    $('.status_' + id).fadeOut();
+                }
+            },
+            error: function(jqXHR, exception){
+                console.log(jqXHR, exception);
+
+            }
+        });
+    }
+}
 
     
 $('#select_main').change(function(){
@@ -277,6 +299,60 @@ $('#select_article').change(function(){
     $('#url').val($('#url').val() + '/' + slug);
 });
 
+$("td button").click(function(){
+    var csrf_hash = $("input[name='csrf_teddy_token']").val();
+    edit_status($(this).data().controller,$(this).data().id,$(this).data().status);
+});
+
+$("td #date").mousedown(function () {
+    'use strict';
+    var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+    var checkin = $(this).datepicker({
+        onRender: function (date) {
+            return date.valueOf() < now.valueOf() ? 'disabled' : '';
+        }
+    }).on('changeDate', function (ev) {
+        if (ev.date.valueOf() > checkout.date.valueOf()) {
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate() + 1);
+            checkout.setValue(newDate);
+        }
+    }).data('datepicker');
+});
+
+$(function () {
+$('#reservation').daterangepicker({});
+});
+
+$("body").mouseup(function(){
+    if($("#date").val().length != 0){
+        $("#hour").removeAttr('disabled');
+    }
+    if($("#hour").val() != 0){
+        $("#min").removeAttr('disabled');
+    }else{
+        $("#min").attr('disabled', '');
+    }
+});
+$("input[type=submit]").click(function(){
+    if($("#date").val().length == 0 || $("#hour").val() === "0" || $("#min").val() === "0"){
+        alert("Bạn phải xác nhận đầy đủ thông tin");
+        return false;
+    }
+});
+var picker = new Pikaday({
+    field: document.getElementById('date'),
+    format: 'D/M/YYYY',
+    firstDay: 1,
+    minDate: new Date(),
+    toString(date, format) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    }
+});
 // $('.btn-dropdown-cate').each(function(){
 //     if(('.btn-dropdown-cate').hasClass('is_active')){
 //         $('.table-cate').removeAttr('id');
