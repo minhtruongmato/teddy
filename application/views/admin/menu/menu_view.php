@@ -59,27 +59,40 @@
 
 </style>
 <div class="content-wrapper" style="min-height: 916px;">
+    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf" />
     <section class="content row">
         <div class="container col-md-12">
             <div>
                 <span><?php echo $this->session->flashdata('message'); ?></span>
             </div>
             <h3>Quản lý menu chính</h3>
+            <div class="row">
+                <a type="button" href="<?php echo site_url('admin/menu/create'); ?>" class="btn btn-primary">THÊM MỚI MENU CHÍNH</a>
+            </div>
             <?php if ($menus): ?>
                 <div class="row">
-                    <div class="col-lg-10 numberlist" style="margin-top: 10px;">
+                    <div class="col-lg-12 numberlist" style="margin-top: 10px;">
                         <ol id="sortable">
                             <?php
                             if (!empty($menus)):
                             foreach ($menus as $key => $item):
                             ?>
-                                <li class="treeview ui-sortable-handle" id="<?php echo ($key + 1) . '-' . $item['id'] ?>" style="">
-                                    <strong class="col-lg-8"><a style="color:#f02561" href="javascript:void(0)"><?php echo $item['title'] ?></a></strong>
-                                    <button type="button" class="btn btn-primary col-lg-1" onclick="location.href='<?php echo base_url('admin/menu/edit/' . $item['id']); ?>'" style="margin-top: 5px;">
+                                <li class="treeview remove_<?php echo $item['id'] ?>" id="<?php echo ($key + 1) . '-' . $item['id'] ?>">
+                                    <strong>
+                                        <a style="color:#f02561" href="<?php echo base_url('admin/menu/edit/' . $item['id']); ?>"><?php echo $item['title'] ?></a>
+                                    </strong>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/edit/' . $item['id']); ?>'">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <button data-url="<?php echo base_url('admin/menu/active'); ?>" data-id="<?php echo $item['id']; ?>" data-active="" type="button" class="btn btn-success col-lg-1" style="margin-top: 5px;">
-                                        <i class="fa fa-check ?>" aria-hidden="true"></i>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/create/' . $item['id']); ?>'">
+                                        <span class="glyphicon glyphicon-plus"> </span>
+                                    </button>
+                                    <button data-url="<?php echo base_url('admin/menu/remove'); ?>" data-id="<?php echo $item['id']; ?>" type="button" class="btn btn-danger btn-remove-menu">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>
+
+                                    <button data-url="<?php echo base_url('admin/menu/active'); ?>" data-id="<?php echo $item['id']; ?>" data-active="<?php echo $item['is_activated']; ?>" type="button" class="btn <?php echo ($item['is_activated'] == 0) ? 'btn-success' : 'btn-danger'; ?> btn-active-menu">
+                                        <i class="fa <?php echo ($item['is_activated'] == 0) ? 'fa-check' : 'fa-remove'; ?>" aria-hidden="true"></i>
                                     </button>
                                 </li>
                             <?php
@@ -118,9 +131,11 @@
                         sort: data,
                     },
                     method: 'GET',
-                    url: location.protocol + "//" + location.host + (location.port ? ':' + location.port : '') + "/commonadmin/admin/menu/sort",
+                    url: location.protocol + "//" + location.host + (location.port ? ':' + location.port : '') + "/teddy/admin/menu/sort",
                 });
             }
         });
     } );
 </script>
+
+
