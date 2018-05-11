@@ -126,6 +126,12 @@ class MY_Model extends CI_Model {
         return $this->db->get()->row_array();
     }
 
+    public function get_by_id_wo_lang($id){
+        $this->db->from($this->table);
+        $this->db->where('id', $id);
+        return $this->db->get()->row_array();
+    }
+
     public function common_update($id, $data) {
         $this->db->where('id', $id);
 

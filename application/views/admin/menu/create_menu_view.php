@@ -59,21 +59,22 @@
                         <?php
                         echo form_label('Chọn menu chính (hoặc Bài viết riêng nếu là bài viết lẻ)', 'selectMain_shared');
                         echo form_error('selectMain_shared');
-                        echo form_dropdown('selectMain_shared', $main_category, set_value('selectMain_shared', ''), 'class="form-control" id="select_main"');
                         ?>
-                    </div>
-                    <div class="form-group sub-cat">
-                        <?php
-                        echo form_label('Chọn danh mục (hoặc bài viết trong Bài viết riêng)', 'selectCategory_shared');
-                        echo form_error('selectCategory_shared');
-                        echo form_dropdown('selectCategory_shared', array('' => 'Chọn danh mục / bài viết'), set_value('selectCategory_shared', ''), 'class="form-control" id="select_category"');
-                        ?>
+                        <select name="selectMain_shared" class="form-control" id="select_main">
+                            <?php if (isset($id)): ?>
+                                <option value="">Chọn danh mục</option>
+                            <?php else: ?>
+                                <option value="" selected="selected">Chọn danh mục</option>
+                            <?php endif ?>
+                            
+                            <?php build_new_category($main_category, 0, $slug, '') ?>
+                        </select>
                     </div>
                     <div class="form-group sub-cat">
                         <?php
                         echo form_label('Chọn bài viết (nếu không chọn, menu sẽ trỏ đến danh sách bài viết trong danh mục phía trên)', 'selectArticle_shared');
                         echo form_error('selectArticle_shared');
-                        echo form_dropdown('selectArticle_shared', array('' => 'Chọn bài viết'), set_value('selectArticle_shared', ''), 'class="form-control" id="select_article"');
+                        echo form_dropdown('selectArticle_shared', $posts, '', 'class="form-control" id="select_article"');
                         ?>
                     </div>
                     <div class="form-group">
@@ -88,7 +89,7 @@
                         <?php
                         echo form_label('Bật / Tắt menu', 'isActived_shared');
                         echo form_error('isActived_shared');
-                        echo form_dropdown('isActived_shared', array('0' => 'Tắt', '1' => 'Bật'), set_value('isActived_shared', 1), 'class="form-control" id="is_actived"');
+                        echo form_dropdown('isActived_shared', array('0' => 'Bật', '1' => 'Tắt'), set_value('isActived_shared', 0), 'class="form-control" id="is_actived"');
                         ?>
                     </div>
                     <br>
@@ -104,6 +105,24 @@
         </div>
     </section>
 </div>
-<script>
-    // $("#colorpicker").colorpicker();
-</script>
+
+<?php 
+    function build_new_category($categorie, $parent_id = 0,$slug = '', $char = ''){
+        $cate_child = array();
+        foreach ($categorie as $key => $item){
+            if ($item['parent_id'] == $parent_id){
+                $cate_child[] = $item;
+                unset($categorie[$key]);
+            }
+        }
+        // print_r($cate_child);die;
+        if ($cate_child){
+            foreach ($cate_child as $key => $value){
+            ?>
+            <option value="<?php echo $value['slug'] ?>" <?php echo ($value['slug'] == $slug)? 'selected' : '' ?> ><?php echo $char.$value['title'] ?></option>
+            <?php build_new_category($categorie, $value['id'], $slug, $char.'---|') ?>
+            <?php
+            }
+        }
+    }
+?>
