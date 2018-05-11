@@ -3,6 +3,8 @@
 /**
 * 
 */
+require 'class.phpmailer.php';
+require 'class.smtp.php';
 class Set_desk extends Admin_Controller{
     private $author_data = array();
 
@@ -11,10 +13,23 @@ class Set_desk extends Admin_Controller{
 		$this->load->model('set_desk_model');
 		$this->load->helper('common');
         $this->load->helper('file');
+        $this->load->helper('email');
 
         $this->data['controller'] = $this->set_desk_model->table;
 		$this->author_data = handle_author_common_data();
 	}
+    // test send mail
+    function send(){
+        $content ="
+            <h2>Thông Tin Đặt Bàn Tại TEDDY:</h2>
+            <p>Họ Tên: Trần Văn Hoàn</p>
+            <p>Số Điện Thoại: 01628299929</p>
+            <p>Số Người: 4</p>
+            <p>Thời gian: 16/05/2018 10:00:00</p>
+        ";
+        $description = "Cảm ơn bạn đã quan tâm tới TEDDY thông tin đặt bàn của bạn.";
+        send_mail("nghemalao@gmail.com","Huongdan1","minhtruong93gtvt@gmail.com","12quyen12@gmail.com",'TEDDY',$description,$content);
+    }
     public function status($status){
         if(is_numeric($status) && ($status == 0 || $status == 1)){
             $this->data['keyword'] = '';

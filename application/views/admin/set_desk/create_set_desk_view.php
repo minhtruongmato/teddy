@@ -79,7 +79,7 @@
                                 <option value="45">45</option>
                             </select>
                         </div>
-                        <?php echo form_submit('submit_shared', 'OK', 'class="btn btn-primary"'); ?>
+                        <?php echo form_submit('submit_shared', 'OK', 'class="btn btn-primary" id="submit_date"'); ?>
                         <?php echo form_close(); ?>
                     </div>
                 </div>

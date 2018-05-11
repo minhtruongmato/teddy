@@ -110,7 +110,7 @@
                                         </td>
                                         <td>
                                         <?php if($value['status'] == 1 ): ?>
-                                            <button data-status="error"  data-controller="<?php echo $controller; ?>" data-id="<?php echo $value['id'] ?>" class="btn btn-danger btn-xs" role="button">Hủy đơn</button>
+                                            <button data-status="error"  data-controller="<?php echo $controller; ?>" data-id="<?php echo $value['id'] ?>" class="btn btn-danger btn-xs update_order" role="button">Hủy đơn</button>
                                         <?php else: ?>
                                             <a class="btn btn-success btn-xs">Đã hủy</a>
                                         <?php endif; ?>

@@ -299,8 +299,7 @@ $('#select_article').change(function(){
     $('#url').val($('#url').val() + '/' + slug);
 });
 
-$("td button").click(function(){
-    var csrf_hash = $("input[name='csrf_teddy_token']").val();
+$("td button.update_order").click(function(){
     edit_status($(this).data().controller,$(this).data().id,$(this).data().status);
 });
 
@@ -335,7 +334,7 @@ $("body").mouseup(function(){
         $("#min").attr('disabled', '');
     }
 });
-$("input[type=submit]").click(function(){
+$("#submit_date").click(function(){
     if($("#date").val().length == 0 || $("#hour").val() === "0" || $("#min").val() === "0"){
         alert("Bạn phải xác nhận đầy đủ thông tin");
         return false;
