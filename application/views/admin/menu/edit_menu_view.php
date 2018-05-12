@@ -180,7 +180,7 @@
                         foreach ($subs as $key => $item):
                             ?>
                             <li class="treeview remove_<?php echo $item['id'] ?>" id="<?php echo ($key + 1) . '-' . $item['id'] ?>">
-                                <strong><a " href="<?php echo base_url('admin/menu/edit/' . $item['id']) ?>"><?php echo $item['title'] ?></a></strong>
+                                <strong class="col-md-9"><a " href="<?php echo base_url('admin/menu/edit/' . $item['id']) ?>"><?php echo $item['title'] ?></a></strong>
                                 <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/edit/' . $item['id']); ?>'"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/create/' . $item['id']); ?>'">
                                     <span class="glyphicon glyphicon-plus"> </span>

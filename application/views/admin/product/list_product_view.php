@@ -79,8 +79,12 @@
                                         <td><?php echo $i++ ?></td>
                                         <td>
                                             <div class="mask_sm">
-                                                <?php $image = json_decode($value['image']) ?>
-                                                <img src="<?php echo base_url('assets/upload/'.$controller.'/'.$value['slug'].'/' .$image[0]) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
+                                                <?php if (!empty(json_decode($value['image']))): ?>
+                                                    <?php $image = json_decode($value['image']) ?>
+                                                    <img src="<?php echo base_url('assets/upload/'.$controller.'/'.$value['slug'].'/' .$image[0]) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
+                                                <?php else: ?>
+                                                    Chưa có Ảnh.
+                                                <?php endif ?>
                                             </div>
                                         </td>
                                         <td><?php echo $value['title'] ?></td>

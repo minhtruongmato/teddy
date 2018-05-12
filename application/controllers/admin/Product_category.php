@@ -48,8 +48,8 @@ class Product_category extends Admin_Controller{
             $this->data['id'] = 0;
         }
         $this->load->helper('form');
-        $product_category = $this->product_category_model->get_all_with_pagination_search('ASC');
-        $this->data['product_category'] = build_array_for_dropdown($product_category);
+        $product_category = $this->product_category_model->get_by_parent_id_when_active(null,'asc');
+        $this->build_new_category($product_category,0,$this->data['product_category']);
         if($this->input->post()){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
@@ -102,12 +102,15 @@ class Product_category extends Admin_Controller{
     public function edit($id){
         if($id &&  is_numeric($id) && ($id > 0)){
             $this->load->helper('form');
+            $product_category = $this->product_category_model->get_by_parent_id_when_active(null,'asc');
             $this->data['category'] = build_array_for_dropdown($this->product_category_model->get_all_with_pagination_search(),$id);
             if($this->product_category_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/'. $this->data['controller'] .'', 'refresh');
             }
             $detail = $this->product_category_model->get_by_id($id, array('title'));
+            $subs = $this->product_category_model->get_by_parent_id($id, 'asc');
+            $this->build_new_category($product_category,0,$this->data['product_category'],$subs['id']);
             $this->data['detail'] = build_language($this->data['controller'], $detail, array('title'), $this->page_languages);
             if($this->input->post()){
                 $this->load->library('form_validation');
@@ -326,6 +329,22 @@ class Product_category extends Admin_Controller{
             if ($item['parent_id'] == $parent_id){
                 $ids[] = $item['id'];
                 $this->get_multiple_products_with_category($categories, $item['id'], $ids);
+            }
+        }
+    }
+    function build_new_category($categorie, $parent_id = 0,&$result, $id = "",$char=""){
+        $cate_child = array();
+        foreach ($categorie as $key => $item){
+            if ($item['parent_id'] == $parent_id){
+                $cate_child[] = $item;
+                unset($categorie[$key]);
+            }
+        }
+        if ($cate_child){
+            foreach ($cate_child as $key => $value){
+            $select = ($value['id'] == $id)? 'selected' : '';
+            $result.='<option value="'.$value['id'].'"'.$select.'>'.$char.$value['title'].'</option>';
+            $this->build_new_category($categorie, $value['id'],$result, $id, $char.'---|');
             }
         }
     }

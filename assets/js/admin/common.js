@@ -235,24 +235,22 @@ $("td #date").mousedown(function () {
         }
     }).data('datepicker');
 });
-
-
 $(function () {
     $('#reservation').mouseup(function() {
         $('#reservation').daterangepicker({
-            format: 'DD/MM/YYYY',
+           format: 'DD/MM/YYYY',
         });
         $(".ranges").css("display","none");
         $(".calendar").mouseover(function(){
-            $("#reservation").val($("input[name=daterangepicker_start]").val()+" - "+$("input[name=daterangepicker_end]").val());
-            $(".second.right .available").mousedown(function(){
-                $(".daterangepicker.dropdown-menu.show-calendar.opensleft").css("display","none");
-            });
+           $("#reservation").val($("input[name=daterangepicker_start]").val()+" - "+$("input[name=daterangepicker_end]").val());
+           $(".second.right tbody .available").mousedown(function(){
+               $(".daterangepicker.dropdown-menu.show-calendar.opensleft").css("display","none");
+           });
         });
     });
 });
 
-$("#create_date_time").mousemove(function(){
+$("#create_date_time").mouseover(function(){
     if($("#date").val().length != 0){
         $("#hour").removeAttr('disabled');
         var d = new Date();
@@ -271,8 +269,16 @@ $("#create_date_time").mousemove(function(){
             $("#hour option").each(function(index,val){
                 if($(this).val() <= hours && $(this).val() != 0){
                     $(this).css("display","none");
+                    if($("#hour").val() != 0 && hours <= 22){
+                        $("#hour").val(hours+1);
+                    }
+                    if(hours == 23){
+                        $("#hour").attr('disabled','');
+                    }
                 }
             });
+        }else{
+            $("#hour option").css("display","inline-block");
         }
     }
     if($("#hour").val() != 0){

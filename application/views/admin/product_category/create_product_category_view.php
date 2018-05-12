@@ -40,23 +40,18 @@
                             <br>
                         </div>
                         <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Slug', 'slug_shared');
-                                echo form_error('slug_shared');
-                                echo form_input('slug_shared', set_value('slug_shared'), 'class="form-control" id="slug_shared" readonly');
-                                ?>
-                            </div>
+                            <?php
+                            echo form_label('Slug', 'slug_shared');
+                            echo form_error('slug_shared');
+                            echo form_input('slug_shared', set_value('slug_shared'), 'class="form-control" id="slug_shared" readonly');
+                            ?>
                         </div>
 
                         <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Danh mục', 'parent_id_shared');
-                                echo form_error('parent_id_shared');
-                                echo form_dropdown('parent_id_shared', $product_category, $id, 'class="form-control"');
-                                ?>
-                            </div>
+                            <select name="parent_id_shared" class="form-control">
+                                <option selected="" value="0">Danh muc gốc</option>
+                                <?php echo $product_category; ?>
+                            </select>
                         </div>
 
                         <div>

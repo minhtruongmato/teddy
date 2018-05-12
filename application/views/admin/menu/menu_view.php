@@ -78,20 +78,20 @@
                             foreach ($menus as $key => $item):
                             ?>
                                 <li class="treeview remove_<?php echo $item['id'] ?>" id="<?php echo ($key + 1) . '-' . $item['id'] ?>">
-                                    <strong>
+                                    <strong class="col-md-9">
                                         <a style="color:#f02561" href="<?php echo base_url('admin/menu/edit/' . $item['id']); ?>"><?php echo $item['title'] ?></a>
                                     </strong>
-                                    <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/edit/' . $item['id']); ?>'">
+                                    <button style="margin-top:5px" type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/edit/' . $item['id']); ?>'">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/create/' . $item['id']); ?>'">
+                                    <button style="margin-top:5px" type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/create/' . $item['id']); ?>'">
                                         <span class="glyphicon glyphicon-plus"> </span>
                                     </button>
-                                    <button data-url="<?php echo base_url('admin/menu/remove'); ?>" data-id="<?php echo $item['id']; ?>" type="button" class="btn btn-danger btn-remove-menu">
+                                    <button style="margin-top:5px" data-url="<?php echo base_url('admin/menu/remove'); ?>" data-id="<?php echo $item['id']; ?>" type="button" class="btn btn-danger btn-remove-menu">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </button>
 
-                                    <button data-url="<?php echo base_url('admin/menu/active'); ?>" data-id="<?php echo $item['id']; ?>" data-active="<?php echo $item['is_activated']; ?>" type="button" class="btn <?php echo ($item['is_activated'] == 0) ? 'btn-success' : 'btn-danger'; ?> btn-active-menu">
+                                    <button style="margin-top:5px" data-url="<?php echo base_url('admin/menu/active'); ?>" data-id="<?php echo $item['id']; ?>" data-active="<?php echo $item['is_activated']; ?>" type="button" class="btn <?php echo ($item['is_activated'] == 0) ? 'btn-success' : 'btn-danger'; ?> btn-active-menu">
                                         <i class="fa <?php echo ($item['is_activated'] == 0) ? 'fa-check' : 'fa-remove'; ?>" aria-hidden="true"></i>
                                     </button>
                                 </li>
