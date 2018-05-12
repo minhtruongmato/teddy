@@ -67,8 +67,8 @@ class Post_category extends Admin_Controller{
 		$this->load->helper('form');
         $this->load->library('form_validation');
 
-        $post_category = $this->post_category_model->get_all_with_pagination_search('ASC');
-        $this->data['post_category'] = build_array_for_dropdown($post_category);
+        $post_category = $this->post_category_model->get_by_parent_id(null,'asc');
+        $this->data['post_category'] = $post_category;
 
         $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
         $this->form_validation->set_rules('title_en', 'Title', 'required');
@@ -148,9 +148,10 @@ class Post_category extends Admin_Controller{
 
         $detail = $this->post_category_model->get_by_id($id, array('title'));
         $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
-        $category = $this->post_category_model->get_all_with_pagination_search('ASC');
+        $category = $this->post_category_model->get_by_parent_id(null,'asc');
+        // print_r($detail);die;
 
-        $this->data['category'] = build_array_for_dropdown($category, $id);
+        $this->data['category'] = $category;
         
         $this->data['detail'] = $detail;
         

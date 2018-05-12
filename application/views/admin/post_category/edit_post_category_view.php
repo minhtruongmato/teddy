@@ -53,8 +53,11 @@
                                 <?php
                                 echo form_label('Danh mục', 'parent_id_shared');
                                 echo form_error('parent_id_shared');
-                                echo form_dropdown('parent_id_shared', $category, $detail['parent_id'], 'class="form-control"');
                                 ?>
+                                <select name="parent_id_shared" class="form-control">
+                                    <option value="">Chọn danh mục</option>
+                                    <?php build_new_category($category, 0, $detail['id'], '') ?>
+                                </select>
                             </div>
                         </div>
 
@@ -120,4 +123,24 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url('assets/public/js/admin/script.js') ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/public/js/admin/common.js') ?>"></script>
+
+<?php 
+    function build_new_category($categorie, $parent_id = 0, $detail_id, $char = ''){
+        $cate_child = array();
+        foreach ($categorie as $key => $item){
+            if ($item['parent_id'] == $parent_id){
+                $cate_child[] = $item;
+                unset($categorie[$key]);
+            }
+        }
+        if ($cate_child){
+            foreach ($cate_child as $key => $value){
+            ?>
+            <option value="<?php echo $value['id'] ?>" <?php echo($value['id'] == $detail_id)? 'selected' : ''?> ><?php echo $char.$value['title'] ?></option>
+            <?php build_new_category($categorie, $value['id'], $detail_id, $char.'---|') ?>
+            <?php
+            }
+        }
+    }
+?>
 
