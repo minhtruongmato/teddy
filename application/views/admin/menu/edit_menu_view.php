@@ -115,7 +115,7 @@
                     <hr class="form-group" style="border: solid 0.5px lightgrey">
                     <h3 class="form-group">Dựng đường dẫn cho menu</h3>
                     <input type="hidden" name="slug_post" value="<?php echo $detail['slug_post'] ?>" id="slug_post">
-                    <?php if($detail['title_vi'] != 'Trang chủ' && $detail['title_vi'] != 'Liên hệ'): ?>
+                    <?php if($detail['slug'] != 'trang-chu' && $detail['slug'] != 'lien-he'&& $detail['slug'] != 'thuc-don'): ?>
                     <div class="form-group sub-cat">
                         <?php
                         echo form_label('Chọn menu chính (hoặc Bài viết riêng nếu là bài viết lẻ)', 'select_main');
@@ -162,7 +162,7 @@
             </div>
         </div>
     </section>
-    <?php if($detail['title_vi'] != 'Trang chủ' && $detail['title_vi'] != 'Liên hệ'): ?>
+    <?php if($detail['slug'] != 'trang-chu' && $detail['slug'] != 'lien-he' && $detail['slug'] != 'thuc-don'): ?>
     <section class="content row">
         <div class="container col-md-12 numberlist">
                 <h2>Danh sách menu con trong menu 

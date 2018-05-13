@@ -97,8 +97,20 @@ class Menu extends Admin_Controller{
         $subs = $this->menu_model->get_by_parent_id($id, 'asc');
         $this->data['subs'] = $subs;
 
-        $this->fetch_posts_for_menu($id, $this->controller, $this->page_languages, $main_category);
+        // $this->fetch_posts_for_menu($id, $this->controller, $this->page_languages, $main_category);
+        $detail = $this->menu_model->get_by_id($id, array('title'));
+        $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
 
+        $detail_category = $this->post_category_model->get_by_slug($detail['slug']);
+        
+
+        $this->get_posts_with_category($main_category, $detail_category['id'], $ids);
+        $new_ids = array_unique($ids);
+        $posts = $this->post_model->get_by_multiple_ids(array_unique($new_ids), 'vi');
+        $posts = build_array_by_slug_for_dropdown($posts);
+        $this->data['detail'] = $detail;
+        $this->data['posts'] = $posts;
+        $this->data['slug'] = $detail_category['slug'];
         
         $this->data['main_category'] = $main_category;
         $this->data['count_sub'] = count($this->menu_model->get_by_parent_id_when_active($id));
@@ -112,11 +124,16 @@ class Menu extends Admin_Controller{
             if ($this->input->post()) {
 
                 $shared_request = array(
-                    'url' => $this->input->post('url_shared'),
                     'is_activated' => $this->input->post('isActived_shared'),
+                    'url' => $this->input->post('url_shared'),
                     'slug' => $this->input->post('selectMain_shared'),
                     'slug_post' => $this->input->post('selectArticle_shared'),
                 );
+                if($detail['slug'] == 'trang-chu' || $detail['slug'] == 'thuc-don' || $detail['slug'] == 'lien-he' || ($this->data['count_sub'] > 0)){
+                    $shared_request = array(
+                        'is_activated' => $this->input->post('isActived_shared')
+                    );
+                }
                 $this->db->trans_begin();
 
                 $update = $this->menu_model->common_update($id,array_merge($shared_request,$this->author_data));
@@ -285,7 +302,7 @@ class Menu extends Admin_Controller{
         return $title;
     }
 
-    protected function fetch_posts_for_menu($id, $controller, $page_languages, $main_category){
+    function fetch_posts_for_menu($id, $controller, $page_languages, $main_category){
         $detail = $this->menu_model->get_by_id($id, array('title'));
         $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
 
