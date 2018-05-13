@@ -40,25 +40,18 @@
                             <br>
                         </div>
                         <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Slug', 'slug_shared');
-                                echo form_error('slug_shared');
-                                echo form_input('slug_shared', set_value('slug_shared'), 'class="form-control" id="slug_shared" readonly');
-                                ?>
-                            </div>
+                            <?php
+                            echo form_label('Slug', 'slug_shared');
+                            echo form_error('slug_shared');
+                            echo form_input('slug_shared', set_value('slug_shared'), 'class="form-control" id="slug_shared" readonly');
+                            ?>
                         </div>
-
                         <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Danh mục', 'parent_id_shared');
-                                echo form_error('parent_id_shared');
-                                echo form_dropdown('parent_id_shared', $product_category, 0, 'class="form-control"');
-                                ?>
-                            </div>
+                            <select name="parent_id_shared" class="form-control">
+                                <option selected="">Chọn danh mục</option>
+                                <?php echo $product_category; ?>
+                            </select>
                         </div>
-
                         <div>
                             <ul class="nav nav-pills nav-justified" role="tablist">
                                 <?php $i = 0; ?>
@@ -110,4 +103,3 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url('assets/js/admin/script.js') ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/admin/common.js') ?>"></script>
-

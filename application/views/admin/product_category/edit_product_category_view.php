@@ -39,29 +39,17 @@
                             <br>
                         </div>
                         <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Slug', 'slug_shared');
-                                echo form_error('slug_shared');
-                                echo form_input('slug_shared', $detail['slug'], 'class="form-control" id="slug_shared" readonly');
-                                ?>
-                            </div>
+                            <?php
+                            echo form_label('Slug', 'slug_shared');
+                            echo form_error('slug_shared');
+                            echo form_input('slug_shared', $detail['slug'], 'class="form-control" id="slug_shared" readonly');
+                            ?>
                         </div>
 
                         <div class="form-group col-xs-12">
-                            <div class="form-group col-xs-12">
-                                <?php
-                                echo form_label('Danh mục', 'parent_id_shared');
-                                echo form_error('parent_id_shared');
-                                if($controller == 'product_category'){
-                                    echo form_dropdown('parent_id_shared', $category, $detail['parent_id'], 'class="form-control"');
-                                }
-                                if($controller == 'product'){
-                                    echo form_dropdown('parent_id_shared', $category, $detail['product_category_id'], 'class="form-control"');
-                                }
-                                
-                                ?>
-                            </div>
+                            <select name="parent_id_shared" class="form-control">
+                                <?php echo $product_category; ?>
+                            </select>
                         </div>
 
                         <div>

@@ -44,9 +44,8 @@ class Product extends Admin_Controller{
 
 	public function create(){
 		$this->load->helper('form');
-        $product_category = $this->product_category_model->get_all_with_pagination_search('ASC');
-        $this->data['product_category'] = build_array_for_dropdown($product_category);
-        unset( $this->data['product_category'][0]);
+        $product_category = $this->product_category_model->get_by_parent_id_when_active(null,'asc');
+        $this->build_new_category($product_category,0,$this->data['product_category']);
         if($this->input->post()){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
@@ -60,7 +59,6 @@ class Product extends Admin_Controller{
                     $this->check_img($_FILES['image_shared']['name'], $_FILES['image_shared']['size']);
                 }
                 $slug = $this->input->post('slug_shared');
-                
                 $unique_slug = $this->product_model->build_unique_slug($slug);
                 if(!file_exists("assets/upload/".$this->data['controller']."/".$unique_slug) && !empty($_FILES['image_shared']['name'])){
                     mkdir("assets/upload/".$this->data['controller']."/".$unique_slug, 0755);
@@ -142,14 +140,15 @@ class Product extends Admin_Controller{
 
     public function edit($id){
         if($id &&  is_numeric($id) && ($id > 0)){
+            $product_category = $this->product_category_model->get_by_parent_id_when_active(null,'asc');
             $this->load->helper('form');
-            $this->data['category'] = build_array_for_dropdown($this->product_category_model->get_all_with_pagination_search(),$id);
-            unset($this->data['category'][0]);
             if($this->product_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
                 redirect('admin/product', 'refresh');
             }
             $detail = $this->product_model->get_by_id($id, array('title','description','content'));
+            $subs = $this->product_model->get_by_parent_id($id, 'asc');
+            $this->build_new_category($product_category,0,$this->data['product_category'],$subs['product_category_id']);
             $this->data['detail'] = build_language($this->data['controller'], $detail, array('title','description','content'), $this->page_languages);
             if($detail){
                 $detail['image'] = json_decode($detail['image']);
@@ -305,6 +304,22 @@ class Product extends Admin_Controller{
         if (array_diff($check_size, $image_size) != null) {
             $this->session->set_flashdata('message_error', sprintf(MESSAGE_PHOTOS_ERROR, 1200));
             redirect('admin/'.$this->data['controller']);
+        }
+    }
+    function build_new_category($categorie, $parent_id = 0,&$result, $id = "",$char=""){
+        $cate_child = array();
+        foreach ($categorie as $key => $item){
+            if ($item['parent_id'] == $parent_id){
+                $cate_child[] = $item;
+                unset($categorie[$key]);
+            }
+        }
+        if ($cate_child){
+            foreach ($cate_child as $key => $value){
+            $select = ($value['id'] == $id)? 'selected' : '';
+            $result.='<option value="'.$value['id'].'"'.$select.'>'.$char.$value['title'].'</option>';
+            $this->build_new_category($categorie, $value['id'],$result, $id, $char.'---|');
+            }
         }
     }
 }
