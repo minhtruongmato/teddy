@@ -37,7 +37,9 @@ $('#select_article').each(function(){
     var url = HOSTNAME + 'admin/menu/select_posts';
     var slug = $('#select_main').val();
     var slug_post = $(this).val();
-    $('#url').val(HOSTNAME + slug + '/' + slug_post);
+    if(slug != ''){
+        $('#url').val(HOSTNAME + slug + '/' + slug_post);
+    }
 });
 
 $('#select_article').change(function(){
@@ -103,5 +105,11 @@ $('.btn-remove-menu').click(function(){
                 console.log(errorHandle(jqXHR, exception));
             }
         });
+    }
+});
+$("#checkselected").click(function(){
+    if($("#select_main").val() == ''){
+        alert("Bạn phải chọn menu chính");
+        return false;
     }
 });
