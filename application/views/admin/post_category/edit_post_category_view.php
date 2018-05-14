@@ -27,7 +27,7 @@
                         <div class="form-group col-xs-12">
                             <label for="image_shared">Hình ảnh đang dùng</label>
                             <br>
-                            <img src="<?php echo base_url('assets/public/upload/'. $controller .'/'. $detail['image']); ?>" width=250px>
+                            <img src="<?php echo base_url('assets/upload/'. $controller .'/'. $detail['image']); ?>" width=250px>
                             <br>
                         </div>
                         <div class="form-group col-xs-12">
@@ -55,8 +55,8 @@
                                 echo form_error('parent_id_shared');
                                 ?>
                                 <select name="parent_id_shared" class="form-control">
-                                    <option value="">Chọn danh mục</option>
-                                    <?php build_new_category($category, 0, $detail['id'], '') ?>
+                                    <option value="">Danh mục gốc</option>
+                                    <?php build_new_category($category, 0, $detail['parent_id'], '') ?>
                                 </select>
                             </div>
                         </div>
@@ -121,8 +121,6 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?php echo base_url('assets/public/js/admin/script.js') ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/public/js/admin/common.js') ?>"></script>
 
 <?php 
     function build_new_category($categorie, $parent_id = 0, $detail_id, $char = ''){

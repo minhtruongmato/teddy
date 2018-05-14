@@ -84,7 +84,7 @@ class Post_category extends Admin_Controller{
                 if($check_upload == true){
                 	$slug = $this->input->post('slug_shared');
                     $unique_slug = $this->post_category_model->build_unique_slug($slug);
-                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/public/upload/'. $this->controller .'', 'assets/public/upload/'. $this->controller .'/thumb');
+                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'. $this->controller .'', 'assets/upload/'. $this->controller .'/thumb');
 
                     $shared_request = array(
                         'slug' => $unique_slug,
@@ -170,7 +170,7 @@ class Post_category extends Admin_Controller{
                 if ($check_upload == true) {
                     $slug = $this->input->post('slug_shared');
                     $unique_slug = $this->post_category_model->build_unique_slug($slug, $id);
-                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/public/upload/'. $this->controller .'', 'assets/public/upload/'. $this->controller .'/thumb');
+                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'. $this->controller .'', 'assets/upload/'. $this->controller .'/thumb');
                     $shared_request = array(
                         'slug' => $unique_slug,
                         'parent_id' => $this->input->post('parent_id_shared'),

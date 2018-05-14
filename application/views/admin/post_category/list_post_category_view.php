@@ -156,7 +156,7 @@
                 <tr style="background: #DFFDE0" class="remove_<?php echo $value['id'] ?>" >
                     <td>
                         <div class="mask_sm">
-                            <img src="<?php echo base_url('assets/public/upload/'.$controller.'/'. $value['image']) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
+                            <img src="<?php echo base_url('assets/upload/'.$controller.'/'. $value['image']) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
                         </div>
                     </td>
                     <td><?php echo $value['title'] ?></td>
