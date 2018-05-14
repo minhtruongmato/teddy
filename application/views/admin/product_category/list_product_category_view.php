@@ -44,7 +44,7 @@
                         <div class="col-md-6">
                             <form action="<?php echo base_url('admin/'.$controller.'/index') ?>" method="get">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Tìm kiếm ..." name="search" value="<?php echo $keyword; ?>">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm ..." name="search" value="">
                                     <span class="input-group-btn">
                                         <input type="submit" class="btn btn-block btn-primary" value="Tìm kiếm">
                                     </span>
@@ -69,59 +69,15 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <?php if(isset($result) && $result): ?>
-                                <?php $i = 1; ?>
-                                <?php foreach ($result as $key => $value): ?>
-                                    
-                                
-                                    <tr class="remove_<?php echo $value['id'] ?>">
-                                        <td><?php echo $i++ ?></td>
-                                        <td>
-                                            <div class="mask_sm">
-                                                <img src="<?php echo base_url('assets/upload/'.$controller.'/'.$value['slug'].'/' .$value['image']) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
-                                            </div>
-                                        </td>
-                                        <td><?php echo $value['title'] ?></td>
-                                        <td><?php echo $value['parent_title'] ?></td>
-                                        <td>
-                                            <?php echo ($value['is_activated'] == 0)? '<span class="label label-success">Đang sử dụng</span>' : '<span class="label label-warning">Không sử dụng</span>' ?>   
-                                        </td>
-                                        <td>
-                                            <a href="<?php echo base_url('admin/'.$controller.'/detail/'.$value['id']) ?>"
-                                            <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">See Detail</button>
-                                        </td>
-                                        <td>
-                                            <?php if ($value['is_activated'] == 0): ?>
-                                                <a href="javascript:void(0);" onclick="deactive('product_category', <?php echo $value['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục"><i class="fa fa-low-vision" aria-hidden="true"></i> </a>
-                                            <?php else: ?>
-                                                <a href="javascript:void(0);" onclick="active('product_category', <?php echo $value['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục"><i class="fa fa-eye" aria-hidden="true"></i> </a>
-                                            <?php endif ?>
-                                            &nbsp&nbsp&nbsp
-                                            <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                            &nbsp&nbsp&nbsp
-                                            <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
-                                        </td>
+                                <?php if($result): ?>
 
-                                    </tr>
-                                <?php endforeach ?>
+                                <?php build_new_category($result, 0, $controller, $check) ?>
 
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Tiêu đề</th>
-                                        <th>Danh mục</th>
-                                        <th>Trạng thái</th>
-                                        <th>Detail</th>
-                                        <th>Action</th>
-                                    </tr>
                                 <?php else: ?>
                                     <tr>
-                                        Chưa có Danh Mục
+                                        Chưa có danh mục
                                     </tr>
                                 <?php endif; ?>
-
-                                </tbody>
                             </table>
                         </div>
                         <div class="col-md-6 col-md-offset-5 page">
@@ -137,3 +93,82 @@
     </section>
     <!-- /.content -->
 </div>
+
+<?php 
+    function build_new_category($categorie, $parent_id = 0, $controller, $check, $sort = 1){
+        $cate_child = array();
+        foreach ($categorie as $key => $item){
+            if ($item['parent_id'] == $parent_id){
+                $cate_child[] = $item;
+                unset($categorie[$key]);
+            }
+        }
+        // print_r($cate_child);die;
+        if ($cate_child){
+            foreach ($cate_child as $key => $value){
+            ?>
+            <tbody class="treeview ui-sortable-handle" id="<?php echo ($key + 1) . '-' . $value['id'] ?>" <?php echo ($value['parent_id'] == 0)? 'style="cursor: pointer;"' : '' ?> >
+                <tr style="background: #DFFDE0" class="remove_<?php echo $value['id'] ?>" >
+                    <td>
+                        <div class="mask_sm">
+                            <img src="<?php echo base_url('assets/upload/'.$controller.'/'. $value['image']) ?>" alt="anh-cua-<?php echo $value['slug'] ?>" width=150px>
+                        </div>
+                    </td>
+                    <td><?php echo $value['title'] ?></td>
+                    <td><?php echo $value['parent_title'] ?></td>
+                    <td>
+                        <?php echo ($value['is_activated'] == 0)? '<span class="label label-success">Đang sử dụng</span>' : '<span class="label label-warning">Không sử dụng</span>' ?>   
+                    </td>
+                    <td><strong style="color: blue">Danh mục cấp <?php echo $sort ?></strong></td>
+                    <td>
+                       <button class="btn btn-primary collapsed btn-margin btn-dropdown-cate" type="button" data-toggle="collapse" href="#<?php echo $value['id'] ?>" aria-expanded="true" aria-controls="messageContent">Xem</button>
+                   </td>
+                   <td>
+                    <a href="<?php echo base_url('admin/'.$controller.'/detail/'.$value['id']) ?>"
+                        <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">See Detail</button>
+                    </td>
+                    <td>
+                        <?php if ($value['is_activated'] == 0): ?>
+                            <a href="javascript:void(0);" onclick="deactive('product_category', <?php echo $value['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và bài viết của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục"><i class="fa fa-low-vision" aria-hidden="true"></i> </a>
+                        <?php else: ?>
+                            <a href="javascript:void(0);" onclick="active('product_category', <?php echo $value['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và bài viết của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                        <?php endif ?>
+                        
+                        &nbsp&nbsp&nbsp
+                        <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                        &nbsp&nbsp&nbsp
+                        <a href="javascript:void(0);" onclick="remove('product_category', <?php echo $value['id'] ?>)" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="no_border" style="padding: 0">
+                        <div class="collapse" id="<?php echo $value['id'] ?>" aria-expanded="true" style="">
+                            <div clas="row">
+                                <div class="table-responsive col-md-11 col-md-offset-1" style="padding-right: 0">
+                                    <table class="table table_product">
+                                        <?php if ($check->check_sub_category($value['id'])): ?>
+                                            <tr>
+                                                <th>Hình ảnh</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Danh mục</th>
+                                                <th>Trạng thái</th>
+                                                <th>Cấp danh mục</th>
+                                                <th>Danh mục con</th>
+                                                <th>Detail</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            <?php build_new_category($categorie, $value['id'], $controller, $check, $sort + 1); ?>
+                                        <?php endif ?>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>  
+            <?php
+                
+            }
+        }
+    }
+?>

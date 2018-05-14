@@ -22,22 +22,38 @@ class Product_category extends Admin_Controller{
     }
 
     public function index(){
-        $this->data['keyword'] = '';
+        $keywords = '';
         if($this->input->get('search')){
-            $this->data['keyword'] = $this->input->get('search');
+            $keywords = $this->input->get('search');
         }
+        $total_rows  = $this->product_category_model->count_search('vi');
+        if($keywords != ''){
+            $total_rows  = $this->product_category_model->count_search('vi', $keywords);
+        }
+
+        
         $this->load->library('pagination');
+        $config = array();
+        $base_url = base_url('admin/'. $this->data['controller'] .'/index');
         $per_page = 10;
-        $total_rows  = $this->product_category_model->count_search('vi', $this->data['keyword']);
-        $config = $this->pagination_config(base_url('admin/'.$this->data['controller'].'/index'), $total_rows, $per_page, 4);
+        $uri_segment = 4;
+        foreach ($this->pagination_config($base_url, $total_rows, $per_page, $uri_segment) as $key => $value) {
+            $config[$key] = $value;
+        }
         $this->data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $this->pagination->initialize($config);
         $this->data['page_links'] = $this->pagination->create_links();
-        $this->data['result'] = $this->product_category_model->get_all_with_pagination_and_search_by_parent_id(0,'desc','vi' , $per_page, $this->data['page'], $this->data['keyword']);
-        foreach ($this->data['result'] as $key => $value) {
-            $parent_title = $this->build_parent_title($value['parent_id']);
-            $this->data['result'][$key]['parent_title'] = $parent_title;
+
+        $result = $this->product_category_model->get_all_with_pagination_and_sort_search('asc','vi' , $per_page, $this->data['page']);
+        if($keywords != ''){
+            $result = $this->product_category_model->get_all_with_pagination_and_sort_search('asc','vi' , $per_page, $this->data['page'], $keywords);
         }
+        foreach ($result as $key => $value) {
+            $parent_title = $this->build_parent_title($value['parent_id']);
+            $result[$key]['parent_title'] = $parent_title;
+        }
+        $this->data['result'] = $result;
+        $this->data['check'] = $this;
         $this->render('admin/'. $this->data['controller'] .'/list_product_category_view');
     }
 
@@ -109,8 +125,7 @@ class Product_category extends Admin_Controller{
                 redirect('admin/'. $this->data['controller'] .'', 'refresh');
             }
             $detail = $this->product_category_model->get_by_id($id, array('title'));
-            $subs = $this->product_category_model->get_by_parent_id($id, 'asc');
-            $this->build_new_category($product_category,0,$this->data['product_category'],$subs['id']);
+            $this->build_new_category($product_category,0,$this->data['product_category'],$detail['parent_id']);
             $this->data['detail'] = build_language($this->data['controller'], $detail, array('title'), $this->page_languages);
             if($this->input->post()){
                 $this->load->library('form_validation');
@@ -347,5 +362,13 @@ class Product_category extends Admin_Controller{
             $this->build_new_category($categorie, $value['id'],$result, $id, $char.'---|');
             }
         }
+    }
+
+    public function check_sub_category($id){
+        $check_sub_category = $this->product_category_model->get_by_parent_id($id);
+        if ($check_sub_category) {
+            return true;
+        }
+        return false;
     }
 }

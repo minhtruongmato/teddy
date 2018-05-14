@@ -82,8 +82,6 @@
                                         Chưa có danh mục
                                     </tr>
                                 <?php endif; ?>
-
-                                </tbody>
                                 <!-- <tfoot>
                                 <tr>
                                     <th>Hình ảnh</th>
