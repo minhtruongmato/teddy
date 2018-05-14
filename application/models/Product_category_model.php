@@ -46,12 +46,12 @@ class Product_category_model extends MY_Model{
             $this->db->where($this->table_lang .'.language', $lang);
         }
         if(is_numeric($parent_id)){
-            $this->db->where($this->table .'.id', $parent_id);
+            $this->db->where($this->table .'.parent_id', $parent_id);
         }
         
         $this->db->group_by($this->table_lang .'.'. $this->table .'_id');
         $this->db->order_by($this->table .".id", $order);
 
-        return $result = $this->db->get()->row_array();
+        return $result = $this->db->get()->result_array();
     }
 }
