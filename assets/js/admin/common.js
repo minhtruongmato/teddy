@@ -104,12 +104,20 @@ function active(controller, id, question) {
                         case 'order' :
                             alert('Hủy đặt bàn thành công');
                             break;
+                        case 'banner' :
+                            alert('Bật banner thành công');
+                            break;
                     }
                     location.reload();
                 }
             },
             error: function(jqXHR, exception){
-                console.log(errorHandle(jqXHR, exception));
+                if(jqXHR.responseJSON.message != 'undefined '){
+                    alert(jqXHR.responseJSON.message);
+                    location.reload();
+                }else{
+                    console.log(errorHandle(jqXHR, exception));
+                }
             }
         });
     }
@@ -134,12 +142,20 @@ function deactive(controller, id, question) {
                         case 'order' :
                             alert('Hủy đặt bàn thành công');
                             break;
+                        case 'banner' :
+                            alert('Tắt banner thành công');
+                            break;
                     }
                     location.reload();
                 }
             },
             error: function(jqXHR, exception){
-                console.log(errorHandle(jqXHR, exception));
+                if(jqXHR.responseJSON.message != 'undefined '){
+                    alert(jqXHR.responseJSON.message);
+                    location.reload();
+                }else{
+                    console.log(errorHandle(jqXHR, exception));
+                }
             }
         });
     }

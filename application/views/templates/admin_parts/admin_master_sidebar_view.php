@@ -48,6 +48,11 @@ if($this->ion_auth->logged_in()) {
                     </ul>
                 </li>
                 <li>
+                    <a href="<?php echo base_url('admin/banner') ?>">
+                        <i class="fa fa-inbox"></i> <span>Banner</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo base_url('admin/post_category') ?>">
                         <i class="fa fa-inbox"></i> <span>Danh Mục Bài Viết</span>
                     </a>
@@ -80,6 +85,11 @@ if($this->ion_auth->logged_in()) {
                 <li>
                     <a href="<?php echo base_url('admin/menu') ?>">
                         <i class="fa fa-envelope-o"></i> <span>Menu</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('admin/client_gmail') ?>">
+                        <i class="fa fa-inbox"></i> <span>Mail</span>
                     </a>
                 </li>
                 <li class="treeview">
