@@ -50,7 +50,7 @@
                                 // echo form_dropdown('parent_id_shared', $post_category, 0, 'class="form-control"');
                                 ?>
                                 <select name="parent_id_shared" class="form-control">
-                                    <option value="">Chọn danh mục</option>
+                                    <option value="">Danh mục gốc</option>
                                     <?php build_new_category($post_category, 0, '') ?>
                                 </select>
                             </div>
@@ -115,8 +115,6 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?php echo base_url('assets/public/js/admin/script.js') ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/public/js/admin/common.js') ?>"></script>
 
 <?php 
     function build_new_category($categorie, $parent_id = 0, $char = ''){

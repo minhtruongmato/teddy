@@ -83,7 +83,7 @@ class Post extends Admin_Controller{
                 if($check_upload == true){
                 	$slug = $this->input->post('slug_shared');
                     $unique_slug = $this->post_model->build_unique_slug($slug);
-                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/public/upload/'. $this->controller, 'assets/public/upload/'.$this->controller.'/thumb');
+                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'. $this->controller, 'assets/upload/'.$this->controller.'/thumb');
 
                     $shared_request = array(
                         'slug' => $unique_slug,
@@ -166,7 +166,7 @@ class Post extends Admin_Controller{
                 if ($check_upload == true) {
                     $slug = $this->input->post('slug_shared');
                     $unique_slug = $this->post_model->build_unique_slug($slug, $id);
-                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/public/upload/'. $this->controller .'', 'assets/public/upload/'. $this->controller .'/thumb');
+                    $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'. $this->controller .'', 'assets/upload/'. $this->controller .'/thumb');
                     $shared_request = array(
                         'slug' => $unique_slug,
                         'post_category_id' => $this->input->post('parent_id_shared'),
@@ -196,8 +196,8 @@ class Post extends Admin_Controller{
                     } else {
                         $this->db->trans_commit();
                         $this->session->set_flashdata('message_success', MESSAGE_EDIT_SUCCESS);
-                        if($image != '' && $image != $detail['image'] && file_exists('assets/public/upload/'. $this->controller .'/'.$detail['image'])){
-                            unlink('assets/public/upload/'. $this->controller .'/'.$detail['image']);
+                        if($image != '' && $image != $detail['image'] && file_exists('assets/upload/'. $this->controller .'/'.$detail['image'])){
+                            unlink('assets/upload/'. $this->controller .'/'.$detail['image']);
                         }
                         redirect('admin/'. $this->controller .'', 'refresh');
                     }
