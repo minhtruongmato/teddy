@@ -125,7 +125,7 @@ class Product_category extends Admin_Controller{
                 redirect('admin/'. $this->data['controller'] .'', 'refresh');
             }
             $detail = $this->product_category_model->get_by_id($id, array('title'));
-            $this->build_new_category($product_category,0,$this->data['product_category'],$detail['parent_id']);
+            $this->build_new_category($product_category,0,$this->data['product_category'],$detail['parent_id'],$id);
             $this->data['detail'] = build_language($this->data['controller'], $detail, array('title'), $this->page_languages);
             if($this->input->post()){
                 $this->load->library('form_validation');
@@ -347,7 +347,7 @@ class Product_category extends Admin_Controller{
             }
         }
     }
-    function build_new_category($categorie, $parent_id = 0,&$result, $id = "",$char=""){
+    function build_new_category($categorie, $parent_id = 0,&$result, $parent_id_edit = "",$id_edit = "",$char=""){
         $cate_child = array();
         foreach ($categorie as $key => $item){
             if ($item['parent_id'] == $parent_id){
@@ -356,10 +356,15 @@ class Product_category extends Admin_Controller{
             }
         }
         if ($cate_child){
+            if($parent_id == 0){
+                $result.='<option value="0" selected>Danh mục gốc</option>';
+            }
             foreach ($cate_child as $key => $value){
-            $select = ($value['id'] == $id)? 'selected' : '';
-            $result.='<option value="'.$value['id'].'"'.$select.'>'.$char.$value['title'].'</option>';
-            $this->build_new_category($categorie, $value['id'],$result, $id, $char.'---|');
+                    $select = ($value['id'] == $parent_id_edit)? 'selected' : '';
+                if($value['id'] != $id_edit){
+                    $result.='<option value="'.$value['id'].'"'.$select.'>'.$char.$value['title'].'</option>';
+                    $this->build_new_category($categorie, $value['id'],$result, $parent_id_edit,$id_edit, $char.'---|');
+                }
             }
         }
     }

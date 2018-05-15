@@ -56,7 +56,7 @@
                                 ?>
                                 <select name="parent_id_shared" class="form-control">
                                     <option value="">Danh mục gốc</option>
-                                    <?php build_new_category($category, 0, $detail['parent_id'], '') ?>
+                                    <?php build_new_category($category, 0, $detail['parent_id'],$detail['id'], '') ?>
                                 </select>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
 </div>
 
 <?php 
-    function build_new_category($categorie, $parent_id = 0, $detail_id, $char = ''){
+    function build_new_category($categorie, $parent_id = 0, $detail_parent_id,$detail_id = "",$char = ''){
         $cate_child = array();
         foreach ($categorie as $key => $item){
             if ($item['parent_id'] == $parent_id){
@@ -133,9 +133,11 @@
         }
         if ($cate_child){
             foreach ($cate_child as $key => $value){
-            ?>
-            <option value="<?php echo $value['id'] ?>" <?php echo($value['id'] == $detail_id)? 'selected' : ''?> ><?php echo $char.$value['title'] ?></option>
-            <?php build_new_category($categorie, $value['id'], $detail_id, $char.'---|') ?>
+            ?>  
+                <?php if ($value['id'] != $detail_id): ?>
+                    <option value="<?php echo $value['id'] ?>" <?php echo($value['id'] == $detail_parent_id)? 'selected' : ''?> ><?php echo $char.$value['title'] ?></option>
+                    <?php build_new_category($categorie, $value['id'], $detail_parent_id,$detail_id, $char.'---|') ?>
+                <?php endif ?>
             <?php
             }
         }
