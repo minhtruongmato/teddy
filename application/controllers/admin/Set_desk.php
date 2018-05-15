@@ -97,8 +97,8 @@ class Set_desk extends Admin_Controller{
             ->set_output(json_encode(array('status' => 404)));
     }
 
-	public function create(){
-		$this->load->helper('form');
+    public function create(){
+        $this->load->helper('form');
         if($this->input->post()){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('name', 'Name', 'required');
@@ -116,6 +116,15 @@ class Set_desk extends Admin_Controller{
                 );
                 $insert = $this->set_desk_model->common_insert(array_merge($shared_request,$this->author_data));
                 if($insert){
+                    $content ="
+                        <h2>Thông Tin Đặt Bàn Tại TEDDY:</h2>
+                        <p><h4>Họ Tên: ".$this->input->post('name')."</h4></p>
+                        <p><h4>Số Điện Thoại: ".$this->input->post('phone')."</h4></p>
+                        <p><h4>Số Người: ".$this->input->post('slot')."</h4></p>
+                        <p><h4>Thời gian: ".$time."</h4></p>
+                    ";
+                    $description = "Cảm ơn bạn đã quan tâm tới TEDDY thông tin đặt bàn của bạn.";
+                    send_mail("nghemalao@gmail.com","Huongdan1","minhtruong93gtvt@gmail.com",$this->input->post('email'),'TEDDY',$description,$content);
                     $this->session->set_flashdata('message_success', MESSAGE_CREATE_SUCCESS);
                     redirect('admin/'. $this->data['controller'] .'/status/1', 'refresh');
                 }
@@ -124,7 +133,7 @@ class Set_desk extends Admin_Controller{
             }
         }
         $this->render('admin/'.$this->data['controller'].'/create_'.$this->data['controller'].'_view');
-	}
+    }
 
     public function detail($id){
         if($id &&  is_numeric($id) && ($id > 0)){
