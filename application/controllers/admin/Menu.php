@@ -70,7 +70,6 @@ class Menu extends Admin_Controller{
                     $requests = handle_multi_language_request('menu_id', $insert, $this->request_language_template, $this->input->post(), $this->page_languages);
                     $this->menu_model->insert_with_language($requests);
                 }
-
                 if ($this->db->trans_status() === false) {
                     $this->db->trans_rollback();
                     $this->session->set_flashdata('message_error', MESSAGE_CREATE_ERROR);
@@ -78,6 +77,7 @@ class Menu extends Admin_Controller{
                 } else {
                     $this->db->trans_commit();
                     $this->session->set_flashdata('message_success', MESSAGE_CREATE_SUCCESS);
+                    $this->menu_model->common_update($id,array_merge(array('check_menu_children' => 1),$this->author_data));
                     if(isset($id) && is_numeric($id)){
                         redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
                     }else{
@@ -163,14 +163,16 @@ class Menu extends Admin_Controller{
         $list_menus = $this->menu_model->get_by_parent_id(null, 'asc');
         
         $detail_menu = $this->menu_model->get_by_id_wo_lang($id);
-        
         $this->get_posts_with_category($list_menus, $detail_menu['id'], $ids);
         $ids = array_unique($ids);
         $new_id = array(0 => $id);
         if(array_diff($ids, $new_id) == null){
             $data = array('is_deleted' => 1);
             $update = $this->menu_model->common_update($id, $data);
-            if($update == 1){
+            if($update == 1){ 
+                if(count($this->menu_model->get_by_parent_id_is_activated($detail_menu['parent_id'], 'asc')) == 0){
+                    $this->menu_model->common_update($detail_menu['parent_id'],array_merge(array('check_menu_children' => 0),$this->author_data));
+                }
                 return $this->output
                 ->set_content_type('application/json')
                 ->set_status_header(HTTP_SUCCESS)
@@ -216,6 +218,11 @@ class Menu extends Admin_Controller{
             ->set_status_header(HTTP_BAD_REQUEST)
             ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
         } else {
+            if(count($this->menu_model->get_by_parent_id_is_activated($detail['parent_id'], 'asc')) == 0){
+                $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 0),$this->author_data));
+            }else{
+                $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 1),$this->author_data));
+            }
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );

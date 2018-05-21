@@ -12,6 +12,7 @@ class Post_category_model extends MY_Model{
         $this->db->from($this->table);
         $this->db->join($this->table_lang, $this->table_lang .'.'. $this->table .'_id = '. $this->table .'.id');
         $this->db->where($this->table .'.is_deleted', 0);
+        $this->db->where($this->table .'.is_activated', 0);
         if($lang != ''){
             $this->db->where($this->table_lang .'.language', $lang);
         }
@@ -49,6 +50,7 @@ class Post_category_model extends MY_Model{
         $this->db->from($this->table);
         $this->db->join($this->table_lang, $this->table_lang .'.'. $this->table .'_id = '. $this->table .'.id');
         $this->db->where($this->table .'.is_deleted', 0);
+        $this->db->where($this->table .'.is_activated', 0);
         if($lang != ''){
             $this->db->where($this->table_lang .'.language', $lang);
         }
@@ -72,5 +74,11 @@ class Post_category_model extends MY_Model{
         }
 
         return false;
+    }
+    public function get_by_parent_id_num_rows($parent_id){
+        if(is_numeric($parent_id)){
+            $this->db->where('id', $parent_id);
+        }
+        return $this->db->count_all_results($this->table);
     }
 }

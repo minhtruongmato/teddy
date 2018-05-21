@@ -165,7 +165,7 @@ class Public_Controller extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('form');
-
+        $this->load->library('session');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
         $this->langAbbreviation = $this->uri->segment(1) ? $this->uri->segment(1) : 'vi';
