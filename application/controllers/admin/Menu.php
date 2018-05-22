@@ -157,14 +157,14 @@ class Menu extends Admin_Controller{
                             $this->menu_model->common_update($parent['id'],array_merge(array('check_menu_children' => 1),$this->author_data));
                         }
                     }else{
+                        if(!empty($parent['id'])){
+                            if(count($this->menu_model->get_by_parent_id_is_activated($detail['parent_id'], 'asc')) == 0){
+                                $this->menu_model->common_update($parent['id'],array_merge(array('check_menu_children' => 0),$this->author_data));
+                            }
+                        }
                         foreach ($this->get_id_children_and_id($id) as $key => $value) {
                             $this->menu_model->common_update($value, array_merge(array('is_activated' => 1),$this->author_data));
                         }
-                    }
-                    if(count($this->menu_model->get_by_parent_id_is_activated($detail['parent_id'], 'asc')) == 0){
-                        $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 0),$this->author_data));
-                    }else{
-                        $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 1),$this->author_data));
                     }
                     redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
                 }
