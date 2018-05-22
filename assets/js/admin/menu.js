@@ -53,7 +53,7 @@ $('.btn-active-menu').click(function(){
     var url = HOSTNAME + 'admin/menu/active';
     var id = $(this).data('id');
     if($(this).hasClass('btn-success')){
-        var question = 'Chắc chắn tắt Menu này?';
+        var question = 'Chắc chắn tắt Menu này? Nếu tắt tất cả các Menu con cũng sẽ bị tắt';
     }else{
         var question = 'Chắc chắn bật Menu này?';
     }
@@ -75,8 +75,11 @@ $('.btn-active-menu').click(function(){
                     location.reload();
                 }
             },
-            error: function(jqXHR, exception){
-                console.log(errorHandle(jqXHR, exception));
+            error: function(responses){
+                 if(responses.responseJSON.status == 400){
+                    alert(responses.responseJSON.message_warning);
+                    
+                 }
             }
         });
     }
