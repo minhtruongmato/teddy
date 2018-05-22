@@ -112,7 +112,7 @@ class Menu_model extends MY_Model {
         $this->db->order_by($this->table .".sort", $order);
         return $this->db->get()->result_array();
     }
-    public function get_by_id($id,$select = array(), $lang = '',$order="asc") {
+ /*   public function get_by_id($id,$select = array(), $lang = '',$order="asc") {
         $this->db->query('SET SESSION group_concat_max_len = 10000000');
         $this->db->select($this->table .'.*');
         if(in_array('title', $select)){
@@ -127,10 +127,10 @@ class Menu_model extends MY_Model {
             $this->db->where($this->table_lang .'.language', $lang);
         }
         $this->db->where($this->table .'.is_deleted', 0);
-        /*$this->db->where($this->table .'.is_activated', 0);*/
+        
         $this->db->where($this->table .'.id', $id);
         return $this->db->get()->row_array();
-    }
+    }*/
 
 }
 
