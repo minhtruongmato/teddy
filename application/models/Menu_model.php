@@ -127,7 +127,7 @@ class Menu_model extends MY_Model {
             $this->db->where($this->table_lang .'.language', $lang);
         }
         $this->db->where($this->table .'.is_deleted', 0);
-        $this->db->where($this->table .'.is_activated', 0);
+        /*$this->db->where($this->table .'.is_activated', 0);*/
         $this->db->where($this->table .'.id', $id);
         return $this->db->get()->row_array();
     }

@@ -65,7 +65,6 @@ class Menu extends Admin_Controller{
                 );
                 $this->db->trans_begin();
                 $insert = $this->menu_model->common_insert(array_merge($shared_request,$this->author_data));
-
                 if($insert){
                     $requests = handle_multi_language_request('menu_id', $insert, $this->request_language_template, $this->input->post(), $this->page_languages);
                     $this->menu_model->insert_with_language($requests);
@@ -87,23 +86,19 @@ class Menu extends Admin_Controller{
             }
         }
     }
-
+// cần sửu nữa chưa xong
     public function edit($id){
         $this->load->model('post_category_model');
         $this->load->helper('form');
         $this->load->library('form_validation');
         $main_category = $this->post_category_model->get_by_parent_id_when_active(null,'asc');
-
         $subs = $this->menu_model->get_by_parent_id($id, 'asc');
         $this->data['subs'] = $subs;
 
         // $this->fetch_posts_for_menu($id, $this->controller, $this->page_languages, $main_category);
         $detail = $this->menu_model->get_by_id($id, array('title'));
         $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
-
         $detail_category = $this->post_category_model->get_by_slug($detail['slug']);
-        
-
         $this->get_posts_with_category($main_category, $detail_category['id'], $ids);
         $new_ids = array_unique($ids);
         $posts = $this->post_model->get_by_multiple_ids(array_unique($new_ids), 'vi');
@@ -122,13 +117,20 @@ class Menu extends Admin_Controller{
             $this->render('admin/'. $this->controller .'/edit_menu_view');
         } else {
             if ($this->input->post()) {
-
+                $parent = $this->menu_model->get_by_id($detail['parent_id']);
+                if(!empty($parent['id']) && $this->input->post('isActived_shared') == 0 && $parent['is_activated'] == 1){
+                    $this->session->set_flashdata('message_error', MESSAGE_ERROR_UPDATE_TURN_ON);
+                    redirect('admin/'. $this->controller .'/edit/'.$detail['id'], 'refresh');
+                }
                 $shared_request = array(
                     'is_activated' => $this->input->post('isActived_shared'),
                     'url' => $this->input->post('url_shared'),
                     'slug' => $this->input->post('selectMain_shared'),
                     'slug_post' => $this->input->post('selectArticle_shared'),
                 );
+                if($this->input->post('isActived_shared') == 0){
+                    $shared_request['check_menu_children'] = 0;
+                }
                 if($detail['slug'] == 'trang-chu' || $detail['slug'] == 'thuc-don' || $detail['slug'] == 'lien-he' || ($this->data['count_sub'] > 0)){
                     $shared_request = array(
                         'is_activated' => $this->input->post('isActived_shared')
@@ -143,7 +145,6 @@ class Menu extends Admin_Controller{
                         $this->menu_model->update_with_language($id, $requests[$key]['language'], $value);
                     }
                 }
-
                 if ($this->db->trans_status() === false) {
                     $this->db->trans_rollback();
                     $this->session->set_flashdata('message_error', MESSAGE_EDIT_ERROR);
@@ -151,6 +152,20 @@ class Menu extends Admin_Controller{
                 } else {
                     $this->db->trans_commit();
                     $this->session->set_flashdata('message_success', MESSAGE_EDIT_SUCCESS);
+                    if($this->input->post('isActived_shared') == 0){
+                        if(!empty($parent['id'])){
+                            $this->menu_model->common_update($parent['id'],array_merge(array('check_menu_children' => 1),$this->author_data));
+                        }
+                    }else{
+                        foreach ($this->get_id_children_and_id($id) as $key => $value) {
+                            $this->menu_model->common_update($value, array_merge(array('is_activated' => 1),$this->author_data));
+                        }
+                    }
+                    if(count($this->menu_model->get_by_parent_id_is_activated($detail['parent_id'], 'asc')) == 0){
+                        $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 0),$this->author_data));
+                    }else{
+                        $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 1),$this->author_data));
+                    }
                     redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
                 }
             }
@@ -203,12 +218,25 @@ class Menu extends Admin_Controller{
    public function active(){
         $id = $this->input->post('id');
         $detail = $this->menu_model->get_by_id_wo_lang($id);
+        $parent = $this->menu_model->get_by_id_wo_lang($detail['parent_id']);
+        if(!empty($parent) && $detail['is_activated'] == 1 && $parent['is_activated'] == 1){
+            $message_warning = 'Bạn phải bật Menu cha của Menu hiện tại';
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST,'message_warning' => $message_warning)));
+        }
         if($detail['is_activated'] == 0){
             $data = array('is_activated' => 1);
-            $update = $this->menu_model->common_update($id, $data);
+            foreach ($this->get_id_children_and_id($id) as $key => $value) {
+                $update = $this->menu_model->common_update($value, $data);
+            }
             $message_success = 'Tắt Menu thành công';
         }else{
-            $data = array('is_activated' => 0);
+            $data = array('is_activated' => 0,'check_menu_children' => 0);
+            if(!empty($parent)){
+                $this->menu_model->common_update($parent['id'],array_merge(array('check_menu_children' => 1),$this->author_data));
+            }
             $update = $this->menu_model->common_update($id, $data);
             $message_success = 'Bật Menu thành công';
         }
@@ -231,6 +259,7 @@ class Menu extends Admin_Controller{
                 ->set_status_header(HTTP_SUCCESS)
                 ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message_success' => $message_success)));
         }
+        
     }
 
     public function show_sub_category(){
@@ -323,6 +352,12 @@ class Menu extends Admin_Controller{
         $this->data['detail'] = $detail;
         $this->data['posts'] = $posts;
         $this->data['slug'] = $detail_category['slug'];
+    }
+    public function get_id_children_and_id($id){
+        $category_post = $this->menu_model->get_by_parent_id(null, 'asc');
+        $this->get_posts_with_category($category_post, $id, $ids);
+        $new_ids = array_unique($ids);
+        return $new_ids;
     }
 
 }

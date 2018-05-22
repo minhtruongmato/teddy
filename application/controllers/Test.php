@@ -68,18 +68,15 @@ class Test extends Public_Controller
 					$url[] = $value;
 					$check = 1;
 				}
-				if($value[0] == $uri1 && isset($value[1])){
+				if($value[0] == $uri1 && isset($value[1]) && $uri2 != ''){
 					foreach ($this->show_posts1($uri1) as $k => $val) {
-						if($uri2 == $value[1] && $value[1] == $value['slug']){
-							return $value;
+						if($uri2 == $value[1] && $value[1] == $val['slug']){
+							return $val;
 						}
 					}
 				}
 			}
 			if($check == 1){
-				echo '<pre>';
-				print_r($url);
-				echo '</pre>';die;
 				if($uri2 != ''){
 					foreach ($this->show_posts1($uri1) as $key => $value) {
 						if($uri2 == $value['slug']){
@@ -147,7 +144,6 @@ class Test extends Public_Controller
         $new_ids = array_unique($ids);
         return $this->post_model->get_by_multiple_ids($new_ids, 'vi');
     }
-
 
 
 }
