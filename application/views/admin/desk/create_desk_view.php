@@ -50,7 +50,7 @@
                             <?php
                                 echo form_label("Title", "title");
                                 echo form_error("title");
-                                echo form_input("title", set_value("title"), 'class="form-control" id="title"');
+                                echo form_input("title", set_value("title"), 'class="form-control" id="title_vi"');
                             ?>
                         </div>
                         <div class="form-group col-xs-12">

@@ -38,4 +38,10 @@ class Set_desk_model extends MY_Model{
         $this->db->where('is_deleted', 0);
         return $result = $this->db->get()->result_array();
     }
+    public function count_total_rows1($status){
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->where(array('is_deleted' => 0,'status' => $status));
+        return $result = $this->db->get()->num_rows();
+    }
 }

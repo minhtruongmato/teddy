@@ -92,7 +92,7 @@ if($this->ion_auth->logged_in()) {
                         <i class="fa fa-inbox"></i> <span>Mail</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <li class="treeview status">
                     <a href="">
                         <i class="fa fa-bars"></i>
                         <span>Đặt Bàn</span>
@@ -102,8 +102,8 @@ if($this->ion_auth->logged_in()) {
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="<?php echo base_url('admin/set_desk/status/1') ?>"><i class="fa fa-mail-forward"></i> Đơn Đặt Bàn</a></li>
-                       <!--  <li><a href="<?php echo base_url('admin/set_desk/status/2') ?>"><i class="fa fa-check-circle"></i> Đã Xác Nhận</a></li>
-                       <li><a href="<?php echo base_url('admin/set_desk/status/3') ?>"><i class="fa fa-check"></i> Đã Hoàn Thành</a></li> -->
+                       <li><a href="<?php echo base_url('admin/set_desk/status/2') ?>"><i class="fa fa-check-circle"></i> Đã Xác Nhận</a></li>
+                       <li><a href="<?php echo base_url('admin/set_desk/status/3') ?>"><i class="fa fa-check"></i> Đã Hoàn Thành</a></li>
                         <li><a href="<?php echo base_url('admin/set_desk/status/0') ?>"><i class="fa fa-times"></i> Đơn Đã Hủy</a></li>
                     </ul>
                 </li>

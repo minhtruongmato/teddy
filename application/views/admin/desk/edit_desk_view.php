@@ -41,7 +41,7 @@
                             <?php
                                 echo form_label("Title", "title");
                                 echo form_error("title");
-                                echo form_input("title", trim($detail['title']), 'class="form-control" id="title"');
+                                echo form_input("title", trim($detail['title']), 'class="form-control" id="title_vi"');
                               
                             ?>
                         </div>

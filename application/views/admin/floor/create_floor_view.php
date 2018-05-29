@@ -41,7 +41,7 @@
                             <?php
                                 echo form_label("Title", "title");
                                 echo form_error("title");
-                                echo form_input("title", set_value("title"), 'class="form-control" id="title"');
+                                echo form_input("title", set_value("title"), 'class="form-control" id="title_vi"');
                             ?>
                         </div>
                         <?php echo form_submit('submit_shared', 'OK', 'class="btn btn-primary"'); ?>

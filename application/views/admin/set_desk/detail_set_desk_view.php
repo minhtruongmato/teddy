@@ -57,8 +57,12 @@
                                         </tr>
                                         <tr>
                                             <th>Status</th>
-                                            <?php if ($detail['status'] == 1): ?>
+                                            <?php if ($detail['status'] == 3): ?>
                                                 <td>Success</td>
+                                            <?php elseif($detail['status'] == 2): ?>
+                                                <td>Usage</td>
+                                            <?php elseif($detail['status'] == 1): ?>
+                                                <td>Waiting</td>
                                             <?php else: ?>
                                                 <td>Error</td>
                                             <?php endif ?>
