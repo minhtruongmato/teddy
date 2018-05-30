@@ -19,7 +19,7 @@ class Config extends Admin_Controller{
 		
 	}
 	public function edit_total_desk_online(){
-		if(!empty($this->input->post('total'))){
+		if($this->input->post('total') != '' && $this->input->post('total') >= 0){
             $count_total_rows_desk = $this->desk_model->count_total_rows();
             $number_desk_status_confirm = $this->set_desk_model->count_total_rows1(2);
 			if($count_total_rows_desk < $this->input->post('total')){
@@ -51,7 +51,10 @@ class Config extends Admin_Controller{
                 ->set_status_header(404)
                	->set_output(json_encode(array('status' => 404,'message' => ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE)));
 		}else{
-			redirect('admin/'. $this->data['controller'] .'/status/1', 'refresh');
+			return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(404)
+                ->set_output(json_encode(array('status' => 404,'message' => ERROR_GREATER_ZERO)));
 		}
 	}
 

@@ -54,23 +54,35 @@ class Client_gmail extends Admin_Controller{
         $objWriter->save($full_path);
         return redirect('excel.xlsx');
     }
-    function remove($id){
+    function remove(){
+        $id = $this->input->post('id');
         if($id &&  is_numeric($id) && ($id > 0)){
             if($this->client_gmail_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
-                $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
-                redirect('admin/'.$this->data['controller'].'', 'refresh');
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
             }
             $data = array('is_deleted' => 1);
             $update = $this->client_gmail_model->common_update($id, $data);
             if($update){
-                $this->session->set_flashdata('message_success',MESSAGE_REMOVE_SUCCESS);
-                return redirect('admin/'.$this->data['controller'],'refresh');
+                $reponse = array(
+                    'csrf_hash' => $this->security->get_csrf_hash()
+                );
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(HTTP_SUCCESS)
+                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
             }
-            $this->session->set_flashdata('message_error',MESSAGE_REMOVE_ERROR);
-            return redirect('admin/'.$this->data['controller'],'refresh');
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(404)
+                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
             
         }
-        $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
-        return redirect('admin/'.$this->data['controller'],'refresh');
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404)
+            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
     }
 }

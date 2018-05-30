@@ -220,7 +220,7 @@ class Post extends Admin_Controller{
             return $this->output
                 ->set_content_type('application/json')
                 ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => true)));
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS, 'isExisted' => true)));
         }
             return $this->output
                     ->set_content_type('application/json')

@@ -45,7 +45,7 @@ class Desk extends Admin_Controller{
             $this->load->library('form_validation');
             $this->form_validation->set_rules('title', 'Title', 'required');
             $this->form_validation->set_rules('slot', 'Slot', 'required');
-            $this->form_validation->set_rules('status', 'Status', 'required');
+            /*$this->form_validation->set_rules('status', 'Status', 'required');*/
             if($this->form_validation->run() == TRUE){
                 $slug = $this->input->post('slug_shared');
                 $unique_slug = $this->desk_model->build_unique_slug($slug);
@@ -53,7 +53,7 @@ class Desk extends Admin_Controller{
                     'title' => $this->input->post("title"),
                     'slug' => $unique_slug,
                     'slot' => $this->input->post("slot"),
-                    'status' => $this->input->post("status"),
+                    /*'status' => $this->input->post("status"),*/
                     'floor_id' => $this->input->post("floor_id"),
                 );
                 $insert = $this->desk_model->common_insert(array_merge($shared_request,$this->author_data));
@@ -85,7 +85,8 @@ class Desk extends Admin_Controller{
             redirect('admin/'.$this->data['controller'].'', 'refresh');
         }
     }
-    function remove($id){
+    function remove(){
+        $id = $this->input->post('id');
         if($id &&  is_numeric($id) && ($id > 0)){
             if($this->desk_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
@@ -94,15 +95,24 @@ class Desk extends Admin_Controller{
             $data = array('is_deleted' => 1);
             $update = $this->desk_model->common_update($id, $data);
             if($update){
-                $this->session->set_flashdata('message_success',MESSAGE_REMOVE_SUCCESS);
-                return redirect('admin/'.$this->data['controller'],'refresh');
+                $reponse = array(
+                    'csrf_hash' => $this->security->get_csrf_hash()
+                );
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(HTTP_SUCCESS)
+                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
             }
-            $this->session->set_flashdata('message_error',MESSAGE_REMOVE_ERROR);
-            return redirect('admin/'.$this->data['controller'],'refresh');
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(404)
+                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
             
         }
-        $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
-        return redirect('admin/'.$this->data['controller'],'refresh');
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404)
+            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
     }
 
     public function edit($id){
@@ -124,11 +134,11 @@ class Desk extends Admin_Controller{
                 $this->load->library('form_validation');
                 $this->form_validation->set_rules('title', 'Title', 'required');
                 $this->form_validation->set_rules('slot', 'Slot', 'required');
-                $this->form_validation->set_rules('status', 'Status', 'required');
+                /*$this->form_validation->set_rules('status', 'Status', 'required');*/
                 if($this->form_validation->run() == TRUE){
                     $shared_request =array(
                         'slot' => $this->input->post('slot'),
-                        'status' => $this->input->post('status'),
+                        /*'status' => $this->input->post('status'),*/
                         'floor_id' => $this->input->post('floor_id')
                     );
                     if($this->input->post('title') !== $this->data['detail']['title']){

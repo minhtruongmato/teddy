@@ -228,7 +228,7 @@ class Post_category extends Admin_Controller{
         if(isset($ids)){
             $posts = $this->post_model->get_by_multiple_ids(array_unique($ids), 'vi');
         }
-        if(!isset($posts)){
+        if($posts == null && (count($ids) <= 1)){
             $data = array('is_deleted' => 1);
             $update = $this->post_category_model->common_update($id, $data);
             if($update == 1){
@@ -236,7 +236,7 @@ class Post_category extends Admin_Controller{
                 return $this->output
                 ->set_content_type('application/json')
                 ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => true)));
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS, 'isExisted' => true)));
             }
         }else{
             return $this->output

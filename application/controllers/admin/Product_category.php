@@ -184,37 +184,47 @@ class Product_category extends Admin_Controller{
         }
         $this->render('admin/'. $this->data['controller'] .'/edit_product_category_view');
     }
-    function remove($id){
-        //Xóa mềm
+    function remove(){
+        $id = $this->input->post('id');
         $this->load->model('product_model');
         if($id &&  is_numeric($id) && ($id > 0)){
-            $product_category = $this->product_category_model->get_by_id($id, array('title'));
             if($this->product_category_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
-                $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
-                redirect('admin/product_category', 'refresh');
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
             }
-            if($product_category){
-                $where = array('product_category_id' => $id,'is_deleted' => 0);
-                $product = $this->product_model->find_rows($where);// lấy số bài viết thuộc về category
-                $where = array('parent_id' => $id);
-                $parent_id = $this->product_category_model->find_rows($where);//lấy số con của category
-                if($product == 0 && $parent_id == 0){
-                    $data = array('is_deleted' => 1);
-                    $update = $this->product_category_model->common_update($id, $data);
-                    if($update){
-                        $this->session->set_flashdata('message_success',MESSAGE_REMOVE_SUCCESS);
-                        return redirect('admin/'.$this->data['controller'],'refresh');
-                    }
-                    $this->session->set_flashdata('message_error',MESSAGE_REMOVE_ERROR);
-                    return redirect('admin/'.$this->data['controller'],'refresh');
-                }else{
-                    $this->session->set_flashdata('message_error',sprintf(MESSAGE_FOREIGN_KEY_LINK_ERROR,$product,$parent_id));
-                    return redirect('admin/'.$this->data['controller'],'refresh');
+            $where = array('product_category_id' => $id,'is_deleted' => 0);
+            $product = $this->product_model->find_rows($where);// lấy số bài viết thuộc về category
+            $where = array('parent_id' => $id);
+            $parent_id = $this->product_category_model->find_rows($where);//lấy số con của category
+            if($product == 0 && $parent_id == 0){
+                $data = array('is_deleted' => 1);
+                $update = $this->product_category_model->common_update($id, $data);
+                if($update){
+                    $reponse = array(
+                        'csrf_hash' => $this->security->get_csrf_hash()
+                    );
+                    return $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(HTTP_SUCCESS)
+                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
                 }
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
+            }else{
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => sprintf(MESSAGE_FOREIGN_KEY_LINK_ERROR,$product,$parent_id))));
             }
         }
-        $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
-        return redirect('admin/'.$this->data['controller'],'refresh');
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404)
+            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
     }
 
     public function detail($id){

@@ -99,7 +99,6 @@ class Admin_Controller extends MY_Controller {
                 $this->image_lib->resize();
             }
         }
-
         return $image;
     }
 

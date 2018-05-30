@@ -52,13 +52,13 @@
                                 echo form_input("slot", $detail['slot'], 'class="form-control"');
                             ?>
                         </div>
-                        <div class="form-group col-xs-12">
+                        <!-- <div class="form-group col-xs-12">
                             <?php
                                 echo form_label("Status", "status");
                                 echo form_error("status");
                                 echo form_input("status", $detail['status'], 'class="form-control"');
                             ?>
-                        </div>
+                        </div> -->
                         <?php echo form_submit('submit_shared', 'OK', 'class="btn btn-primary"'); ?>
                         <?php echo form_close(); ?>
                     </div>

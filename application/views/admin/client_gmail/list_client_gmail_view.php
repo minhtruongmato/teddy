@@ -71,11 +71,12 @@
                                 <?php if(isset($result) && $result): ?>
                                 <?php $n = 1; ?>
                                 <?php foreach ($result as $key => $value): ?>
-                                    <tr class="status_<?php echo $value['id'] ?>">
+                                    <tr class="remove_<?php echo $value['id'] ?>">
                                         <td><?php echo $n++ ?></td>
                                         <td><?php echo $value['email'] ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                                            <a href="javascript:void(0);" onclick="remove('<?php echo $controller; ?>', <?php echo $value['id'] ?>)" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                                            <!-- <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a> -->
                                         </td>
                                     </tr>
                                 <?php endforeach ?>

@@ -57,7 +57,7 @@
                             <div class="icon">
                                 <i class="fa fa-refresh"></i>
                             </div>
-                            <div class=" btn btn-success small-box-footer" id="edit_number_desk_online">
+                            <div style="border: 1px solid rgba(0, 0, 0, 0.1);" class=" btn btn-success small-box-footer" id="edit_number_desk_online">
                                  Sửa<i class="glyphicon glyphicon-pencil"></i>
                             </div>
                             <div class="small-box-footer" style="display:none; width: 100%;margin:0px auto;" id="update_number_desk_online">

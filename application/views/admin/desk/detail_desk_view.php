@@ -51,10 +51,10 @@
                                             <th>Slot</th>
                                             <td><?php echo $detail['slot'] ?></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th>Status</th>
                                             <td><?php echo $detail['status'] ?></td>
-                                        </tr>
+                                        </tr> -->
 
                                     </table>
                                 </div>

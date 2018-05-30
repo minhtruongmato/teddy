@@ -32,7 +32,10 @@ class Set_desk extends Admin_Controller{
         $description = "Cảm ơn bạn đã quan tâm tới TEDDY thông tin đặt bàn của bạn.";
         send_mail("nghemalao@gmail.com","Huongdan1","minhtruong93gtvt@gmail.com","12quyen12@gmail.com",'TEDDY',$description,$content);
     }
-    public function status($status){
+    public function status($status = ''){
+        if($status == ''){
+            redirect('admin/'. $this->data['controller'] .'/status/1', 'refresh');
+        }
         if(is_numeric($status) && ($status >= 0 && $status <= 3)){
             $this->data['keyword'] = '';
             if($this->input->get('search')){
@@ -172,10 +175,24 @@ class Set_desk extends Admin_Controller{
                 if($insert){
                     $content ="
                         <h2>Thông Tin Đặt Bàn Tại TEDDY:</h2>
-                        <p><h4>Họ Tên: ".$this->input->post('name')."</h4></p>
-                        <p><h4>Số Điện Thoại: ".$this->input->post('phone')."</h4></p>
-                        <p><h4>Số Người: ".$this->input->post('slot')."</h4></p>
-                        <p><h4>Thời gian: ".$time."</h4></p>
+                        <table><tbody>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Họ Tên</th>
+                                <td>:  ".$this->input->post('name')."</td>
+                            </tr>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Số Điện Thoại</th>
+                                <td>:  ".$this->input->post('phone')."</td>
+                            </tr>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Số Người</th>
+                                <td>:  ".$this->input->post('slot')."</td>
+                            </tr>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Thời gian</th>
+                                <td>:  ".$time."</td>
+                            </tr>
+                        </tbody></table>
                     ";
                     $description = "Cảm ơn bạn đã quan tâm tới TEDDY thông tin đặt bàn của bạn.";
                     send_mail("nghemalao@gmail.com","Huongdan1","minhtruong93gtvt@gmail.com",$this->input->post('email'),'TEDDY',$description,$content);

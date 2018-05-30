@@ -72,6 +72,11 @@ function remove(controller, id){
             success: function(response){
                 csrf_hash = response.reponse.csrf_hash;
                 if(response.status == 200 && response.isExisted == true){
+                    console.log(response);
+                    console.log(response.message);
+                    if(response.message != 'undefined'){
+                        alert(response.message);
+                    }
                     $('.remove_' + id).fadeOut();
                 }
                 if(response.status == 200 && response.isExisted == false){
@@ -80,6 +85,10 @@ function remove(controller, id){
             },
             error: function(jqXHR, exception){
                 console.log(errorHandle(jqXHR, exception));
+                if(jqXHR.status == 404 && jqXHR.responseJSON.message != 'undefined'){
+                    alert(jqXHR.responseJSON.message);
+                    location.reload();
+                }
             }
         });
     }
@@ -220,15 +229,17 @@ function edit_status(controller,id,status){
                     $('.status_' + id).fadeOut();
                     var number = Number($("#number_desk_placed_online").html());
                     var number_desk_status_confirm = Number($("#number_desk_status_confirm").html());
-                    if(window.location.href.indexOf("status/1") != '-1'){
-                        $("#number_desk_placed_online").html(number-1);
-                        $("#number_desk_status_confirm").html(number_desk_status_confirm+1);
-                        if((number-1) == 0){
-                            $(".update_order.success").attr("disabled","disabled");
-                            $(".update_order.success").html("Không thể xác nhận");
-                        }else{
-                            $(".update_order.success").removeAttr("disabled");
-                            $(".update_order.success").html("Xác nhận");
+                    if(status == "success"){
+                        if(window.location.href.indexOf("status/1") != '-1'){
+                            $("#number_desk_placed_online").html(number-1);
+                            $("#number_desk_status_confirm").html(number_desk_status_confirm+1);
+                            if((number-1) == 0){
+                                $(".update_order.success").attr("disabled","disabled");
+                                $(".update_order.success").html("Không thể xác nhận");
+                            }else{
+                                $(".update_order.success").removeAttr("disabled");
+                                $(".update_order.success").html("Xác nhận");
+                            }
                         }
                     }
                     if(window.location.href.indexOf("status/2") != '-1'){
@@ -346,6 +357,7 @@ var picker = new Pikaday({
         return `${day}-${month}-${year}`;
     }
 });
+
 if(window.location.href.indexOf("status/") != '-1'){
     $('li.treeview.status ul').css("display","block");
     $('li.treeview.status').addClass('menu-open');

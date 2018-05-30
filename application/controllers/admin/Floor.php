@@ -68,30 +68,44 @@ class Floor extends Admin_Controller{
             redirect('admin/'.$this->data['controller'].'', 'refresh');
         }
     }
-    function remove($id){
+    function remove(){
+        $id = $this->input->post('id');
         if($id &&  is_numeric($id) && ($id > 0)){
         $detail = $this->floor_model->find($id);
             if(empty($detail)){
-                $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
-                redirect('admin/'.$this->data['controller'].'', 'refresh');
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
             }
             $this->load->model('desk_model');
             $desk = $this->desk_model->find_rows(array("floor_id" => $id,"is_deleted" => 0));
             if($desk != 0){
-                $this->session->set_flashdata('message_error',sprintf(MESSAGE_FOREIGN_KEY_ERROR,$desk));
-                redirect('admin/'.$this->data['controller'].'', 'refresh');   
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => sprintf(MESSAGE_FOREIGN_KEY_ERROR,$desk))));  
             }
             $data = array('is_deleted' => 1);
             $update = $this->floor_model->common_update($id, $data);
             if($update){
-                $this->session->set_flashdata('message_success',MESSAGE_REMOVE_SUCCESS);
-                return redirect('admin/'.$this->data['controller'],'refresh');
+                $reponse = array(
+                    'csrf_hash' => $this->security->get_csrf_hash()
+                );
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(HTTP_SUCCESS)
+                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
             }
-            $this->session->set_flashdata('message_error',MESSAGE_REMOVE_ERROR);
-            return redirect('admin/'.$this->data['controller'],'refresh');
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(404)
+                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
         }
-        $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
-        return redirect('admin/'.$this->data['controller'],'refresh');
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404)
+            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
     }
 
     public function edit($id){

@@ -60,7 +60,7 @@
                                     <th>No.</th>
                                     <th>Tiêu đề</th>
                                     <th>Số ghế</th>
-                                    <th>Trạng thái</th>
+                                    <!-- <th>Trạng thái</th> -->
                                     <th>Detail</th>
                                     <th>Action</th>
                                 </tr>
@@ -73,14 +73,15 @@
                                         <td><?php echo $i++ ?></td>
                                         <td><?php echo $value['title'] ?></td>
                                         <td><?php echo $value['slot'] ?></td>
-                                        <td><?php echo $value['status'] ?></td>
+                                        <!-- <td><?php echo $value['status'] ?></td> -->
                                         <td>
                                             <a href="<?php echo base_url('admin/'.$controller.'/detail/'.$value['id']) ?>"
                                             <button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">See Detail</button>
                                         </td>
                                         <td>
                                             <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                            <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                                            <a href="javascript:void(0);" onclick="remove('<?php echo $controller; ?>', <?php echo $value['id'] ?>)" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                                            <!-- <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a> -->
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
