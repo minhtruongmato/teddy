@@ -5,7 +5,13 @@ switch(window.location.origin){
     default:
         var HOSTNAME = 'http://localhost/teddy/';
 }
-
+switch(window.location.origin){
+    case 'http://teddy.com':
+        var HOSTNAMEADMIN = 'http://teddy.com/admin';
+        break;
+    default:
+        var HOSTNAMEADMIN = 'http://localhost/teddy/admin';
+} 
 $(document).ready(function(){
     "use strict";
 

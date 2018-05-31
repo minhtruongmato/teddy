@@ -245,31 +245,15 @@ class Post_category extends Admin_Controller{
                 return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ERROR_ACTIVE_CATEGORY);
             }
         }
-        $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
-        // $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
-        $this->get_multiple_posts_with_category($list_categories, $id, $ids);
-        $ids = array_unique($ids);
-
         $data = array('is_activated' => 0);
-
-        $this->db->trans_begin();
-
-        $update = $this->post_category_model->multiple_update_by_ids($ids, $data);
-
+        $update = $this->post_category_model->multiple_update_by_ids($id, $data);
         if ($update == 1) {
-            $this->post_model->multiple_update_by_category_ids($ids, $data);
-        }
-
-        if ($this->db->trans_status() === false) {
-            $this->db->trans_rollback();
-            return $this->return_api(HTTP_BAD_REQUEST);
-        } else {
-            $this->db->trans_commit();
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
             return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
 
     public function deactive(){

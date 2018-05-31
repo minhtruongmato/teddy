@@ -247,30 +247,17 @@ class Product_category extends Admin_Controller{
                 return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ERROR_ACTIVE_CATEGORY);
             }
         }
-        $list_categories = $this->product_category_model->get_by_parent_id(null, 'asc');
-        $this->get_multiple_products_with_category($list_categories, $id, $ids);
-        $ids = array_unique($ids);
 
         $data = array('is_activated' => 0);
-
-        $this->db->trans_begin();
-
-        $update = $this->product_category_model->multiple_update_by_ids($ids, $data);
+        $update = $this->product_category_model->multiple_update_by_ids($id, $data);
 
         if ($update == 1) {
-            $this->product_model->multiple_update_by_category_ids($ids, $data);
-        }
-
-        if ($this->db->trans_status() === false) {
-            $this->db->trans_rollback();
-            return $this->return_api(HTTP_BAD_REQUEST);
-        } else {
-            $this->db->trans_commit();
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
             return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
 
     public function deactive(){
