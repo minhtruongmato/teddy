@@ -30,11 +30,11 @@
             <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf" />
             <div class="col-md-12">
             <div class="row">
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="small-box bg-aqua">
                             <div class="inner" id="count_total_rows_desk">
                                 <span style="font-weight: bold;font-size: 35px;"><?php echo $count_total_rows_desk; ?></span>
-
+                    
                                 <p>Tổng số bàn</p>
                             </div>
                             <div class="icon">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-md-3">
                         <div class="small-box bg-orange">
                             <div class="inner" id="total_number_desk_online">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-md-3">
                         <div class="small-box bg-green">
                             <div class="inner">
@@ -85,12 +85,12 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-md-3">
                         <div class="small-box bg-red">
                             <div class="inner">
                                 <span style="font-weight: bold;font-size: 35px;"  id="number_desk_status_confirm"><?php echo $number_desk_status_confirm; ?></span>
-
+                    
                                 <p>Số bàn đặt online đã xác nhận</p>
                             </div>
                             <div class="icon">
@@ -98,6 +98,51 @@
                             </div>
                             <div class=" btn small-box-footer">
                                  Số bàn đặt online đã xác nhận
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-md-4">
+                        <div class="small-box bg-aqua">
+                            <div class="inner" id="number_desk_placed_online">
+                                <span style="font-weight: bold;font-size: 35px;"><?php echo $number_desk_placed_online; ?></span>
+                    
+                                <p>Số đơn bàn đặt online chưa xác nhận</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-retweet"></i>
+                            </div>
+                            <div class=" btn small-box-footer">
+                                 Số đơn bàn đặt online chưa xác nhận
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <span style="font-weight: bold;font-size: 35px;" id="number_desk_status_confirm"><?php echo $number_desk_status_confirm; ?></span>
+                                <p>Số đơn bàn đặt online đã xác nhận</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <div class=" btn small-box-footer">
+                                 Số đơn bàn đặt online đã xác nhận
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <span style="font-weight: bold;font-size: 35px;"  id="number_desk_status_error"><?php echo $number_desk_status_error; ?></span>
+                    
+                                <p>Số đơn bàn đặt online đã hủy</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-close"></i>
+                            </div>
+                            <div class=" btn small-box-footer">
+                                 Số đơn bàn đặt online đã hủy
                             </div>
                         </div>
                     </div>
@@ -185,6 +230,16 @@
                                             </a>
                                         </td>
                                         <td>
+                                            <?php if($value['status'] == 1): ?>
+                                                <button data-status="success"  data-controller="<?php echo $controller; ?>" data-id="<?php echo $value['id'] ?>" class="btn btn-success btn-xs update_order success" role="button">Xác nhận</button>
+                                                <button data-status="error" data-controller="<?php echo $controller; ?>" data-id="<?php echo $value['id'] ?>" class="btn btn-danger btn-xs update_order" role="button">Hủy</button>
+                                            <?php elseif($value['status'] == 2): ?>
+                                                <a class="btn btn-success btn-xs" role="button">Đã xác nhận</a>
+                                            <?php else: ?>
+                                                <a class="btn btn-danger btn-xs" role="button">Đã hủy</a>
+                                            <?php endif; ?>
+                                        </td>
+                                        <!-- <td>
                                         <?php if($value['status'] >0 && $value['status'] <3): ?>
                                             <?php 
                                                 $disabled = '';
@@ -203,7 +258,7 @@
                                         <?php else: ?>
                                             <a class="btn btn-danger btn-xs" role="button">Đã hủy</a>
                                         <?php endif; ?>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 <?php endforeach ?>
                                     <tr>
