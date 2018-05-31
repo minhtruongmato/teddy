@@ -188,21 +188,12 @@ class Menu extends Admin_Controller{
                 if(count($this->menu_model->get_by_parent_id_is_activated($detail_menu['parent_id'], 'asc')) == 0){
                     $this->menu_model->common_update($detail_menu['parent_id'],array_merge(array('check_menu_children' => 0),$this->author_data));
                 }
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'isExisted' => true)));
+                return $this->return_api(HTTP_SUCCESS);
             }
         }else{
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'isExisted' => false)));
+            return $this->return_api(HTTP_SUCCESS,'',null,false);
         }
-        return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_BAD_REQUEST)
-                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
 
 	public function sort(){
@@ -221,10 +212,7 @@ class Menu extends Admin_Controller{
         $parent = $this->menu_model->get_by_id_wo_lang($detail['parent_id']);
         if(!empty($parent) && $detail['is_activated'] == 1 && $parent['is_activated'] == 1){
             $message_warning = 'Bạn phải bật Menu cha của Menu hiện tại';
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST,'message_warning' => $message_warning)));
+            return $this->return_api(HTTP_NOT_FOUND,$message_warning);
         }
         if($detail['is_activated'] == 0){
             $data = array('is_activated' => 1);
@@ -241,10 +229,7 @@ class Menu extends Admin_Controller{
             $message_success = 'Bật Menu thành công';
         }
         if ($update == 0) {
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_BAD_REQUEST);
         } else {
             if(count($this->menu_model->get_by_parent_id_is_activated($detail['parent_id'], 'asc')) == 0){
                 $this->menu_model->common_update($detail['parent_id'],array_merge(array('check_menu_children' => 0),$this->author_data));
@@ -254,10 +239,7 @@ class Menu extends Admin_Controller{
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message_success' => $message_success)));
+            return $this->return_api(HTTP_SUCCESS,$message_success,$reponse);
         }
         
     }
@@ -277,10 +259,7 @@ class Menu extends Admin_Controller{
                 'sub_cate' => $sub_cate,
                 'posts' => $posts
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+        return $this->return_api(HTTP_SUCCESS,'',$reponse);
     }
 
     public function show_posts(){
@@ -296,10 +275,7 @@ class Menu extends Admin_Controller{
                 'csrf_hash' => $this->security->get_csrf_hash(),
                 'posts' => $posts
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+        return $this->return_api(HTTP_SUCCESS,'',$reponse);
     }
 
     function get_sub_category($id, $char = '', &$sub_cate){

@@ -23,16 +23,10 @@ class Config extends Admin_Controller{
             $count_total_rows_desk = $this->desk_model->count_total_rows();
             $number_desk_status_confirm = $this->set_desk_model->count_total_rows1(2);
 			if($count_total_rows_desk < $this->input->post('total')){
-				return $this->output
-	                        ->set_content_type('application/json')
-	                        ->set_status_header(404)
-	                        ->set_output(json_encode(array('status' => 404,'message' => ERROR_TOTAL_NUMBER_DESK_ONLINE)));
+				return $this->return_api(HTTP_NOT_FOUND,ERROR_TOTAL_NUMBER_DESK_ONLINE);
 			}
 			if($number_desk_status_confirm > $this->input->post('total')){
-				return $this->output
-	                        ->set_content_type('application/json')
-	                        ->set_status_header(404)
-	                        ->set_output(json_encode(array('status' => 404,'message' => ERROR_TOTAL_CONFIRM_TABLE_RESERVATIONS)));
+				return $this->return_api(HTTP_NOT_FOUND,ERROR_TOTAL_CONFIRM_TABLE_RESERVATIONS);
 			}
 			$update = $this->config_model->config_update($this->input->post('total'),"total_number_desk_online");
 	        if($update){
@@ -41,20 +35,11 @@ class Config extends Admin_Controller{
 				$reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(200)
-                    ->set_output(json_encode(array('status' => 200,'reponse' => $reponse, 'isExists' => true)));
+				return $this->return_api(HTTP_SUCCESS,'',$reponse);
 			}
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(404)
-               	->set_output(json_encode(array('status' => 404,'message' => ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE)));
+			return $this->return_api(HTTP_NOT_FOUND,ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE);
 		}else{
-			return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(404)
-                ->set_output(json_encode(array('status' => 404,'message' => ERROR_GREATER_ZERO)));
+			return $this->return_api(HTTP_NOT_FOUND,ERROR_GREATER_ZERO);
 		}
 	}
 

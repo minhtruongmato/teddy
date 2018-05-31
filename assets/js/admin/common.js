@@ -377,10 +377,26 @@ var picker = new Pikaday({
     }
 });
 
-if(window.location.href.indexOf("status/") != '-1'){
-    $('li.treeview.status ul').css("display","block");
-    $('li.treeview.status').addClass('menu-open');
+function check_active_side(param1 = '', param2 = ''){
+    if(param1 != "" ){
+        if(param2 != ""){
+            if(window.location.href.indexOf('admin/'+param1) != '-1' || window.location.href.indexOf('admin/'+param2) != '-1'){
+                $('li.treeview.'+param1+' ul').css("display","block");
+                $('li.treeview.'+param1).addClass('menu-open');
+            }
+        }else{
+            if(window.location.href.indexOf('admin/'+param1) != '-1'){
+                $('li.treeview.'+param1+' ul').css("display","block");
+                $('li.treeview.'+param1).addClass('menu-open');
+            }
+        }
+    }
 }
+check_active_side('set_desk');
+check_active_side('floor','desk');
+check_active_side('product');
+check_active_side('post');
+
 function edit_number_desk_online(){
     $("#total_number_desk_online>span").css("display","none");
     $("#total_number_desk_online>input").css("display","block");

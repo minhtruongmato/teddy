@@ -90,25 +90,13 @@ class Banner extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(HTTP_SUCCESS)
-                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+                    return $this->return_api(HTTP_SUCCESS,'',$reponse);
                 }
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_BAD_REQUEST)
-                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+                return $this->return_api(HTTP_BAD_REQUEST);
             }
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST,'message' => MESSAGE_DEACTIVE_BANNER_ERROR)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_DEACTIVE_BANNER_ERROR);
         }
-        return $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(HTTP_BAD_REQUEST)
-        ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
     public function deactive(){
         $this->load->model('product_model');
@@ -121,25 +109,13 @@ class Banner extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(HTTP_SUCCESS)
-                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+                    return $this->return_api(HTTP_SUCCESS,'',$reponse);
                 }
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_BAD_REQUEST)
-                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+                return $this->return_api(HTTP_BAD_REQUEST);
             }
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST,'message' => MESSAGE_DEACTIVE_BANNER_ERROR)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ERROR_BANNER_ERROR);
         }
-        return $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(HTTP_BAD_REQUEST)
-        ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
 
     public function detail($id){
@@ -175,20 +151,11 @@ class Banner extends Admin_Controller{
                 $reponse = array(
                     'csrf_hash' => $this->security->get_csrf_hash()
                 );
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(HTTP_SUCCESS)
-                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
+                return $this->return_api(HTTP_SUCCESS,MESSAGE_REMOVE_SUCCESS,$reponse);
             }
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(404)
-                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_REMOVE_ERROR);
         }
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(404)
-            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
 
     public function edit($id){
@@ -271,15 +238,9 @@ class Banner extends Admin_Controller{
             if($image != '' && file_exists('assets/upload/product/'.$detail['slug'].'/'.$image)){
                 unlink('assets/upload/product/'.$detail['slug'].'/'.$image);
             }
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+            return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
-            return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(HTTP_BAD_REQUEST)
-                    ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
 
 

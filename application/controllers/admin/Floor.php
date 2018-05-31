@@ -73,18 +73,12 @@ class Floor extends Admin_Controller{
         if($id &&  is_numeric($id) && ($id > 0)){
         $detail = $this->floor_model->find($id);
             if(empty($detail)){
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
+                return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ISSET_ERROR);
             }
             $this->load->model('desk_model');
             $desk = $this->desk_model->find_rows(array("floor_id" => $id,"is_deleted" => 0));
             if($desk != 0){
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => sprintf(MESSAGE_FOREIGN_KEY_ERROR,$desk))));  
+                return $this->return_api(HTTP_NOT_FOUND,sprintf(MESSAGE_FOREIGN_KEY_ERROR,$desk));
             }
             $data = array('is_deleted' => 1);
             $update = $this->floor_model->common_update($id, $data);
@@ -92,20 +86,11 @@ class Floor extends Admin_Controller{
                 $reponse = array(
                     'csrf_hash' => $this->security->get_csrf_hash()
                 );
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(HTTP_SUCCESS)
-                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
+                return $this->return_api(HTTP_SUCCESS,MESSAGE_REMOVE_SUCCESS,$reponse);
             }
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(404)
-                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_REMOVE_ERROR);
         }
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(404)
-            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
 
     public function edit($id){

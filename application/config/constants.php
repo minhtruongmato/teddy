@@ -95,6 +95,7 @@ defined('HTTP_SUCCESS') OR define('HTTP_SUCCESS', 200);
  * HTTP Error code
  */
 defined('HTTP_BAD_REQUEST') OR define('HTTP_BAD_REQUEST', 400);
+defined('HTTP_NOT_FOUND') OR define('HTTP_NOT_FOUND', 404);
 
 /*==============================
 =            Message for Create            =
@@ -161,6 +162,7 @@ defined('MESSAGE_FILE_EXTENSION_ERROR') OR define('MESSAGE_FILE_EXTENSION_ERROR'
  * Message deactive banner
  */
 defined('MESSAGE_DEACTIVE_BANNER_ERROR') OR define('MESSAGE_DEACTIVE_BANNER_ERROR', 'Bạn phải tắt banner!');
+defined('MESSAGE_ERROR_BANNER_ERROR') OR define('MESSAGE_ERROR_BANNER_ERROR', 'Không thể tắt!');
 
 /**
  * Message file extension
@@ -201,6 +203,7 @@ defined('MESSAGE_ERROR_ACTIVE_CATEGORY') OR define('MESSAGE_ERROR_ACTIVE_CATEGOR
  */
 defined('THE_DESK_IS_OVER') OR define('THE_DESK_IS_OVER', 'Số bàn đặt online đã hết');
 defined('ERROR_TOTAL_NUMBER_DESK_ONLINE') OR define('ERROR_TOTAL_NUMBER_DESK_ONLINE', 'Số bàn đặt online còn lại là 0 bạn không thể xác nhận nữa. Vui lòng kiểm tra lại!');
+defined('ERROR_EDIT_STATUS') OR define('ERROR_EDIT_STATUS', 'Không thể thao tác!');
 defined('ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE') OR define('ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE', 'Lỗi update số bàn đặt online');
 defined('ERROR_TOTAL_CONFIRM_TABLE_RESERVATIONS') OR define('ERROR_TOTAL_CONFIRM_TABLE_RESERVATIONS', 'Số bàn đặt online phải lớn hơn hoặc bằng tổng số đơn đặt bàn đã xác nhận');
 defined('ERROR_GREATER_ZERO') OR define('ERROR_GREATER_ZERO', 'Số bàn đặt online phải lớn hơn 0');

@@ -88,10 +88,7 @@ class Set_desk extends Admin_Controller{
         if(!empty($detail)){
             if($detail['status'] > 0 && $detail['status'] < 3 && $this->input->post('status') == 'success'){
                 if(($total_number_desk_online['value']-$number_desk_status_confirm) == 0 && $detail['status'] == 1){
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(404)
-                        ->set_output(json_encode(array('status' => 404,'message' => ERROR_TOTAL_NUMBER_DESK_ONLINE)));
+                    return $this->return_api(HTTP_NOT_FOUND,ERROR_TOTAL_NUMBER_DESK_ONLINE);
 
                 }
                 $update = $this->set_desk_model->common_update($this->input->post('id'),array_merge(array("status" => $detail['status']+1),$this->author_data));
@@ -99,10 +96,7 @@ class Set_desk extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(200)
-                        ->set_output(json_encode(array('status' => 200,'reponse' => $reponse, 'isExists' => true)));
+                    return $this->return_api(HTTP_SUCCESS,'',$reponse);
                 }
             }elseif($detail['status'] > 0 && $detail['status'] < 3 && $this->input->post('status') == 'error'){
                 $update = $this->set_desk_model->common_update($this->input->post('id'),array_merge(array("status" => 0),$this->author_data));
@@ -110,22 +104,13 @@ class Set_desk extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(200)
-                        ->set_output(json_encode(array('status' => 200,'reponse' => $reponse, 'isExists' => true)));
+                    return $this->return_api(HTTP_SUCCESS,'',$reponse);
                 }
             }else{
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404)));
+                return $this->return_api(HTTP_NOT_FOUND,ERROR_EDIT_STATUS);
             }
         }
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(404)
-            ->set_output(json_encode(array('status' => 404)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ISSET_ERROR);
     }
 /*    public function edit_status(){
         $detail = $this->set_desk_model->find($this->input->post('id'));
@@ -223,7 +208,7 @@ class Set_desk extends Admin_Controller{
             return redirect('admin/'.$this->data['controller'],'refresh');
         }
     }
-    function remove($id){
+/*    function remove($id){
         if($id &&  is_numeric($id) && ($id > 0)){
             if($this->set_desk_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
                 $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
@@ -241,5 +226,5 @@ class Set_desk extends Admin_Controller{
         }
         $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
         return redirect('admin/'.$this->data['controller'],'refresh');
-    }
+    }*/
 }
