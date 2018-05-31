@@ -105,6 +105,16 @@
                                                                     <th style="width: 100px">Nội dung: </th>
                                                                     <td><?php echo $detail['content_'. $key] ?></td>
                                                                 </tr>
+                                                            <?php elseif($k == 'metakeywords' && in_array($k, $request_language_template)): ?>
+                                                                <tr>
+                                                                    <th style="width: 100px">Meta Keywords: </th>
+                                                                    <td><?php echo $detail['metakeywords_'. $key] ?></td>
+                                                                </tr>
+                                                            <?php elseif($k == 'metadescription' && in_array($k, $request_language_template)): ?>
+                                                                <tr>
+                                                                    <th style="width: 100px">Meta Description: </th>
+                                                                    <td><?php echo $detail['metadescription_'. $key] ?></td>
+                                                                </tr>
                                                             <?php endif ?>
                                                         </tbody>
                                                     </table>

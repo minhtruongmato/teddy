@@ -12,7 +12,6 @@ if (!function_exists('handle_multi_language_request')) {
     function handle_multi_language_request($foreign_key, $id, $request_language_template, $request, $languages) {
         $list_request = array_keys($request);
         $converted_request = array();
-
         for ($i = 0; $i < count($languages); $i++) {
             $converted_request[$i] = array($foreign_key => $id, 'language' => $languages[$i]);
             for ($j = 0; $j < count($list_request); $j++) {
@@ -77,11 +76,15 @@ if (!function_exists('handle_common_author_data')) {
         $template = array(
             'vi' => array(
                 'title' => 'Tiêu đề',
+                'metakeywords' => 'Từ khóa Meta',
+                'metadescription' => 'Mô tả Meta',
                 'description' => 'Giới Thiệu',
                 'content' => 'Nội Dung'
             ),
             'en' => array(
                 'title' => 'Title',
+                'metakeywords' => 'Meta keywords',
+                'metadescription' => 'Meta description',
                 'description' => 'Description',
                 'content' => 'Content'
             ),

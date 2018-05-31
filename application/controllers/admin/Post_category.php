@@ -5,7 +5,7 @@
 */
 class Post_category extends Admin_Controller{
 	private $request_language_template = array(
-        'title'
+        'title', 'metakeywords', 'metadescription'
     );
     private $author_data = array();
     private $controller = '';
@@ -56,9 +56,6 @@ class Post_category extends Admin_Controller{
         }
         $this->data['result'] = $result;
         $this->data['check'] = $this;
-        
-
-        // print_r($result);die;
         
         $this->render('admin/'. $this->controller .'/list_post_category_view');
     }
@@ -129,9 +126,9 @@ class Post_category extends Admin_Controller{
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $detail = $this->post_category_model->get_by_id($id, array('title'));
+        $detail = $this->post_category_model->get_by_id($id, array('title','metakeywords','metadescription'));
 
-        $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
+        $detail = build_language($this->controller, $detail, array('title','metakeywords','metadescription'), $this->page_languages);
         $parent_title = $this->build_parent_title($detail['parent_id']);
         $detail['parent_title'] = $parent_title;
 
@@ -145,15 +142,14 @@ class Post_category extends Admin_Controller{
     public function edit($id){
         $this->load->helper('form');
         $this->load->library('form_validation');
-
-        $detail = $this->post_category_model->get_by_id($id, array('title'));
-        $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
-        $category = $this->post_category_model->get_by_parent_id_when_active(null,'asc');
+      
+        $detail = $this->post_category_model->get_by_id($id, array('title','metakeywords','metadescription'));
+        $detail = build_language($this->controller, $detail, array('title','metakeywords','metadescription'), $this->page_languages);
+        $category = $this->post_category_model->get_by_parent_id(null,'asc');
 
         $this->data['category'] = $category;
         
         $this->data['detail'] = $detail;
-        
 
         $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
         $this->form_validation->set_rules('title_en', 'Title', 'required');
