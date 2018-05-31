@@ -105,30 +105,23 @@ class Admin_Controller extends MY_Controller {
 
     protected function upload_file($upload_path = '', $file_name = '', $upload_thumb_path = '', $thumbs_with = 500, $thumbs_height = 500) {
         $config = $this->config_file($upload_path);
-
         $image = '';
         $file = $_FILES[$file_name];
         $count = count($file['name']);
         $image_list = array();
         $config_thumb = array();
-
         for ($i = 0; $i < $count; $i++) {
-
             $_FILES['userfile']['name'] = $file['name'][$i];
             $_FILES['userfile']['type'] = $file['type'][$i];
             $_FILES['userfile']['tmp_name'] = $file['tmp_name'][$i];
             $_FILES['userfile']['error'] = $file['error'][$i];
             $_FILES['userfile']['size'] = $file['size'][$i];
-
             $this->load->library('upload', $config);
-
             if ($this->upload->do_upload()) {
                 $data = $this->upload->data();
                 $image_list[] = $data['file_name'];
                 $image = $data['file_name'];
-
                 $this->load->library('image_lib');
-
                 $config['image_library'] = 'gd2';
                 $config_thumb['source_image'] = $upload_path . '/' . $image;
                 $config_thumb['create_thumb'] = TRUE;
@@ -136,13 +129,10 @@ class Admin_Controller extends MY_Controller {
                 $config_thumb['new_image'] = $upload_thumb_path;
                 $config_thumb['width'] = $thumbs_with;
                 $config_thumb['height'] = $thumbs_height;
-
                 $this->image_lib->initialize($config_thumb);
                 $this->image_lib->resize();
                 $this->image_lib->clear();
-
                 $this->image_lib->resize($image);
-                
             }
         }
         return $image_list;

@@ -5,7 +5,7 @@
 */
 class Post extends Admin_Controller{
 	private $request_language_template = array(
-        'title', 'description', 'content'
+        'title', 'description', 'content', 'metakeywords', 'metadescription'
     );
     private $author_data = array();
     private $controller = '';
@@ -98,6 +98,7 @@ class Post extends Admin_Controller{
 
                     $insert = $this->post_model->common_insert($shared_request);
                     if($insert){
+
                         $requests = handle_multi_language_request('post_id', $insert, $this->request_language_template, $this->input->post(), $this->page_languages);
                         $this->post_model->insert_with_language($requests);
                     }
@@ -125,10 +126,10 @@ class Post extends Admin_Controller{
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $detail = $this->post_model->get_by_id($id, array('title', 'description', 'content'));
+        $detail = $this->post_model->get_by_id($id, array('title', 'description', 'content','metakeywords','metadescription'));
         
 
-        $detail = build_language($this->controller, $detail, array('title', 'description', 'content'), $this->page_languages);
+        $detail = build_language($this->controller, $detail, array('title', 'description', 'content','metakeywords','metadescription'), $this->page_languages);
         $parent_title = $this->build_parent_title($detail['post_category_id']);
         $detail['parent_title'] = $parent_title;
 
@@ -142,9 +143,8 @@ class Post extends Admin_Controller{
     public function edit($id){
         $this->load->helper('form');
         $this->load->library('form_validation');
-
-        $detail = $this->post_model->get_by_id($id, array('title', 'description', 'content'));
-        $detail = build_language($this->controller, $detail, array('title', 'description', 'content'), $this->page_languages);
+        $detail = $this->post_model->get_by_id($id, array('title', 'description', 'content','metakeywords','metadescription'));
+        $detail = build_language($this->controller, $detail, array('title', 'description', 'content','metakeywords','metadescription'), $this->page_languages);
         $category = $this->post_category_model->get_by_parent_id(null,'asc');
         
         $this->data['category'] = $category;
