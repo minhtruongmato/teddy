@@ -57,9 +57,6 @@ class Post_category extends Admin_Controller{
         $this->data['result'] = $result;
         $this->data['check'] = $this;
         
-
-        // print_r($result);die;
-        
         $this->render('admin/'. $this->controller .'/list_post_category_view');
     }
 
@@ -67,7 +64,7 @@ class Post_category extends Admin_Controller{
 		$this->load->helper('form');
         $this->load->library('form_validation');
 
-        $post_category = $this->post_category_model->get_by_parent_id(null,'asc');
+        $post_category = $this->post_category_model->get_by_parent_id_when_active(null,'asc');
         $this->data['post_category'] = $post_category;
 
         $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
@@ -145,16 +142,14 @@ class Post_category extends Admin_Controller{
     public function edit($id){
         $this->load->helper('form');
         $this->load->library('form_validation');
-
+      
         $detail = $this->post_category_model->get_by_id($id, array('title','metakeywords','metadescription'));
         $detail = build_language($this->controller, $detail, array('title','metakeywords','metadescription'), $this->page_languages);
         $category = $this->post_category_model->get_by_parent_id(null,'asc');
-        // print_r($detail);die;
 
         $this->data['category'] = $category;
         
         $this->data['detail'] = $detail;
-        
 
         $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
         $this->form_validation->set_rules('title_en', 'Title', 'required');
@@ -228,7 +223,7 @@ class Post_category extends Admin_Controller{
         if(isset($ids)){
             $posts = $this->post_model->get_by_multiple_ids(array_unique($ids), 'vi');
         }
-        if(!isset($posts)){
+        if($posts == null && (count($ids) <= 1)){
             $data = array('is_deleted' => 1);
             $update = $this->post_category_model->common_update($id, $data);
             if($update == 1){
@@ -236,7 +231,7 @@ class Post_category extends Admin_Controller{
                 return $this->output
                 ->set_content_type('application/json')
                 ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => true)));
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS, 'isExisted' => true)));
             }
         }else{
             return $this->output
@@ -253,9 +248,19 @@ class Post_category extends Admin_Controller{
     public function active(){
         $this->load->model('post_model');
         $id = $this->input->post('id');
+        $post_cateogry = $this->post_category_model->find($id);
+        if($post_cateogry['parent_id'] != 0){
+            $parent_id = $this->post_category_model->find($post_cateogry['parent_id']);
+            if($parent_id['is_activated'] == 1){ 
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ERROR_ACTIVE_CATEGORY)));
+            }
+        }
         $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
-        $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
-        $this->get_multiple_posts_with_category($list_categories, $detail_catrgory['id'], $ids);
+        // $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
+        $this->get_multiple_posts_with_category($list_categories, $id, $ids);
         $ids = array_unique($ids);
 
         $data = array('is_activated' => 0);
@@ -290,8 +295,8 @@ class Post_category extends Admin_Controller{
         $this->load->model('post_model');
         $id = $this->input->post('id');
         $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
-        $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
-        $this->get_multiple_posts_with_category($list_categories, $detail_catrgory['id'], $ids);
+        // $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
+        $this->get_multiple_posts_with_category($list_categories, $id, $ids);
         $ids = array_unique($ids);
 
         $data = array('is_activated' => 1);

@@ -50,7 +50,7 @@
                             <?php
                                 echo form_label("Title", "title");
                                 echo form_error("title");
-                                echo form_input("title", set_value("title"), 'class="form-control" id="title"');
+                                echo form_input("title", set_value("title"), 'class="form-control" id="title_vi"');
                             ?>
                         </div>
                         <div class="form-group col-xs-12">
@@ -60,13 +60,13 @@
                                 echo form_input("slot", set_value("slot"), 'class="form-control"');
                             ?>
                         </div>
-                        <div class="form-group col-xs-12">
+                        <!-- <div class="form-group col-xs-12">
                             <?php
                                 echo form_label("Status", "status");
                                 echo form_error("status");
                                 echo form_input("status", set_value("status"), 'class="form-control"');
                             ?>
-                        </div>
+                        </div> -->
                         <?php echo form_submit('submit_shared', 'OK', 'class="btn btn-primary"'); ?>
                         <?php echo form_close(); ?>
                     </div>

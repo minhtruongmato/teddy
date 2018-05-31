@@ -220,7 +220,7 @@ class Post extends Admin_Controller{
             return $this->output
                 ->set_content_type('application/json')
                 ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => true)));
+                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS, 'isExisted' => true)));
         }
             return $this->output
                     ->set_content_type('application/json')
@@ -228,6 +228,72 @@ class Post extends Admin_Controller{
                     ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
     }
 
+    public function active(){
+        $id = $this->input->post('id');
+        if($id &&  is_numeric($id) && ($id > 0)){
+            $post = $this->post_model->find($id);
+            $post_category = $this->post_category_model->find($post['post_category_id']);
+            if($post_category['is_activated'] == 1){
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ERROR_ACTIVE_POST)));
+            }
+            if($this->post_model->find_rows(array('id' => $id,'is_deleted' => 0)) != 0){
+                $update = $this->post_model->common_update($id,array_merge(array('is_activated' => 0),$this->author_data));
+                if($update){
+                    $reponse = array(
+                        'csrf_hash' => $this->security->get_csrf_hash()
+                    );
+                    return $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(HTTP_SUCCESS)
+                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+                }
+                return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_BAD_REQUEST)
+                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            }
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST,'message' => MESSAGE_DEACTIVE_BANNER_ERROR)));
+        }
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(HTTP_BAD_REQUEST)
+        ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+    }
+    public function deactive(){
+        $id = $this->input->post('id');
+        if($id &&  is_numeric($id) && ($id > 0)){
+            if($this->post_model->find_rows(array('id' => $id,'is_deleted' => 0)) != 0){
+                $update = $this->post_model->common_update($id,array_merge(array('is_activated' => 1),$this->author_data));
+                if($update){
+                    $reponse = array(
+                        'csrf_hash' => $this->security->get_csrf_hash()
+                    );
+                    return $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(HTTP_SUCCESS)
+                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+                }
+                return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(HTTP_BAD_REQUEST)
+                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            }
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(HTTP_BAD_REQUEST)
+            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST,'message' => MESSAGE_DEACTIVE_BANNER_ERROR)));
+        }
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(HTTP_BAD_REQUEST)
+        ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+    }
 
     /**
      * [build_parent_title description]

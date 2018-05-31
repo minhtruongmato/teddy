@@ -81,9 +81,9 @@
                                             <th>Trạng Thái</th>
                                             <td>
                                                 <?php if ($detail['is_activated'] == 0): ?>
-                                                    <span class="label label-success" onclick="deactive('product_category', <?php echo $detail['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục" style="cursor: pointer;">Đang sử dụng</span>
+                                                    <span class="label label-success" onclick="deactive('product_category', <?php echo $detail['id'] ?>, 'Chăc chắn tắt danh mục(Lưu ý: Khi tắt danh mục thì tất cả danh mục con và thực đơn của danh mục cũng tắt theo)')" class="dataActionDelete" title="Tắt danh mục" style="cursor: pointer;">Đang sử dụng</span>
                                                 <?php else: ?>
-                                                    <span class="label label-warning" onclick="active('product_category', <?php echo $detail['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và sản phẩm của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục" style="cursor: pointer;">Không sử dụng</span>
+                                                    <span class="label label-warning" onclick="active('product_category', <?php echo $detail['id'] ?>, 'Chăc chắn bật danh mục(Lưu ý: Khi bật danh mục thì tất cả danh mục con và thực đơn của danh mục cũng bật theo)')" class="dataActionDelete" title="Bật danh mục" style="cursor: pointer;">Không sử dụng</span>
                                                 <?php endif ?>
                                             </td>
                                         </tr>

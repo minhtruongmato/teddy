@@ -7,14 +7,14 @@
         <h1>
             Chi tiết
             <small>
-                Sản Phẩm
+                Banner
             </small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#"><i class="fa fa-dashboard"></i> Chi tiết</a></li>
             <li class="active">
-                Sản Phẩm
+                Banner
             </li>
         </ol>
     </section>
@@ -43,9 +43,9 @@
                             <div class="detail-info col-md-6">
                                 <label>Status: </label>
                                 <?php if ($detail['is_activated'] == 0): ?>
-                                    <a href="javascript:void(0);" class="btn btn-success btn-xs" title="Banner đang bật">Đang  sử dụng </a>
+                                    <a class="btn btn-success btn-xs" title="Banner đang bật">Đang  sử dụng </a>
                                 <?php else: ?>
-                                    <a href="<?php echo base_url('admin/'.$controller.'/active/'.$detail['id']) ?>" class="btn btn-warning btn-xs" title="Bật banner">Không sử dụng</a>
+                                    <a class="btn btn-warning btn-xs" title="Banner không sử dụng">Không sử dụng</a>
                                 <?php endif ?>
                             </div>
                             <div class="col-md-12" style="margin-top: 5px;">
@@ -111,7 +111,7 @@
                 <div class="box box-warning">
                     <div class="box-header">
                         <h3 class="box-title">Chỉnh sửa 
-                            Sản Phẩm
+                            Banner
                          này?</h3>
                     </div>
                     <div class="box-body">

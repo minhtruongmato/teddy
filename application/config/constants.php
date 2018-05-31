@@ -192,6 +192,18 @@ defined('MESSAGE_EDIT_ERROR') OR define('MESSAGE_EDIT_ERROR', 'Sửa thất bạ
  * Message Success code
  */
 defined('MESSAGE_ERROR_UPDATE_TURN_ON') OR define('MESSAGE_ERROR_UPDATE_TURN_ON', 'Bạn phải bật Menu cha của Menu hiện tại');
+defined('MESSAGE_ERROR_ACTIVE_PRODUCT') OR define('MESSAGE_ERROR_ACTIVE_PRODUCT', 'Bạn phải bật Danh mục thực đơn của thực đơn hiện tại');
+defined('MESSAGE_ERROR_ACTIVE_POST') OR define('MESSAGE_ERROR_ACTIVE_POST', 'Bạn phải bật Danh mục bài viết của bài viết hiện tại');
+defined('MESSAGE_ERROR_ACTIVE_CATEGORY') OR define('MESSAGE_ERROR_ACTIVE_CATEGORY', 'Bạn phải bật danh mục cha của danh mục hiện tại');
+
+/**
+ * Message check total number desk online
+ */
+defined('THE_DESK_IS_OVER') OR define('THE_DESK_IS_OVER', 'Số bàn đặt online đã hết');
+defined('ERROR_TOTAL_NUMBER_DESK_ONLINE') OR define('ERROR_TOTAL_NUMBER_DESK_ONLINE', 'Số bàn đặt online còn lại là 0 bạn không thể xác nhận nữa. Vui lòng kiểm tra lại!');
+defined('ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE') OR define('ERROR_UPDATE_TOTAL_NUMBER_DESK_ONLINE', 'Lỗi update số bàn đặt online');
+defined('ERROR_TOTAL_CONFIRM_TABLE_RESERVATIONS') OR define('ERROR_TOTAL_CONFIRM_TABLE_RESERVATIONS', 'Số bàn đặt online phải lớn hơn hoặc bằng tổng số đơn đặt bàn đã xác nhận');
+defined('ERROR_GREATER_ZERO') OR define('ERROR_GREATER_ZERO', 'Số bàn đặt online phải lớn hơn 0');
 
 
 /*=====  End of Message for Create  ======*/

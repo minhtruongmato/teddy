@@ -10,7 +10,9 @@ class Set_desk extends Admin_Controller{
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('set_desk_model');
+        $this->load->model('set_desk_model');
+        $this->load->model('config_model');
+		$this->load->model('desk_model');
 		$this->load->helper('common');
         $this->load->helper('file');
         $this->load->helper('email');
@@ -30,8 +32,11 @@ class Set_desk extends Admin_Controller{
         $description = "Cảm ơn bạn đã quan tâm tới TEDDY thông tin đặt bàn của bạn.";
         send_mail("nghemalao@gmail.com","Huongdan1","minhtruong93gtvt@gmail.com","12quyen12@gmail.com",'TEDDY',$description,$content);
     }
-    public function status($status){
-        if(is_numeric($status) && ($status == 0 || $status == 1)){
+    public function status($status = ''){
+        if($status == ''){
+            redirect('admin/'. $this->data['controller'] .'/status/1', 'refresh');
+        }
+        if(is_numeric($status) && ($status >= 0 && $status <= 3)){
             $this->data['keyword'] = '';
             if($this->input->get('search')){
                 $this->data['keyword'] = $this->input->get('search');
@@ -55,6 +60,10 @@ class Set_desk extends Admin_Controller{
             $this->data['page'] = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
             $this->pagination->initialize($config);
             $this->data['page_links'] = $this->pagination->create_links();
+            $this->data['total_number_desk_online'] = $this->config_model->find_name('total_number_desk_online');
+            $this->data['number_desk_status_confirm'] = $this->set_desk_model->count_total_rows1(2);
+            $this->data['count_total_rows_desk'] = $this->desk_model->count_total_rows();
+            $this->data['number_desk_placed_online'] = $this->data['total_number_desk_online']['value'] - $this->data['number_desk_status_confirm'];
             $this->data['result'] = $this->set_desk_model->get_all_search('desc', $per_page, $this->data['page'], $this->data['keyword'],$status,$datetime);
    /*         if(isset($date)){
                 foreach ($this->data['result'] as $key => $value) {
@@ -70,7 +79,55 @@ class Set_desk extends Admin_Controller{
         redirect('admin/'. $this->data['controller'] .'/status/1', 'refresh');
 
     }
+
     public function edit_status(){
+        /*$number_desk_placed_online = $this->config_model->find_name('number_desk_placed_online');*/
+        $number_desk_status_confirm = $this->set_desk_model->count_total_rows1(2);
+        $total_number_desk_online = $this->config_model->find_name('total_number_desk_online');
+        $detail = $this->set_desk_model->find($this->input->post('id'));
+        if(!empty($detail)){
+            if($detail['status'] > 0 && $detail['status'] < 3 && $this->input->post('status') == 'success'){
+                if(($total_number_desk_online['value']-$number_desk_status_confirm) == 0 && $detail['status'] == 1){
+                    return $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(404)
+                        ->set_output(json_encode(array('status' => 404,'message' => ERROR_TOTAL_NUMBER_DESK_ONLINE)));
+
+                }
+                $update = $this->set_desk_model->common_update($this->input->post('id'),array_merge(array("status" => $detail['status']+1),$this->author_data));
+                if($update){
+                    $reponse = array(
+                        'csrf_hash' => $this->security->get_csrf_hash()
+                    );
+                    return $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(200)
+                        ->set_output(json_encode(array('status' => 200,'reponse' => $reponse, 'isExists' => true)));
+                }
+            }elseif($detail['status'] > 0 && $detail['status'] < 3 && $this->input->post('status') == 'error'){
+                $update = $this->set_desk_model->common_update($this->input->post('id'),array_merge(array("status" => 0),$this->author_data));
+                if($update){
+                    $reponse = array(
+                        'csrf_hash' => $this->security->get_csrf_hash()
+                    );
+                    return $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(200)
+                        ->set_output(json_encode(array('status' => 200,'reponse' => $reponse, 'isExists' => true)));
+                }
+            }else{
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404)));
+            }
+        }
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404)
+            ->set_output(json_encode(array('status' => 404)));
+    }
+/*    public function edit_status(){
         $detail = $this->set_desk_model->find($this->input->post('id'));
         if(!empty($detail)){
             if($detail['status'] == 1 && $this->input->post('status') == 'error'){
@@ -95,7 +152,7 @@ class Set_desk extends Admin_Controller{
             ->set_content_type('application/json')
             ->set_status_header(404)
             ->set_output(json_encode(array('status' => 404)));
-    }
+    }*/
 
     public function create(){
         $this->load->helper('form');
@@ -118,10 +175,24 @@ class Set_desk extends Admin_Controller{
                 if($insert){
                     $content ="
                         <h2>Thông Tin Đặt Bàn Tại TEDDY:</h2>
-                        <p><h4>Họ Tên: ".$this->input->post('name')."</h4></p>
-                        <p><h4>Số Điện Thoại: ".$this->input->post('phone')."</h4></p>
-                        <p><h4>Số Người: ".$this->input->post('slot')."</h4></p>
-                        <p><h4>Thời gian: ".$time."</h4></p>
+                        <table><tbody>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Họ Tên</th>
+                                <td>:  ".$this->input->post('name')."</td>
+                            </tr>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Số Điện Thoại</th>
+                                <td>:  ".$this->input->post('phone')."</td>
+                            </tr>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Số Người</th>
+                                <td>:  ".$this->input->post('slot')."</td>
+                            </tr>
+                            <tr style='height:30px;'>
+                                <th style='text-align: left;'>Thời gian</th>
+                                <td>:  ".$time."</td>
+                            </tr>
+                        </tbody></table>
                     ";
                     $description = "Cảm ơn bạn đã quan tâm tới TEDDY thông tin đặt bàn của bạn.";
                     send_mail("nghemalao@gmail.com","Huongdan1","minhtruong93gtvt@gmail.com",$this->input->post('email'),'TEDDY',$description,$content);

@@ -42,9 +42,9 @@ class Banner extends Admin_Controller{
         if($this->input->post()){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('title_vi', 'Tiêu đề', 'required');
-            $this->form_validation->set_rules('title_en', 'Title', 'required');
+            $this->form_validation->set_rules('title_en', 'Title', 'required');/*
             $this->form_validation->set_rules('description_vi', 'Mô tả', 'required');
-            $this->form_validation->set_rules('description_en', 'Description', 'required');
+            $this->form_validation->set_rules('description_en', 'Description', 'required');*/
             if($this->form_validation->run() == TRUE){
                 if(empty($_FILES['image_shared']['name'])){
                     $this->session->set_flashdata('message_error', MESSAGE_EMPTY_IMAGE_ERROR);
@@ -160,27 +160,35 @@ class Banner extends Admin_Controller{
             return redirect('admin/'.$this->data['controller'],'refresh');
         }
     }
-    function remove($id){
+    function remove(){
+        $id = $this->input->post('id');
         if($id &&  is_numeric($id) && ($id > 0)){
-            $product_category = $this->banner_model->get_by_id($id, array('title'));
             if($this->banner_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
-                $this->session->set_flashdata('message_error',MESSAGE_ISSET_ERROR);
-                redirect('admin/banner', 'refresh');
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
             }
-            if($product_category){
-                $data = array('is_deleted' => 1);
-                $update = $this->banner_model->common_update($id, $data);
-                if($update){
-                    $this->session->set_flashdata('message_success',MESSAGE_REMOVE_SUCCESS);
-                    return redirect('admin/'.$this->data['controller'],'refresh');
-                }
-                $this->session->set_flashdata('message_error',MESSAGE_REMOVE_ERROR);
-                return redirect('admin/'.$this->data['controller'],'refresh');
+            $data = array('is_deleted' => 1);
+            $update = $this->banner_model->common_update($id, $data);
+            if($update){
+                $reponse = array(
+                    'csrf_hash' => $this->security->get_csrf_hash()
+                );
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(HTTP_SUCCESS)
+                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
             }
-        }else{
-            $this->session->set_flashdata('message_error',MESSAGE_ID_ERROR);
-            return redirect('admin/'.$this->data['controller'],'refresh');
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(404)
+                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
         }
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404)
+            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
     }
 
     public function edit($id){
@@ -202,9 +210,9 @@ class Banner extends Admin_Controller{
                     if(!empty($_FILES['image_shared']['name'])){
                         $this->check_img($_FILES['image_shared']['name'], $_FILES['image_shared']['size']);
                     }
-                    if(!empty($_FILES['image_shared']['name'])){
-                        $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'.$this->data['controller'], 'assets/upload/'.$this->data['controller'].'/thumb');
+                    if(!empty($_FILES['image_shared']['name'])){                        $image = $this->upload_image('image_shared', $_FILES['image_shared']['name'], 'assets/upload/'.$this->data['controller'], 'assets/upload/'.$this->data['controller'].'/thumb');
                     }
+
                     $shared_request = array();
                     if(isset($image)){
                         $shared_request['image'] = $image;

@@ -72,6 +72,11 @@ function remove(controller, id){
             success: function(response){
                 csrf_hash = response.reponse.csrf_hash;
                 if(response.status == 200 && response.isExisted == true){
+                    console.log(response);
+                    console.log(response.message);
+                    if(response.message != 'undefined'){
+                        alert(response.message);
+                    }
                     $('.remove_' + id).fadeOut();
                 }
                 if(response.status == 200 && response.isExisted == false){
@@ -80,6 +85,10 @@ function remove(controller, id){
             },
             error: function(jqXHR, exception){
                 console.log(errorHandle(jqXHR, exception));
+                if(jqXHR.status == 404 && jqXHR.responseJSON.message != 'undefined'){
+                    alert(jqXHR.responseJSON.message);
+                    location.reload();
+                }
             }
         });
     }
@@ -107,16 +116,26 @@ function active(controller, id, question) {
                         case 'banner' :
                             alert('Bật banner thành công');
                             break;
+                        case 'product' :
+                            alert('Bật thực đơn thành công');
+                            break;
+                        case 'post' :
+                            alert('Bật bài viết thành công');
+                            break;
+                        case 'product_category' :
+                            alert('Bật danh mục thành công');
+                            break;
                     }
                     location.reload();
                 }
+                console.log(response);
             },
             error: function(jqXHR, exception){
-                if(jqXHR.responseJSON.message != 'undefined '){
+                if(jqXHR.status == 404 &&  jqXHR.responseJSON.message != 'undefined '){
                     alert(jqXHR.responseJSON.message);
                     location.reload();
                 }else{
-                    console.log(errorHandle(jqXHR, exception));
+                    // console.log(errorHandle(jqXHR, exception));
                 }
             }
         });
@@ -144,6 +163,15 @@ function deactive(controller, id, question) {
                             break;
                         case 'banner' :
                             alert('Tắt banner thành công');
+                            break;
+                        case 'product' :
+                            alert('Tắt thực đơn thành công');
+                            break;
+                        case 'post' :
+                            alert('Tắt bài viết thành công');
+                            break;
+                        case 'product_category' :
+                            alert('Tắt danh mục thành công');
                             break;
                     }
                     location.reload();
@@ -205,7 +233,6 @@ function active_avatar(controller, image) {
         });
     }
 }
-
 function edit_status(controller,id,status){
     var url = HOSTNAME + 'admin/' + controller + '/edit_status';
     if(confirm('Chắc chắn thay đổi?')){
@@ -219,10 +246,32 @@ function edit_status(controller,id,status){
                 if(response.status == 200){
                     csrf_hash = response.reponse.csrf_hash;
                     $('.status_' + id).fadeOut();
+                    var number = Number($("#number_desk_placed_online").html());
+                    var number_desk_status_confirm = Number($("#number_desk_status_confirm").html());
+                    if(status == "success"){
+                        if(window.location.href.indexOf("status/1") != '-1'){
+                            $("#number_desk_placed_online").html(number-1);
+                            $("#number_desk_status_confirm").html(number_desk_status_confirm+1);
+                            if((number-1) == 0){
+                                $(".update_order.success").attr("disabled","disabled");
+                                $(".update_order.success").html("Không thể xác nhận");
+                            }else{
+                                $(".update_order.success").removeAttr("disabled");
+                                $(".update_order.success").html("Xác nhận");
+                            }
+                        }
+                    }
+                    if(window.location.href.indexOf("status/2") != '-1'){
+                        $("#number_desk_placed_online").html(number+1);
+                        $("#number_desk_status_confirm").html(number_desk_status_confirm-1);
+                    }
                 }
             },
-            error: function(jqXHR, exception){
-                console.log(jqXHR, exception);
+            error: function(exception){
+                if(exception.responseJSON.message != 'undefined'){
+                    alert(exception.responseJSON.message);
+                    location.reload();
+                }
 
             }
         });
@@ -326,6 +375,88 @@ var picker = new Pikaday({
         }
         return `${day}-${month}-${year}`;
     }
+});
+
+if(window.location.href.indexOf("status/") != '-1'){
+    $('li.treeview.status ul').css("display","block");
+    $('li.treeview.status').addClass('menu-open');
+}
+function edit_number_desk_online(){
+    $("#total_number_desk_online>span").css("display","none");
+    $("#total_number_desk_online>input").css("display","block");
+    $("#edit_number_desk_online").css("display","none");
+    $("#update_number_desk_online").css("display","block");
+}
+function update_number_desk_online(){
+    $("#total_number_desk_online>span").css("display","block");
+    $("#total_number_desk_online>input").css("display","none");
+    $("#edit_number_desk_online").css("display","block");
+    $("#update_number_desk_online").css("display","none");
+}
+$("#edit_number_desk_online").click(function(){
+    edit_number_desk_online();
+});
+$("#update_number_desk_online .btn-danger").click(function(){
+        if(confirm('Chắc chắn hủy?')){
+            var total_desk_online_span = Number($("#total_number_desk_online>span").html());
+            $("#total_number_desk_online>input").val(total_desk_online_span);
+            update_number_desk_online();
+            return false;
+        }
+});
+$("#update_number_desk_online .btn-success").click(function(){
+    var total_desk_online_input = Number($("#total_number_desk_online>input").val());
+    var total_desk_online_span = Number($("#total_number_desk_online>span").html());
+    var total_desk = Number($("#count_total_rows_desk span").html());
+    var number_desk_status_confirm = Number($("#number_desk_status_confirm").html());
+    if(total_desk_online_input > total_desk){
+        alert('Số Bàn đặt Online Phải nhỏ hơn hoặc bằng tổng số bàn');
+        $("#total_number_desk_online>input").val(total_desk_online_span);
+        update_number_desk_online();
+        return false;
+    }
+    if(total_desk_online_input < number_desk_status_confirm){
+        alert('Số bàn đặt online phải lớn hơn hoặc bằng tổng số đơn đặt bàn đã xác nhận');
+        $("#total_number_desk_online>input").val(total_desk_online_span);
+        update_number_desk_online();
+        return false;
+    }
+    var url = HOSTNAME + 'admin/config/edit_total_desk_online';
+    if(confirm('Chắc chắn thay đổi?')){
+        $.ajax({
+            method: "post",
+            url: url,
+            data: {
+                total : total_desk_online_input,csrf_teddy_token : csrf_hash
+            },
+            success: function(response){
+                if(response.status == 200){
+                    csrf_hash = response.reponse.csrf_hash;
+                    update_number_desk_online();
+                    $("#total_number_desk_online>span").html(total_desk_online_input);
+                    $("#number_desk_placed_online").html(total_desk_online_input-number_desk_status_confirm);
+                    if(window.location.href.indexOf("status/1") != '-1'){
+                        if($("#number_desk_placed_online").html() == '0'){
+                            $(".update_order.success").attr("disabled","disabled");
+                            $(".update_order.success").html("Không thể xác nhận");
+                        }
+                        if($("#number_desk_placed_online").html() != '0'){
+                            $(".update_order.success").removeAttr("disabled");
+                            $(".update_order.success").html("Xác nhận");
+                        }
+                    }
+                }
+            },
+            error: function(exception){
+                if(exception.responseJSON.message != ''){
+                    alert(exception.responseJSON.message);
+                    location.reload();
+                }
+
+            }
+        });
+    }
+
 });
 // $('.btn-dropdown-cate').each(function(){
 //     if(('.btn-dropdown-cate').hasClass('is_active')){

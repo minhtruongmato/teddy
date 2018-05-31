@@ -5,7 +5,7 @@
         <h1>
             Cập nhật
             <small>
-                Sản Phẩm
+                Thực Đơn
             </small>
         </h1>
     </section>

@@ -31,7 +31,11 @@ class Test extends Public_Controller
 			return;
 		}
 		if($uri1 == 'thuc-don'){
-			$this->get_by_product_for_menu($uri1,$uri2);
+			$product_category = $this->product_category_model->get_all(array('title'));
+			$product = $this->product_model->get_all(array('title','description','content'));
+			echo '<pre>';
+			print_r($product_category);
+			echo '</pre>';die;
 			echo 'thuc-don';
 			return;
 		}

@@ -6,7 +6,7 @@
         <h1>
             Danh sách
             <small>
-                Sản Phẩm
+                Banner
             </small>
         </h1>
     </section>
@@ -33,7 +33,7 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Sản Phẩm
+                            Banner
                         </h3>
                     </div>
 
@@ -94,7 +94,8 @@
 
                                             <a href="<?php echo base_url('admin/'.$controller.'/edit/'. $value['id']) ?>" class="dataActionEdit"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                             &nbsp&nbsp&nbsp
-                                            <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                                            <a href="javascript:void(0);" onclick="remove('<?php echo $controller; ?>', <?php echo $value['id'] ?>)" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a>
+                                            <!-- <a href="<?php echo base_url('admin/'.$controller.'/remove/'.$value['id']); ?>" class="dataActionDelete"><i class="fa fa-remove" aria-hidden="true"></i> </a> -->
                                         </td>
 
                                     </tr>
@@ -110,7 +111,7 @@
                                     </tr>
                                 <?php else: ?>
                                     <tr>
-                                        Chưa có Sản Phẩm
+                                        Chưa có Banner
                                     </tr>
                                 <?php endif; ?>
 
