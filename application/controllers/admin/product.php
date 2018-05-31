@@ -119,10 +119,7 @@ class Product extends Admin_Controller{
         $id = $this->input->post('id');
         if($id &&  is_numeric($id) && ($id > 0)){
             if($this->product_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
+                return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ISSET_ERROR,$reponse);
             }
             $data = array('is_deleted' => 1);
             $update = $this->product_model->common_update($id, $data);
@@ -130,20 +127,11 @@ class Product extends Admin_Controller{
                 $reponse = array(
                     'csrf_hash' => $this->security->get_csrf_hash()
                 );
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(HTTP_SUCCESS)
-                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
+                return $this->return_api(HTTP_SUCCESS,MESSAGE_REMOVE_SUCCESS,$reponse);
             }
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(404)
-                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_REMOVE_ERROR);
         }
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(404)
-            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
     /*function remove($id){
         if($id &&  is_numeric($id) && ($id > 0)){
@@ -270,25 +258,13 @@ class Product extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(HTTP_SUCCESS)
-                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+                    return $this->return_api(HTTP_SUCCESS,'',$reponse);
                 }
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_BAD_REQUEST)
-                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+                return $this->return_api(HTTP_BAD_REQUEST);
             }
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ISSET_ERROR);
         }
-        return $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(HTTP_BAD_REQUEST)
-        ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
     public function deactive(){
         $id = $this->input->post('id');
@@ -299,25 +275,13 @@ class Product extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(HTTP_SUCCESS)
-                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+                    return $this->return_api(HTTP_SUCCESS,'',$reponse);
                 }
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_BAD_REQUEST)
-                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+                return $this->return_api(HTTP_BAD_REQUEST);
             }
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ISSET_ERROR);
         }
-        return $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(HTTP_BAD_REQUEST)
-        ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
     public function remove_image(){
         $id = $this->input->post('id');

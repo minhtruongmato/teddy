@@ -246,6 +246,44 @@ function edit_status(controller,id,status){
                 if(response.status == 200){
                     csrf_hash = response.reponse.csrf_hash;
                     $('.status_' + id).fadeOut();
+                    var number = Number($("#number_desk_placed_online>span").html());
+                    var number_desk_status_confirm = Number($("#number_desk_status_confirm").html());
+                    var number_desk_status_error = Number($("#number_desk_status_error").html());
+                    if(status == "success"){
+                        $("#number_desk_placed_online>span").html(number-1);
+                        $("#number_desk_status_confirm").html(number_desk_status_confirm+1);
+                    }else{
+                        $("#number_desk_placed_online>span").html(number-1);
+                        $("#number_desk_status_error").html(number_desk_status_error+1);
+                    }
+                }
+            },
+            error: function(exception){
+                if(exception.responseJSON.message != 'undefined'){
+                    alert(exception.responseJSON.message);
+                    location.reload();
+                }
+
+            }
+        });
+    }
+}
+
+
+
+/*function edit_status(controller,id,status){
+    var url = HOSTNAME + 'admin/' + controller + '/edit_status';
+    if(confirm('Chắc chắn thay đổi?')){
+        $.ajax({
+            method: "post",
+            url: url,
+            data: {
+                id : id,status : status,csrf_teddy_token : csrf_hash
+            },
+            success: function(response){
+                if(response.status == 200){
+                    csrf_hash = response.reponse.csrf_hash;
+                    $('.status_' + id).fadeOut();
                     var number = Number($("#number_desk_placed_online").html());
                     var number_desk_status_confirm = Number($("#number_desk_status_confirm").html());
                     if(status == "success"){
@@ -276,7 +314,7 @@ function edit_status(controller,id,status){
             }
         });
     }
-}
+}*/
 
 
 
@@ -377,11 +415,34 @@ var picker = new Pikaday({
     }
 });
 
-if(window.location.href.indexOf("status/") != '-1'){
-    $('li.treeview.status ul').css("display","block");
-    $('li.treeview.status').addClass('menu-open');
+function check_active_side(param1 = '', param2 = ''){
+    if(param1 != "" ){
+        if(param2 != ""){
+            if(window.location.href.indexOf('admin/'+param1) != '-1' || window.location.href.indexOf('admin/'+param2) != '-1'){
+                $('li.treeview.'+param1+' ul').css("display","block");
+                $('li.treeview.'+param1).addClass('menu-open');
+            }
+        }else{
+            if(window.location.href.indexOf('admin/'+param1) != '-1'){
+                $('li.treeview.'+param1+' ul').css("display","block");
+                $('li.treeview.'+param1).addClass('menu-open');
+            }
+        }
+    }
 }
-function edit_number_desk_online(){
+check_active_side('set_desk');
+check_active_side('floor','desk');
+check_active_side('product');
+check_active_side('post');
+
+
+
+
+
+
+
+
+/*function edit_number_desk_online(){
     $("#total_number_desk_online>span").css("display","none");
     $("#total_number_desk_online>input").css("display","block");
     $("#edit_number_desk_online").css("display","none");
@@ -457,7 +518,8 @@ $("#update_number_desk_online .btn-success").click(function(){
         });
     }
 
-});
+
+});*/
 // $('.btn-dropdown-cate').each(function(){
 //     if(('.btn-dropdown-cate').hasClass('is_active')){
 //         $('.table-cate').removeAttr('id');

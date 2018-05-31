@@ -227,22 +227,12 @@ class Post_category extends Admin_Controller{
             $data = array('is_deleted' => 1);
             $update = $this->post_category_model->common_update($id, $data);
             if($update == 1){
-                
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS, 'isExisted' => true)));
+                return $this->return_api(HTTP_SUCCESS,MESSAGE_REMOVE_SUCCESS,$reponse);
             }
         }else{
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'isExisted' => false)));
+            return $this->return_api(HTTP_SUCCESS,'',$reponse,false);
         }
-        return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_BAD_REQUEST)
-                ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+        return $this->return_api(HTTP_BAD_REQUEST);
     }
 
     public function active(){
@@ -252,10 +242,7 @@ class Post_category extends Admin_Controller{
         if($post_cateogry['parent_id'] != 0){
             $parent_id = $this->post_category_model->find($post_cateogry['parent_id']);
             if($parent_id['is_activated'] == 1){ 
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ERROR_ACTIVE_CATEGORY)));
+                return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ERROR_ACTIVE_CATEGORY);
             }
         }
         $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
@@ -275,19 +262,13 @@ class Post_category extends Admin_Controller{
 
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_BAD_REQUEST);
         } else {
             $this->db->trans_commit();
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+            return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
     }
 
@@ -311,19 +292,13 @@ class Post_category extends Admin_Controller{
 
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_BAD_REQUEST);
         } else {
             $this->db->trans_commit();
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+            return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
     }
 

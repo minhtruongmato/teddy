@@ -57,7 +57,14 @@
                                         </tr>
                                         <tr>
                                             <th>Status</th>
-                                            <?php if ($detail['status'] == 3): ?>
+                                            <?php if($detail['status'] == 2): ?>
+                                                <td>Success</td>
+                                            <?php elseif($detail['status'] == 1): ?>
+                                                <td>Waiting</td>
+                                            <?php else: ?>
+                                                <td>Error</td>
+                                            <?php endif ?>
+                                            <!-- <?php if ($detail['status'] == 3): ?>
                                                 <td>Success</td>
                                             <?php elseif($detail['status'] == 2): ?>
                                                 <td>Usage</td>
@@ -65,7 +72,7 @@
                                                 <td>Waiting</td>
                                             <?php else: ?>
                                                 <td>Error</td>
-                                            <?php endif ?>
+                                            <?php endif ?> -->
                                         </tr>
 
                                     </table>

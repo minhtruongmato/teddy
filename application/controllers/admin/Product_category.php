@@ -205,26 +205,14 @@ class Product_category extends Admin_Controller{
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
-                    return $this->output
-                        ->set_content_type('application/json')
-                        ->set_status_header(HTTP_SUCCESS)
-                        ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
+                    return $this->return_api(HTTP_SUCCESS,MESSAGE_REMOVE_SUCCESS,$reponse);
                 }
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
+                return $this->return_api(HTTP_NOT_FOUND,MESSAGE_REMOVE_ERROR);
             }else{
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => sprintf(MESSAGE_FOREIGN_KEY_LINK_ERROR,$product,$parent_id))));
+                return $this->return_api(HTTP_NOT_FOUND,sprintf(MESSAGE_FOREIGN_KEY_LINK_ERROR,$product,$parent_id));
             }
         }
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(404)
-            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
 
     public function detail($id){
@@ -256,10 +244,7 @@ class Product_category extends Admin_Controller{
         if($product_cateogry['parent_id'] != 0){
             $parent_id = $this->product_category_model->find($product_cateogry['parent_id']);
             if($parent_id['is_activated'] == 1){ 
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ERROR_ACTIVE_CATEGORY)));
+                return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ERROR_ACTIVE_CATEGORY);
             }
         }
         $list_categories = $this->product_category_model->get_by_parent_id(null, 'asc');
@@ -278,19 +263,13 @@ class Product_category extends Admin_Controller{
 
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_BAD_REQUEST);
         } else {
             $this->db->trans_commit();
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+            return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
     }
 
@@ -313,19 +292,13 @@ class Product_category extends Admin_Controller{
 
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
-            return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(HTTP_BAD_REQUEST)
-            ->set_output(json_encode(array('status' => HTTP_BAD_REQUEST)));
+            return $this->return_api(HTTP_BAD_REQUEST);
         } else {
             $this->db->trans_commit();
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(HTTP_SUCCESS)
-                ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse)));
+            return $this->return_api(HTTP_SUCCESS,'',$reponse);
         }
     }
 

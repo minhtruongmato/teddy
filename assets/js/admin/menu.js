@@ -68,16 +68,16 @@ $('.btn-active-menu').click(function(){
                 csrf_hash = response.reponse.csrf_hash;
                 if(response.status == 200){
                     if($(this).hasClass('btn-success')){
-                        alert(response.message_success);
+                        alert(response.message);
                     }else{
-                        alert(response.message_success);
+                        alert(response.message);
                     }
                     location.reload();
                 }
             },
             error: function(responses){
-                 if(responses.responseJSON.status == 400){
-                    alert(responses.responseJSON.message_warning);
+                 if(responses.responseJSON.status == 404){
+                    alert(responses.responseJSON.message);
                     
                  }
             }

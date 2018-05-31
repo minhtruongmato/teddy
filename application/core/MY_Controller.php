@@ -148,6 +148,13 @@ class Admin_Controller extends MY_Controller {
 
         return $config;
     }
+
+    function return_api($status, $message='', $data = null,$isExisted= true){
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header($status)
+            ->set_output(json_encode(array('status' => $status,'message' => $message , 'reponse' => $data, 'isExisted' => $isExisted)));
+    }
 }
 
 class Public_Controller extends MY_Controller {

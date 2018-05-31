@@ -58,10 +58,7 @@ class Client_gmail extends Admin_Controller{
         $id = $this->input->post('id');
         if($id &&  is_numeric($id) && ($id > 0)){
             if($this->client_gmail_model->find_rows(array('id' => $id,'is_deleted' => 0)) == 0){
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(404)
-                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ISSET_ERROR)));
+                return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ISSET_ERROR);
             }
             $data = array('is_deleted' => 1);
             $update = $this->client_gmail_model->common_update($id, $data);
@@ -69,20 +66,11 @@ class Client_gmail extends Admin_Controller{
                 $reponse = array(
                     'csrf_hash' => $this->security->get_csrf_hash()
                 );
-                return $this->output
-                    ->set_content_type('application/json')
-                    ->set_status_header(HTTP_SUCCESS)
-                    ->set_output(json_encode(array('status' => HTTP_SUCCESS, 'reponse' => $reponse, 'message' => MESSAGE_REMOVE_SUCCESS,'isExisted' => true)));
+                return $this->return_api(HTTP_SUCCESS,MESSAGE_REMOVE_SUCCESS,$reponse);
             }
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(404)
-                ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_REMOVE_ERROR)));
+            return $this->return_api(HTTP_NOT_FOUND,MESSAGE_REMOVE_ERROR);
             
         }
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(404)
-            ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ID_ERROR)));
+        return $this->return_api(HTTP_NOT_FOUND,MESSAGE_ID_ERROR);
     }
 }
