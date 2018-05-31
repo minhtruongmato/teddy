@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<?php echo site_url('assets/lib/dist/img/user.jpg') ?>" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs"><?php echo $username; ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -82,8 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <img src="<?php echo site_url('assets/lib/dist/img/user.jpg') ?>" class="img-circle" alt="User Image">
 
                                 <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                    Xin Chào <?php echo $username; ?>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
