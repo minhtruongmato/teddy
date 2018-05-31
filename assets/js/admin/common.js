@@ -3,10 +3,10 @@ function logout() {
     if (doLogout) {
         $.ajax({
             method: 'GET',
-            url: HOSTNAME + 'admin/user/logout',
+            url: HOSTNAMEADMIN + '/user/logout',
             success: function(response){
                 if(response.status == 200){
-                    window.location.href = HOSTNAME + 'admin/user/login';
+                    window.location.href = HOSTNAMEADMIN + '/user/login';
                 }
             },
             error: function(jqXHR, exception){
@@ -61,7 +61,7 @@ function to_slug(str){
 
 var csrf_hash = $("input[name='csrf_teddy_token']").val();
 function remove(controller, id){
-    var url = HOSTNAME + 'admin/' + controller + '/remove';
+    var url = HOSTNAMEADMIN + '/' + controller + '/remove';
     if(confirm('Chắc chắn xóa?')){
         $.ajax({
             method: "post",
@@ -95,7 +95,7 @@ function remove(controller, id){
 }
 
 function active(controller, id, question) {
-    var url = HOSTNAME + 'admin/' + controller + '/active';
+    var url = HOSTNAMEADMIN + '/' + controller + '/active';
     if(confirm(question)){
         $.ajax({
             method: "post",
@@ -143,7 +143,7 @@ function active(controller, id, question) {
 }
 
 function deactive(controller, id, question) {
-    var url = HOSTNAME + 'admin/' + controller + '/deactive';
+    var url = HOSTNAMEADMIN + '/' + controller + '/deactive';
     if(confirm(question)){
         $.ajax({
             method: "post",
@@ -190,7 +190,7 @@ function deactive(controller, id, question) {
 }
 
 function remove_image(controller, id, image, key){
-    var url = HOSTNAME + 'admin/' + controller + '/remove_image';
+    var url = HOSTNAMEADMIN + '/' + controller + '/remove_image';
     if(confirm('Chắc chắn xóa ảnh này?')){
         $.ajax({
             method: "post",
@@ -213,7 +213,7 @@ function remove_image(controller, id, image, key){
 }
 
 function active_avatar(controller, image) {
-    var url = HOSTNAME + 'admin/' + controller + '/active_avatar';
+    var url = HOSTNAMEADMIN + '/' + controller + '/active_avatar';
     if(confirm('Chọn hình ảnh này làm avatar?')){
         $.ajax({
             method: "post",
@@ -234,7 +234,7 @@ function active_avatar(controller, image) {
     }
 }
 function edit_status(controller,id,status){
-    var url = HOSTNAME + 'admin/' + controller + '/edit_status';
+    var url = HOSTNAMEADMIN + '/' + controller + '/edit_status';
     if(confirm('Chắc chắn thay đổi?')){
         $.ajax({
             method: "post",
@@ -272,7 +272,7 @@ function edit_status(controller,id,status){
 
 
 /*function edit_status(controller,id,status){
-    var url = HOSTNAME + 'admin/' + controller + '/edit_status';
+    var url = HOSTNAMEADMIN + '/' + controller + '/edit_status';
     if(confirm('Chắc chắn thay đổi?')){
         $.ajax({
             method: "post",
@@ -482,7 +482,7 @@ $("#update_number_desk_online .btn-success").click(function(){
         update_number_desk_online();
         return false;
     }
-    var url = HOSTNAME + 'admin/config/edit_total_desk_online';
+    var url = HOSTNAMEADMIN + '/config/edit_total_desk_online';
     if(confirm('Chắc chắn thay đổi?')){
         $.ajax({
             method: "post",
