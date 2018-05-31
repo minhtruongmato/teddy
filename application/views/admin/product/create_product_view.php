@@ -4,7 +4,7 @@
         <h1>
             Thêm mới
             <small>
-                Sản Phẩm
+                Thực Đơn
             </small>
         </h1>
     </section>

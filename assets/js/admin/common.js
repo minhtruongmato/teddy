@@ -116,16 +116,26 @@ function active(controller, id, question) {
                         case 'banner' :
                             alert('Bật banner thành công');
                             break;
+                        case 'product' :
+                            alert('Bật thực đơn thành công');
+                            break;
+                        case 'post' :
+                            alert('Bật bài viết thành công');
+                            break;
+                        case 'product_category' :
+                            alert('Bật danh mục thành công');
+                            break;
                     }
                     location.reload();
                 }
+                console.log(response);
             },
             error: function(jqXHR, exception){
-                if(jqXHR.responseJSON.message != 'undefined '){
+                if(jqXHR.status == 404 &&  jqXHR.responseJSON.message != 'undefined '){
                     alert(jqXHR.responseJSON.message);
                     location.reload();
                 }else{
-                    console.log(errorHandle(jqXHR, exception));
+                    // console.log(errorHandle(jqXHR, exception));
                 }
             }
         });
@@ -153,6 +163,15 @@ function deactive(controller, id, question) {
                             break;
                         case 'banner' :
                             alert('Tắt banner thành công');
+                            break;
+                        case 'product' :
+                            alert('Tắt thực đơn thành công');
+                            break;
+                        case 'post' :
+                            alert('Tắt bài viết thành công');
+                            break;
+                        case 'product_category' :
+                            alert('Tắt danh mục thành công');
                             break;
                     }
                     location.reload();

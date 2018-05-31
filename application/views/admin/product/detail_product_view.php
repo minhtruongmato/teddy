@@ -7,14 +7,14 @@
         <h1>
             Chi tiết
             <small>
-                Sản Phẩm
+                Thực Đơn
             </small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#"><i class="fa fa-dashboard"></i> Chi tiết</a></li>
             <li class="active">
-                Sản Phẩm
+                Thực Đơn
             </li>
         </ol>
     </section>
@@ -147,7 +147,7 @@
                 <div class="box box-warning">
                     <div class="box-header">
                         <h3 class="box-title">Chỉnh sửa 
-                            Sản Phẩm
+                            Thực Đơn
                          này?</h3>
                     </div>
                     <div class="box-body">

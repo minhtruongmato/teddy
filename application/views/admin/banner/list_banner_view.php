@@ -6,7 +6,7 @@
         <h1>
             Danh sách
             <small>
-                Sản Phẩm
+                Banner
             </small>
         </h1>
     </section>
@@ -33,7 +33,7 @@
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Sản Phẩm
+                            Banner
                         </h3>
                     </div>
 
@@ -111,7 +111,7 @@
                                     </tr>
                                 <?php else: ?>
                                     <tr>
-                                        Chưa có Sản Phẩm
+                                        Chưa có Banner
                                     </tr>
                                 <?php endif; ?>
 

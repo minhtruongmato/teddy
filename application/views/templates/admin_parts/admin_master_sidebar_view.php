@@ -64,17 +64,17 @@ if($this->ion_auth->logged_in()) {
                 </li>
                 <li>
                     <a href="<?php echo base_url('admin/product_category') ?>">
-                        <i class="fa fa-inbox"></i> <span>Danh Mục Sản Phẩm</span>
+                        <i class="fa fa-inbox"></i> <span>Danh Mục Thực Đơn</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('admin/product') ?>">
-                        <i class="fa fa-envelope-o"></i> <span>Sản Phẩm</span>
+                        <i class="fa fa-envelope-o"></i> <span>Thực Đơn</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('admin/floor') ?>">
-                        <i class="fa fa-inbox"></i> <span>Danh Mục Tầng</span>
+                        <i class="fa fa-inbox"></i> <span>Tầng</span>
                     </a>
                 </li>
                 <li>

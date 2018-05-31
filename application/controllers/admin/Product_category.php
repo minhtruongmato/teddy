@@ -252,6 +252,16 @@ class Product_category extends Admin_Controller{
     public function active(){
         $this->load->model('product_model');
         $id = $this->input->post('id');
+        $product_cateogry = $this->product_category_model->find($id);
+        if($product_cateogry['parent_id'] != 0){
+            $parent_id = $this->product_category_model->find($product_cateogry['parent_id']);
+            if($parent_id['is_activated'] == 1){ 
+                return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(404)
+                    ->set_output(json_encode(array('status' => 404,'message' => MESSAGE_ERROR_ACTIVE_CATEGORY)));
+            }
+        }
         $list_categories = $this->product_category_model->get_by_parent_id(null, 'asc');
         $this->get_multiple_products_with_category($list_categories, $id, $ids);
         $ids = array_unique($ids);
@@ -288,8 +298,7 @@ class Product_category extends Admin_Controller{
         $this->load->model('product_model');
         $id = $this->input->post('id');
         $list_categories = $this->product_category_model->get_by_parent_id(null, 'asc');
-        $detail_catrgory = $this->product_category_model->get_by_id($id, $this->request_language_template);
-        $this->get_multiple_products_with_category($list_categories, $detail_catrgory['id'], $ids);
+        $this->get_multiple_products_with_category($list_categories, $id, $ids);
         $ids = array_unique($ids);
 
         $data = array('is_activated' => 1);
