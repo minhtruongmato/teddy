@@ -250,6 +250,14 @@ class Post extends Admin_Controller{
             if($this->post_model->find_rows(array('id' => $id,'is_deleted' => 0)) != 0){
                 $update = $this->post_model->common_update($id,array_merge(array('is_activated' => 1),$this->author_data));
                 if($update){
+                    $this->load->model("menu_model");
+                    $post = $this->post_model->find($id);
+                    $menu_model = $this->menu_model->get_where_array(array('slug_post' => $post['slug']));
+                    if(count($menu_model) > 0){
+                        foreach ($menu_model as $key => $value) {
+                            $this->menu_model->common_update($value['id'],array_merge(array('is_activated' => 1),$this->author_data));
+                        }
+                    }
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
                     );
@@ -280,6 +288,16 @@ class Post extends Admin_Controller{
             $title = 'Danh mục gốc';
         }
         return $title;
+    }
+    public function get_by_menu_post_url($url,&$newarray){
+        if(count($this->menu_model->get_by_check_menu_children(0))>0){
+            foreach ($this->menu_model->get_by_check_menu_children(0) as $key => $value) {
+                $url = explode("/", rtrim(str_replace(base_url(),'',$value['url']),"/"));
+                $newarray[] = $url;
+            }
+        }else{
+            echo 2;die;
+        }
     }
 
 

@@ -65,6 +65,13 @@
 <div class="content-wrapper" style="min-height: 916px;">
     <section class="content row">
         <div class="container col-md-12">
+            <?php if ($this->session->flashdata('message_error')): ?>
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+                    <?php echo $this->session->flashdata('message_error'); ?>
+                </div>
+            <?php endif ?>
             <h2>Chỉnh sửa menu <span><?php echo $detail['title_vi']; ?></span></h2>
             <div class="modified-mode">
                 <div class="col-lg-10 col-lg-offset-0">
@@ -245,7 +252,7 @@
         if ($cate_child){
             foreach ($cate_child as $key => $value){
             ?>
-            <option value="<?php echo $value['slug'] ?>" <?php echo($value['slug'] == $slug)? 'selected' : ''?> ><?php echo $char.$value['title'] ?></option>
+            <option value="<?php echo $value['slug'] ?>" <?php echo($value['slug'] == $slug)? 'selected' : ''?> ><?php echo $char.$value['title'] ?><?php echo($value['is_activated'] == 1)? '---(Danh mục hiện đang tắt bạn phải bật danh mục bài viết mà menu đã chọn là menu chính)' : ''?></option>
             
             <?php build_new_category($categorie, $value['id'], $char.'---|', $slug) ?>
             <?php

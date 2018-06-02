@@ -279,6 +279,14 @@ class Post_category extends Admin_Controller{
             return $this->return_api(HTTP_BAD_REQUEST);
         } else {
             $this->db->trans_commit();
+            $this->load->model("menu_model");
+            $post_category = $this->post_category_model->find($id);
+            $menu_model = $this->menu_model->get_where_array(array('slug' => $post_category['slug']));
+            if(count($menu_model) > 0){
+                foreach ($menu_model as $key => $value) {
+                    $this->menu_model->common_update($value['id'],array_merge(array('is_activated' => 1),$this->author_data));
+                }
+            }
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
             );

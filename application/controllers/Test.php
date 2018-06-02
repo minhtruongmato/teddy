@@ -74,7 +74,7 @@ class Test extends Public_Controller
 				}
 				if($value[0] == $uri1 && isset($value[1]) && $uri2 != ''){
 					foreach ($this->show_posts1($uri1) as $k => $val) {
-						if($uri2 == $value[1] && $value[1] == $val['slug']){
+						if($uri2 == $value[1] && $value[1] == $val['slug'] && $val['is_activated'] == 0){
 							return $val;
 						}
 					}
@@ -146,7 +146,7 @@ class Test extends Public_Controller
         
         $this->get_posts_with_category($category_post, $detail['id'], $ids);
         $new_ids = array_unique($ids);
-        return $this->post_model->get_by_multiple_ids($new_ids, 'vi');
+        return $this->post_model->get_by_multiple_ids_when_active($new_ids, 'vi');
     }
 
 
