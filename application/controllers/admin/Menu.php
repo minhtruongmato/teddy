@@ -91,14 +91,14 @@ class Menu extends Admin_Controller{
         $this->load->model('post_category_model');
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $main_category = $this->post_category_model->get_by_parent_id_when_active(null,'asc');
+        $main_category = $this->post_category_model->get_by_parent_id(null,'asc');
         $subs = $this->menu_model->get_by_parent_id($id, 'asc');
         $this->data['subs'] = $subs;
 
         // $this->fetch_posts_for_menu($id, $this->controller, $this->page_languages, $main_category);
         $detail = $this->menu_model->get_by_id($id, array('title'));
         $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
-        $detail_category = $this->post_category_model->get_by_slug($detail['slug']);
+        $detail_category = $this->post_category_model->get_by_slug_check_active($detail['slug']);
         $this->get_posts_with_category($main_category, $detail_category['id'], $ids);
         $new_ids = array_unique($ids);
         $posts = $this->post_model->get_by_multiple_ids(array_unique($new_ids), 'vi');
@@ -117,7 +117,11 @@ class Menu extends Admin_Controller{
             $this->render('admin/'. $this->controller .'/edit_menu_view');
         } else {
             if ($this->input->post()) {
-                $parent = $this->menu_model->get_by_id($detail['parent_id']);
+                if(empty($this->input->post('selectMain_shared'))){
+                    $this->session->set_flashdata('message_error', 'Bạn phải chọn danh mục cho menu chính');
+                    redirect('admin/'. $this->controller .'/edit/'.$detail['id'], 'refresh');
+                }
+                $parent = $this->menu_model->get_by_id($detail['parent_id'],array('title'));
                 if(!empty($parent['id']) && $this->input->post('isActived_shared') == 0 && $parent['is_activated'] == 1){
                     $this->session->set_flashdata('message_error', MESSAGE_ERROR_UPDATE_TURN_ON);
                     redirect('admin/'. $this->controller .'/edit/'.$detail['id'], 'refresh');
@@ -128,6 +132,20 @@ class Menu extends Admin_Controller{
                     'slug' => $this->input->post('selectMain_shared'),
                     'slug_post' => $this->input->post('selectArticle_shared'),
                 );
+                if($this->input->post('isActived_shared') == 0){
+                    $category_post = $this->post_category_model->get_by_slug_check_active($this->input->post('selectMain_shared'));
+                    if(!empty($category_post) && $category_post['is_activated'] == 1){
+                        $this->session->set_flashdata('message_error', 'Bạn phải bật danh mục bài viết mà menu đã chọn (tên danh mục là:'.$category_post['title'].')');
+                        redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
+                    }
+                    if(!empty($this->input->post('selectArticle_shared'))){
+                        $post = $this->post_model->get_by_slug_check_active($this->input->post('selectArticle_shared'));
+                        if(!empty($post) && $post['is_activated'] == 1){
+                            $this->session->set_flashdata('message_error', 'Bạn phải bật bài viết mà bạn đã chọn làm đường dẫn cho menu (tên bài viết là:'.$post['title'].')');
+                            redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
+                        }
+                    }
+                }
                 if($this->input->post('isActived_shared') == 0){
                     $shared_request['check_menu_children'] = 0;
                 }
@@ -221,6 +239,18 @@ class Menu extends Admin_Controller{
             }
             $message_success = 'Tắt Menu thành công';
         }else{
+            $category_post = $this->post_category_model->get_by_slug_check_active($detail['slug']);
+            if(!empty($category_post) && $category_post['is_activated'] == 1){
+                $message_warning = 'Bạn phải bật danh mục bài viết mà menu đã chọn (tên danh mục là:'.$category_post['title'].')';
+                return $this->return_api(HTTP_NOT_FOUND,$message_warning);
+            }
+            if(!empty($detail['slug_post'])){
+                $post = $this->post_model->get_by_slug_check_active($detail['slug_post']);
+                if(!empty($post) && $post['is_activated'] == 1){
+                    $message_warning = 'Bạn phải bật bài viết mà menu đã chọn (tên bài viết là:'.$post['title'].')';
+                    return $this->return_api(HTTP_NOT_FOUND,$message_warning);
+                }
+            }
             $data = array('is_activated' => 0,'check_menu_children' => 0);
             if(!empty($parent)){
                 $this->menu_model->common_update($parent['id'],array_merge(array('check_menu_children' => 1),$this->author_data));

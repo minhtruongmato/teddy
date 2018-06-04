@@ -63,7 +63,11 @@ if (!function_exists('handle_common_author_data')) {
     function build_array_by_slug_for_dropdown($data = array()){
         $new_data = array('' => 'Click để chọn');
         foreach ($data as $key => $value) {
-            $new_data[$value['slug']] = $value['title'];
+            if($value['is_activated'] == 0){
+                $new_data[$value['slug']] = $value['title'];
+            }else{
+                $new_data[$value['slug']] = $value['title'].'---(Bài viết hiện đang tắt để sử dụng vui lòng bật bài viết lên)';
+            }
 
         }
         return $new_data;

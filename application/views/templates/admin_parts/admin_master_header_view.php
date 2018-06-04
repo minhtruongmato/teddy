@@ -74,7 +74,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<?php echo site_url('assets/lib/dist/img/user.jpg') ?>" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php echo $username; ?></span>
+                            <span class="hidden-xs">
+                                <?php 
+                                    if ($this->ion_auth->logged_in()) {
+                                        echo $this->ion_auth->user()->row()->first_name.' '.$this->ion_auth->user()->row()->last_name;
+                                    }
+                                ?> 
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -82,7 +88,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <img src="<?php echo site_url('assets/lib/dist/img/user.jpg') ?>" class="img-circle" alt="User Image">
 
                                 <p>
-                                    Xin Chào <?php echo $username; ?>
+                                    <?php 
+                                    if ($this->ion_auth->logged_in()) {
+                                        echo $this->ion_auth->user()->row()->first_name.' '.$this->ion_auth->user()->row()->last_name;
+                                    }
+                                    ?>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
