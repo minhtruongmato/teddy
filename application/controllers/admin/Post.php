@@ -211,6 +211,12 @@ class Post extends Admin_Controller{
 
     public function remove(){
         $id = $this->input->post('id');
+        $post = $this->post_model->find($id);
+        $this->load->model("menu_model");
+        $menu_model = $this->menu_model->get_where_array(array('slug_post' => $post['slug']));
+        if(count($menu_model) > 0){
+            return $this->return_api(HTTP_NOT_FOUND,sprintf(MESSAGE_ERROR_REMOVE_POST, count($menu_model)));
+        }
         $data = array('is_deleted' => 1);
         $update = $this->post_model->common_update($id, $data);
         if($update == 1){
@@ -254,9 +260,15 @@ class Post extends Admin_Controller{
                     $post = $this->post_model->find($id);
                     $menu_model = $this->menu_model->get_where_array(array('slug_post' => $post['slug']));
                     if(count($menu_model) > 0){
+                        $data = array('is_activated' => 1);
                         foreach ($menu_model as $key => $value) {
-                            $this->menu_model->common_update($value['id'],array_merge(array('is_activated' => 1),$this->author_data));
+                            foreach ($this->get_id_children_and_id($value['id']) as $k => $val) {
+                                $this->menu_model->common_update($val, array_merge($data,$this->author_data));
+                            }
                         }
+                        /*foreach ($menu_model as $key => $value) {
+                            $this->menu_model->common_update($value['id'],array_merge(array('is_activated' => 1),$this->author_data));
+                        }*/
                     }
                     $reponse = array(
                         'csrf_hash' => $this->security->get_csrf_hash()
@@ -298,6 +310,21 @@ class Post extends Admin_Controller{
         }else{
             echo 2;die;
         }
+    }
+    public function get_posts_with_category($categories, $parent_id = 0, &$ids){
+        foreach ($categories as $key => $item){
+            $ids[] = $parent_id;
+            if ($item['parent_id'] == $parent_id){
+                $ids[] = $item['id'];
+                $this->get_posts_with_category($categories, $item['id'], $ids);
+            }
+        }
+    }
+    public function get_id_children_and_id($id){
+        $category_post = $this->menu_model->get_by_parent_id(null, 'asc');
+        $this->get_posts_with_category($category_post, $id, $ids);
+        $new_ids = array_unique($ids);
+        return $new_ids;
     }
 
 

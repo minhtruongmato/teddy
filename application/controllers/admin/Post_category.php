@@ -210,8 +210,14 @@ class Post_category extends Admin_Controller{
     }
 
     public function remove(){
+        $this->load->model("menu_model");
         $this->load->model('post_model');
         $id = $this->input->post('id');
+        $post_category = $this->post_category_model->find($id);
+        $menu_model = $this->menu_model->get_where_array(array('slug' => $post_category['slug']));
+        if(count($menu_model) > 0){
+            return $this->return_api(HTTP_NOT_FOUND,sprintf(MESSAGE_ERROR_REMOVE_POST_CATEGORY, count($menu_model)));
+        }
         $list_categories = $this->post_category_model->get_by_parent_id(null, 'asc');
         $detail_catrgory = $this->post_category_model->get_by_id($id, $this->request_language_template);
         $this->get_multiple_posts_with_category($list_categories, $detail_catrgory['id'], $ids);
@@ -283,9 +289,15 @@ class Post_category extends Admin_Controller{
             $post_category = $this->post_category_model->find($id);
             $menu_model = $this->menu_model->get_where_array(array('slug' => $post_category['slug']));
             if(count($menu_model) > 0){
+                $data = array('is_activated' => 1);
                 foreach ($menu_model as $key => $value) {
-                    $this->menu_model->common_update($value['id'],array_merge(array('is_activated' => 1),$this->author_data));
+                    foreach ($this->get_id_children_and_id($value['id']) as $k => $val) {
+                        $this->menu_model->common_update($val, array_merge($data,$this->author_data));
+                    }
                 }
+/*                foreach ($menu_model as $key => $value) {
+                    $this->menu_model->common_update($value['id'],array_merge(array('is_activated' => 1),$this->author_data));
+                }*/
             }
             $reponse = array(
                 'csrf_hash' => $this->security->get_csrf_hash()
@@ -354,5 +366,20 @@ class Post_category extends Admin_Controller{
                 $this->get_multiple_posts_with_category($categories, $item['id'], $ids);
             }
         }
+    }
+    public function get_posts_with_category($categories, $parent_id = 0, &$ids){
+        foreach ($categories as $key => $item){
+            $ids[] = $parent_id;
+            if ($item['parent_id'] == $parent_id){
+                $ids[] = $item['id'];
+                $this->get_posts_with_category($categories, $item['id'], $ids);
+            }
+        }
+    }
+    public function get_id_children_and_id($id){
+        $category_post = $this->menu_model->get_by_parent_id(null, 'asc');
+        $this->get_posts_with_category($category_post, $id, $ids);
+        $new_ids = array_unique($ids);
+        return $new_ids;
     }
 }
