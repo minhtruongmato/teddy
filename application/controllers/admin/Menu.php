@@ -96,8 +96,8 @@ class Menu extends Admin_Controller{
         $this->data['subs'] = $subs;
 
         // $this->fetch_posts_for_menu($id, $this->controller, $this->page_languages, $main_category);
-        $detail = $this->menu_model->get_by_id($id, array('title'));
-        $detail = build_language($this->controller, $detail, array('title'), $this->page_languages);
+        $detail_menu = $this->menu_model->get_by_id($id, array('title'));
+        $detail = build_language($this->controller, $detail_menu, array('title'), $this->page_languages);
         $detail_category = $this->post_category_model->get_by_slug_check_active($detail['slug']);
         $this->get_posts_with_category($main_category, $detail_category['id'], $ids);
         $new_ids = array_unique($ids);
@@ -117,7 +117,8 @@ class Menu extends Admin_Controller{
             $this->render('admin/'. $this->controller .'/edit_menu_view');
         } else {
             if ($this->input->post()) {
-                if(empty($this->input->post('selectMain_shared'))){
+                $child_menu = $this->menu_model->find_rows(array('parent_id' => $id,'is_activated' => 0,'is_deleted' => 0));
+                if(empty($this->input->post('selectMain_shared')) && $child_menu == 0){
                     $this->session->set_flashdata('message_error', MESSAGE_ERROR_SELECT_ORIGINAL_CATEGORY);
                     redirect('admin/'. $this->controller .'/edit/'.$detail['id'], 'refresh');
                 }
@@ -214,7 +215,7 @@ class Menu extends Admin_Controller{
         return $this->return_api(HTTP_BAD_REQUEST);
     }
 
-	public function sort(){
+    public function sort(){
         $params = array();
         parse_str($this->input->get('sort'), $params);
         $i = 1;

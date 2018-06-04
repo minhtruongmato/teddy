@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
     /*.numberlist{*/
     /*width:450px;*/
@@ -224,13 +225,12 @@
                 axis: 'y',
                 update: function (event, ui) {
                     var data = $(this).sortable('serialize');
-
                     $.ajax({
                         data: {
                             sort: data,
                         },
                         method: 'GET',
-                        url: location.protocol + "//" + location.host + (location.port ? ':' + location.port : '') + "/tuoithantien/admin/menu/sort",
+                        url: location.protocol + "//" + location.host + (location.port ? ':' + location.port : '') + "/teddy/admin/menu/sort",
                     });
                 }
             });
