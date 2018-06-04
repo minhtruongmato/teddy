@@ -118,7 +118,7 @@ class Menu extends Admin_Controller{
         } else {
             if ($this->input->post()) {
                 if(empty($this->input->post('selectMain_shared'))){
-                    $this->session->set_flashdata('message_error', 'Bạn phải chọn danh mục cho menu chính');
+                    $this->session->set_flashdata('message_error', MESSAGE_ERROR_SELECT_ORIGINAL_CATEGORY);
                     redirect('admin/'. $this->controller .'/edit/'.$detail['id'], 'refresh');
                 }
                 $parent = $this->menu_model->get_by_id($detail['parent_id'],array('title'));
@@ -135,13 +135,13 @@ class Menu extends Admin_Controller{
                 if($this->input->post('isActived_shared') == 0){
                     $category_post = $this->post_category_model->get_by_slug_check_active($this->input->post('selectMain_shared'));
                     if(!empty($category_post) && $category_post['is_activated'] == 1){
-                        $this->session->set_flashdata('message_error', 'Bạn phải bật danh mục bài viết mà menu đã chọn (tên danh mục là:'.$category_post['title'].')');
+                        $this->session->set_flashdata('message_error', sprintf(MESSAGE_ERROR_TURN_ON_POST_CATEGORY_FOR_SELECTED, $category_post['title']));
                         redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
                     }
                     if(!empty($this->input->post('selectArticle_shared'))){
                         $post = $this->post_model->get_by_slug_check_active($this->input->post('selectArticle_shared'));
                         if(!empty($post) && $post['is_activated'] == 1){
-                            $this->session->set_flashdata('message_error', 'Bạn phải bật bài viết mà bạn đã chọn làm đường dẫn cho menu (tên bài viết là:'.$post['title'].')');
+                        $this->session->set_flashdata('message_error', sprintf(MESSAGE_ERROR_TURN_ON_POST_FOR_SELECTED, $post['title']));
                             redirect('admin/'. $this->controller .'/edit/' . $id,'refresh');
                         }
                     }
@@ -229,7 +229,7 @@ class Menu extends Admin_Controller{
         $detail = $this->menu_model->get_by_id_wo_lang($id);
         $parent = $this->menu_model->get_by_id_wo_lang($detail['parent_id']);
         if(!empty($parent) && $detail['is_activated'] == 1 && $parent['is_activated'] == 1){
-            $message_warning = 'Bạn phải bật Menu cha của Menu hiện tại';
+            $message_warning = MESSAGE_ERROR_TURN_ON_MENU_PRESENT;
             return $this->return_api(HTTP_NOT_FOUND,$message_warning);
         }
         if($detail['is_activated'] == 0){
@@ -237,17 +237,17 @@ class Menu extends Admin_Controller{
             foreach ($this->get_id_children_and_id($id) as $key => $value) {
                 $update = $this->menu_model->common_update($value, $data);
             }
-            $message_success = 'Tắt Menu thành công';
+            $message_success = MESSAGE_SUCCESS_TURN_OFF;
         }else{
             $category_post = $this->post_category_model->get_by_slug_check_active($detail['slug']);
             if(!empty($category_post) && $category_post['is_activated'] == 1){
-                $message_warning = 'Bạn phải bật danh mục bài viết mà menu đã chọn (tên danh mục là:'.$category_post['title'].')';
+                $message_warning = sprintf(MESSAGE_ERROR_TURN_ON_POST_CATEGORY_FOR_SELECTED, $category_post['title']);
                 return $this->return_api(HTTP_NOT_FOUND,$message_warning);
             }
             if(!empty($detail['slug_post'])){
                 $post = $this->post_model->get_by_slug_check_active($detail['slug_post']);
                 if(!empty($post) && $post['is_activated'] == 1){
-                    $message_warning = 'Bạn phải bật bài viết mà menu đã chọn (tên bài viết là:'.$post['title'].')';
+                    $message_warning = sprintf(MESSAGE_ERROR_TURN_ON_POST_FOR_SELECTED, $post['title']);
                     return $this->return_api(HTTP_NOT_FOUND,$message_warning);
                 }
             }
@@ -256,7 +256,7 @@ class Menu extends Admin_Controller{
                 $this->menu_model->common_update($parent['id'],array_merge(array('check_menu_children' => 1),$this->author_data));
             }
             $update = $this->menu_model->common_update($id, $data);
-            $message_success = 'Bật Menu thành công';
+            $message_success = MESSAGE_SUCCESS_TURN_ON;
         }
         if ($update == 0) {
             return $this->return_api(HTTP_BAD_REQUEST);

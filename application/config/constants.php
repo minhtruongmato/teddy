@@ -215,4 +215,16 @@ defined('ERROR_GREATER_ZERO') OR define('ERROR_GREATER_ZERO', 'Số bàn đặt 
 
 defined('MESSAGE_ERROR_REMOVE_POST') OR define('MESSAGE_ERROR_REMOVE_POST', 'Bạn có %u menu là dạng menu trỏ trực tiếp đến bài viết hiện tại nên bạn không thể xóa.');
 defined('MESSAGE_ERROR_REMOVE_POST_CATEGORY') OR define('MESSAGE_ERROR_REMOVE_POST_CATEGORY', 'Bạn có %u menu chọn danh mục hiện tại là menu chính nên bạn không thể xóa.');
+
+/**
+ * Message menu
+ */
+
+defined('MESSAGE_ERROR_TURN_ON_MENU_PRESENT') OR define('MESSAGE_ERROR_TURN_ON_MENU_PRESENT', 'Bạn phải bật Menu cha của Menu hiện tại');
+defined('MESSAGE_ERROR_TURN_ON_POST_PERSENT') OR define('MESSAGE_ERROR_TURN_ON_POST_PERSENT', '---(Bài viết hiện đang tắt để sử dụng vui lòng bật bài viết lên)');
+defined('MESSAGE_SUCCESS_TURN_ON') OR define('MESSAGE_SUCCESS_TURN_ON', 'Bật Menu thành công');
+defined('MESSAGE_SUCCESS_TURN_OFF') OR define('MESSAGE_SUCCESS_TURN_OFF', 'Tắt Menu thành công');
+defined('MESSAGE_ERROR_SELECT_ORIGINAL_CATEGORY') OR define('MESSAGE_ERROR_SELECT_ORIGINAL_CATEGORY', 'Bạn phải chọn danh mục cho menu chính');
+defined('MESSAGE_ERROR_TURN_ON_POST_CATEGORY_FOR_SELECTED') OR define('MESSAGE_ERROR_TURN_ON_POST_CATEGORY_FOR_SELECTED', 'Bạn phải bật danh mục bài viết mà menu đã chọn (tên danh mục là: %s)');
+defined('MESSAGE_ERROR_TURN_ON_POST_FOR_SELECTED') OR define('MESSAGE_ERROR_TURN_ON_POST_FOR_SELECTED', 'Bạn phải bật bài viết mà bạn đã chọn làm đường dẫn cho menu (tên bài viết là: %s)');
 /*=====  End of Message for Create  ======*/
