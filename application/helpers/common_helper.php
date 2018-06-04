@@ -66,7 +66,7 @@ if (!function_exists('handle_common_author_data')) {
             if($value['is_activated'] == 0){
                 $new_data[$value['slug']] = $value['title'];
             }else{
-                $new_data[$value['slug']] = $value['title'].'---(Bài viết hiện đang tắt để sử dụng vui lòng bật bài viết lên)';
+                $new_data[$value['slug']] = $value['title'].MESSAGE_ERROR_TURN_ON_POST_PERSENT;
             }
 
         }
