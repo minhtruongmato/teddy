@@ -78,7 +78,7 @@ $('.btn-active-menu').click(function(){
             error: function(responses){
                  if(responses.responseJSON.status == 404){
                     alert(responses.responseJSON.message);
-                    
+                    location.reload();
                  }
             }
         });
