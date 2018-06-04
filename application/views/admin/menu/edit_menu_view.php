@@ -173,7 +173,7 @@
     <?php if($detail['slug'] != 'trang-chu' && $detail['slug'] != 'lien-he' && $detail['slug'] != 'thuc-don'): ?>
     <section class="content row">
         <div class="container col-md-12 numberlist">
-                <h2>Danh sách menu con trong menu 
+                <h2>Danh sách menu con trong menu
                     <span><?php echo $detail['title_vi']; ?></span>
                     &nbsp&nbsp&nbsp&nbsp
                     <button type="button" class="btn btn-primary" onclick="location.href='<?php echo base_url('admin/menu/create/' . $detail['id']); ?>'">
@@ -235,11 +235,10 @@
                 }
             });
         });
-        $("#colorpicker").colorpicker();
     </script>
 </div>
 
-<?php 
+<?php
     function build_new_category($categorie, $parent_id = 0, $char = '', $slug){
         $cate_child = array();
         foreach ($categorie as $key => $item){
@@ -253,7 +252,7 @@
             foreach ($cate_child as $key => $value){
             ?>
             <option value="<?php echo $value['slug'] ?>" <?php echo($value['slug'] == $slug)? 'selected' : ''?> ><?php echo $char.$value['title'] ?><?php echo($value['is_activated'] == 1)? '---(Danh mục hiện đang tắt bạn phải bật danh mục bài viết mà menu đã chọn là menu chính)' : ''?></option>
-            
+
             <?php build_new_category($categorie, $value['id'], $char.'---|', $slug) ?>
             <?php
             }
