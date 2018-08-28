@@ -1,0 +1,305 @@
+/*
+===========================
+===========================
+
+MENU STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+#menu{
+    height: 100vh;
+
+    position: relative;
+
+    .background{
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background-image: url("../img/texture-concrete.jpg");
+        background-blend-mode: multiply;
+        background-color: #fff;
+        filter: opacity(10%);
+    }
+
+    .container-fluid{
+        height: 100%;
+
+        .row{
+            height: 100%;
+
+            .left{
+                height: 100%;
+
+                .row{
+                    padding-bottom: 100px;
+                }
+            }
+
+            .right{
+                .row{
+                    .left{
+                        padding-left: 0;
+                        padding-right: 0;
+
+                        .item{
+                            &:first-of-type{
+                                width: 100%;
+                                height: 66.66%;
+                            }
+
+                            &:nth-of-type(2){
+                                width: 100%;
+                                height: 33.33%;
+                            }
+                        }
+                    }
+
+                    .right{
+                        padding-left: 0;
+                        padding-right: 0;
+
+                        .item{
+                            width: 100%;
+                            height: 33.33%;
+                        }
+                    }
+                }
+
+                .item{
+                    .mask{
+                        width: 100%;
+                        height: 100%;
+
+                        position: relative;
+
+                        .cover-title{
+                            position: absolute;
+                            bottom: 30px;
+                            left: 30px;
+
+                            h1{
+                                &.title-lg{
+                                    color: #fff;
+
+                                    text-shadow: 4px 4px 15px $gray-dark;
+                                }
+                            }
+                        }
+
+                        img{
+                            filter: grayscale(100%);
+
+                            @include transition(300ms);
+                        }
+
+
+                    }
+
+                    &:hover{
+                        img{
+                            filter: grayscale(0%);
+
+                            @include transition(300ms);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#menu-detail{
+    .cover{
+        width: 100%;
+        height: 100vh;
+
+        overflow-x: hidden;
+
+        position: relative;
+
+        #leftImage{
+            width: 50%;
+            height: 100%;
+
+            .mask{
+                width: 100%;
+                height: 100%;
+
+                position: relative;
+
+                .overlay{
+                    width: 100%;
+                    height: 100%;
+
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    background-color: #a9a9a9;
+                    opacity: 0.9;
+                }
+            }
+        }
+
+        #mainImage{
+            width: 60%;
+
+            position: absolute;
+            top: 25%;
+            left: 30%;
+
+            z-index: 3;
+
+            .mask{
+                width: 100%;
+                height: 60vh;
+
+                position: relative;
+
+                .cover-title{
+                    position: absolute;
+                    bottom: 30px;
+                    left: 30px;
+
+                    h1{
+                        &.title-lg{
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+
+        #side-title{
+            position: absolute;
+
+            top: 25%;
+            left: 75vw;
+            -webkit-transform: rotateZ(90deg);
+            -moz-transform: rotateZ(90deg);
+            -ms-transform: rotateZ(90deg);
+            -o-transform: rotateZ(90deg);
+            transform: rotateZ(90deg);
+
+            -webkit-transform-origin: top;
+            -moz-transform-origin: top;
+            -ms-transform-origin: top;
+            -o-transform-origin: top;
+            transform-origin: top;
+
+            text-align: right;
+
+            width: 100vh;
+            height: 25vw;
+            overflow: hidden;
+
+            h1{
+                &.title-xlg{
+                    color: $gray-lighter;
+                }
+            }
+        }
+    }
+
+    #description{
+        background-color: $gray-lighter;
+
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    #menu-list{
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        >h2{
+            margin-bottom: 50px;
+        }
+
+        .row{
+            .item{
+                margin-bottom: 30px;
+
+                .inner{
+                    background-color: $gray-lighter;
+
+                    -webkit-box-shadow:  0px 0px 0px $gray-light;
+                    -moz-box-shadow:  0px 0px 0px $gray-light;
+                    box-shadow:  0px 0px 0px $gray-light;
+
+                    @include transition(300ms);
+
+                    h3{
+                        &.subtitle-md{
+                            padding: 15px;
+                        }
+                    }
+
+                    h2{
+                        &.title-md{
+                            margin-bottom: 15px;
+                            padding-left: 15px;
+                            padding-right: 15px;
+
+                            color: $gray-dark;
+
+                            height: fit-content;
+                            -webkit-line-clamp: 4;
+                        }
+                    }
+
+                    p{
+                        &.paragraph{
+                            padding-left: 15px;
+                            padding-right: 15px;
+
+                            color: $gray-light;
+
+                            height: fit-content;
+                            -webkit-line-clamp: 3;
+                        }
+                    }
+
+                    a{
+                        color: $gray-light;
+
+                        &:hover{
+                            color: $gray-dark;
+                        }
+                    }
+
+                    .mask{
+                        width: 100%;
+                        height: 230px;
+
+                        margin-top: 15px;
+
+                        border-bottom: 5px solid $primary;
+                    }
+
+                    &:hover{
+                        -webkit-transform: translateY(-15px);
+                        -moz-transform: translateY(-15px);
+                        -ms-transform: translateY(-15px);
+                        -o-transform: translateY(-15px);
+                        transform: translateY(-15px);
+
+                        -webkit-box-shadow:  0px 4px 15px $gray-light;
+                        -moz-box-shadow:  0px 4px 15px $gray-light;
+                        box-shadow:  0px 4px 15px $gray-light;
+
+                        @include transition(300ms);
+                    }
+                }
+            }
+        }
+    }
+}

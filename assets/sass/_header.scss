@@ -1,0 +1,278 @@
+/*
+===========================
+===========================
+
+MAIN HEADER STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+header{
+    width: 100px;
+    height: 100vh;
+
+    @include transition(300ms);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+
+    nav{
+        width: 100%;
+        height: 100%;
+
+        position: relative;
+
+        .background{
+            width: 100%;
+            height: 100%;
+            background-color: $primary;
+
+            @include transition(300ms);
+        }
+
+        .nav-brand{
+            position: absolute;
+            top: 50px;
+            left: 0px;
+
+            img{
+                width: 80px;
+            }
+        }
+
+        #expand-nav{
+            position: absolute;
+            bottom: 50px;
+            left: 20px;
+
+            width: 100%;
+
+            #btn-nav-expand{
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+                @include transition(300ms);
+
+                span{
+                    &.nav-icon{
+                        width: 25px;
+                        height: 5px;
+
+                        background-color: #fff;
+
+                        display: block;
+
+                        position: relative;
+
+                        @include transition(300ms);
+
+                        &:before, &:after{
+                            content: '';
+                            display:block;
+                            width:30px;
+                            height:5px;
+                            background-color: #fff;
+                            position: absolute;
+
+                            @include transition(300ms);
+                        }
+
+                        &:before {
+                            margin-top:-10px;
+                        }
+
+                        &:after {
+                            margin-top:10px;
+                        }
+                    }
+                }
+
+                &.active{
+                    margin-right: 15px;
+
+                    @include transition(300ms);
+
+                    span{
+                        &.nav-icon{
+                            background-color: transparent;
+
+                            &:before {
+                                margin-top:0;
+                                transform:rotate(45deg);
+                            }
+
+                            &:after {
+                                margin-top:0;
+                                transform:rotate(-45deg);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .nav-main{
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            width: 85%;
+            height: 100%;
+
+            padding: 200px 50px;
+
+            display: none;
+
+            @include transition(300ms);
+
+            .row{
+
+                &.head{
+                    padding-bottom: 50px;
+
+                    .item{
+                        h3{
+                            margin-bottom: 30px;
+
+                            &.subtitle-md{
+                                color: #fff;
+                            }
+                        }
+
+                        ul{
+                            li{
+                                a{
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.body{
+                    .item{
+                        p{
+                            &.paragraph{
+                                color: #fff;
+                            }
+                        }
+
+                        table{
+                            tr{
+                                td{
+                                    border-top-color: transparent;
+                                    color: #fff;
+
+                                    padding-top: 0;
+
+                                    &:first-of-type{
+                                        padding-left: 0;
+                                    }
+
+                                    a{
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                        }
+
+                        .form-control{
+                            color: #fff;
+                            border: none;
+                            background-color: transparent;
+
+                            padding-left: 0;
+                            margin-top: -7px;
+
+                            &:focus{
+                                box-shadow: none;
+                            }
+                        }
+
+                        /* Change color of input */
+                        ::-webkit-input-placeholder{
+                            color: #fff;
+                        }
+
+                        ::-moz-placeholder{
+                            color: #fff;
+                        }
+
+                        :-ms-input-placeholder {
+                            color: #fff;
+                        }
+
+                        :-moz-placeholder{
+                            color: #fff;
+                        }
+
+                        .btn-link{
+                            color: #fff;
+                            padding-left: 0;
+                        }
+                    }
+                }
+
+                &.foot{
+                    .item{
+                        ul{
+                            list-style: none;
+
+                            li{
+                                display: inline-block;
+                                color: #fff;
+
+                                a{
+                                    color: #fff;
+
+                                    &.active{
+                                        font-family: "webFont-b";
+                                        font-size: 1.25rem;
+                                    }
+
+                                    i{
+                                        font-size: 1.25rem;
+
+                                        margin-right: 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.active{
+        width: 100%;
+
+        @include transition(300ms);
+
+        nav{
+            .background{
+                width: 100%;
+                background-color: $secondary;
+
+                @include transition(300ms);
+            }
+
+            .nav-main{
+                display: block;
+
+                @include transition(300ms);
+            }
+        }
+    }
+}

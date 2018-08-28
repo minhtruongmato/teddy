@@ -1,0 +1,23 @@
+/*
+===========================
+===========================
+
+MAIN STYLE FOR ALL PAGES
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+/* Mask */
+
+.mask{
+    overflow: hidden;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

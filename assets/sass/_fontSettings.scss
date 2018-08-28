@@ -1,0 +1,113 @@
+/*
+===========================
+===========================
+
+MAIN FONT SETTINGS
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+@font-face {
+    font-family: 'webFont-r';
+    src: url("../fonts/Exo-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'webFont-b';
+    src: url("../fonts/Exo-Black.ttf");
+}
+
+body{
+    font-family: 'webFont-r';
+    font-size: 1em;
+}
+
+h1{
+    font-family: "webFont-b";
+
+    &.title-xlg{
+        font-size: 14.375rem;
+    }
+
+    &.title-lg{
+        font-size: 4.375rem;
+    }
+}
+
+h2{
+    font-family: "webFont-b";
+
+    &.title-md{
+        font-size: 2.1875rem;
+    }
+
+    &.title-post{
+        font-size: 1.875rem;
+    }
+
+    &.heading-post{
+        font-size: 1.875rem;
+    }
+}
+
+h3{
+    font-family: "webFont-b";
+
+    &.title-sm{
+        font-size: 1.125rem;
+    }
+
+    &.subtitle-md{
+        font-family: "webFont-r";
+        font-size: 1.125rem;
+
+        text-transform: uppercase;
+    }
+}
+
+h4{
+    &.subtitle-sm{
+        font-family: "webFont-r";
+        font-size: 0.875rem;
+    }
+}
+
+p{
+    &.paragraph{
+        font-size: 1rem;
+    }
+
+    &.paragraph-md{
+        font-size: 1.125rem;
+    }
+}
+
+.nav-items{
+    font-family: "webFont-b";
+    font-size: 1.125rem;
+}
+
+.image-caption{
+    font-size: 0.875rem;
+}
+
+.btn{
+    &.btn-primary{
+        font-family: "webFont-b";
+        font-size: 1.125rem;
+    }
+}
+
+.text-wrapper{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    //line-height: 1.5em;
+    //height: 3em;
+    //-webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
