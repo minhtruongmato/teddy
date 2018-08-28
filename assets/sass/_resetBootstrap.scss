@@ -1,0 +1,31 @@
+/*
+===========================
+===========================
+
+RESET BOOTSTRAP
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+ul{
+    padding-left: 0;
+    list-style: none;
+}
+
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+.btn{
+    &.btn-primary{
+        background-color: $primary;
+        border: none;
+
+        padding: 10px 20px;
+    }
+}

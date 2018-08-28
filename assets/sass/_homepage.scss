@@ -1,0 +1,185 @@
+/*
+===========================
+===========================
+
+HOMEPAGE STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+#homepage{
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    .container-fluid{
+        width: 100%;
+        height: 100%;
+
+        padding-left: 0;
+        padding-right: 0;
+
+
+        .slide{
+            &#homepageSlider {
+                width: 100%;
+                height: 100%;
+
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                .carousel-inner {
+                    height: 100%;
+
+                    .background{
+                        width: 100%;
+                        height: 100%;
+
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+
+                        background-image: url("../img/texture-concrete.jpg");
+                        background-blend-mode: multiply;
+                        background-color: #fff;
+                        filter: opacity(10%);
+                    }
+
+                    .carousel-item {
+                        height: 100%;
+
+                        .mask {
+                            width: 100%;
+                            height: 60%;
+
+                            position: absolute;
+                            top: 40%;
+                            left: 0;
+                        }
+
+                        .caption{
+                            width: 75%;
+                            height: 40%;
+
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+
+                            padding-top: 70px;
+                            padding-bottom: 70px;
+                            padding-left: 150px;
+                            padding-right: 150px;
+
+                            h3{
+                                &.subtitle-md{
+                                    margin-bottom: 50px;
+                                }
+                            }
+
+                            h2{
+                                &.title-md{
+                                    margin-bottom: 50px;
+
+                                    line-height: 1.2;
+                                    height: 2.5em;
+                                    -webkit-line-clamp: 2;
+                                }
+                            }
+                        }
+                    }
+
+                    .carousel-extra {
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+
+                        .item {
+                            display: inline-block;
+                            padding: 15px 50px;
+
+                            &.controllers {
+                                background-color: #FAAE1A;
+
+                                a {
+                                    font-family: "webFont-b";
+                                    font-size: 1.25rem;
+                                    text-transform: uppercase;
+
+                                    color: $gray-dark;
+
+                                    &:hover {
+                                        color: $gray;
+                                    }
+                                }
+                            }
+
+                            &.hotline {
+                                background-color: #fff;
+
+                                font-family: "webFont-b";
+                                font-size: 1.25rem;
+                                text-transform: uppercase;
+
+                                a {
+                                    color: $gray-dark;
+
+                                    &:hover {
+                                        color: $gray;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &#homepageSliderCaption{
+                width: 100%;
+                height: 40%;
+
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                .carousel-inner{
+                    padding-left: calc(15vw + 50px);
+                    padding-right: 50px;
+                    padding-top: 70px;
+                    padding-bottom: 70px;
+
+
+                }
+            }
+        }
+    }
+
+    #reservation{
+        width: 25%;
+        height: 40%;
+
+        background-color: $gray-lighter;
+
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        padding: 70px 30px;
+
+        h3{
+            &.subtitle-md{
+                margin-bottom: 50px;
+            }
+        }
+
+        h2{
+            &.title-md{
+                margin-bottom: 50px;
+            }
+        }
+    }
+}

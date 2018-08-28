@@ -1,0 +1,78 @@
+/*
+===========================
+===========================
+
+CONTACT STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+#contact{
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    .container{
+        height: 100%;
+
+        padding-left: 150px;
+
+        .row{
+            height: 100%;
+        }
+    }
+
+    .cover{
+        width: 50%;
+        height: 83.33%;
+
+        position: absolute;
+        top: 50%;
+        left: 0;
+
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+
+        .mask{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    #side-title{
+        position: absolute;
+
+        top: 25%;
+        left: 75vw;
+        -webkit-transform: rotateZ(90deg);
+        -moz-transform: rotateZ(90deg);
+        -ms-transform: rotateZ(90deg);
+        -o-transform: rotateZ(90deg);
+        transform: rotateZ(90deg);
+
+        -webkit-transform-origin: top;
+        -moz-transform-origin: top;
+        -ms-transform-origin: top;
+        -o-transform-origin: top;
+        transform-origin: top;
+
+        text-align: left;
+
+        width: 100vh;
+        height: 25vw;
+        overflow: hidden;
+
+        h1{
+            &.title-xlg{
+                color: $gray-lighter;
+            }
+        }
+    }
+}

@@ -64,7 +64,8 @@ $route['^cn$'] = $route['default_controller'];
 
 if($this->uri->segment(1) == "admin"){
 	$route['admin'] = 'admin/user/login';
-}else{	
-	$route['([a-zA-Z0-9-_]+)'] = 'test/index/$1';
-	$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)'] = 'test/index/$1/$2';
 }
+//else{
+//	$route['([a-zA-Z0-9-_]+)'] = 'test/index/$1';
+//	$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)'] = 'test/index/$1/$2';
+//}

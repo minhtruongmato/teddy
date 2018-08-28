@@ -1,0 +1,175 @@
+/*
+===========================
+===========================
+
+FOOTER STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+
+footer{
+    clear: both;
+
+    background-color: $gray-draker;
+
+    .container-fluid{
+        padding-left: 0;
+        padding-right: 0;
+
+        position: relative;
+
+        .image{
+            height: 100%;
+
+            position: absolute;
+            top: 0;
+
+            .mask{
+                width: 100%;
+                height: 100%;
+            }
+
+            &.left{
+                width: 300px;
+
+                left: 0;
+            }
+
+            &.right{
+                width: 150px;
+
+                right: 0;
+            }
+        }
+    }
+
+    .container{
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        .row{
+            &.head{
+                .item{
+                    ul{
+                        li{
+                            a{
+                                font-family: "webFont-b";
+                                font-size: 1.25rem;
+
+                                color: $gray;
+
+                                &:hover{
+                                    color: #fff;
+                                }
+                            }
+
+                            &:last-of-type{
+                                a{
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+
+                    p{
+                        &.paragraph{
+                            color: #fff;
+                        }
+                    }
+
+                    table{
+                        tr{
+                            td{
+                                border-top-color: transparent;
+                                color: #fff;
+
+                                padding-top: 0;
+
+                                &:first-of-type{
+                                    padding-left: 0;
+                                }
+
+                                a{
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+
+                    .form-control{
+                        color: #fff;
+                        border: none;
+                        background-color: transparent;
+
+                        padding-left: 0;
+                        margin-top: -7px;
+
+                        &:focus{
+                            box-shadow: none;
+                        }
+                    }
+
+                    /* Change color of input */
+                    ::-webkit-input-placeholder{
+                        color: #fff;
+                    }
+
+                    ::-moz-placeholder{
+                        color: #fff;
+                    }
+
+                    :-ms-input-placeholder {
+                        color: #fff;
+                    }
+
+                    :-moz-placeholder{
+                        color: #fff;
+                    }
+
+                    .btn-link{
+                        color: #fff;
+                        padding-left: 0;
+                    }
+                }
+            }
+
+            &.foot{
+                margin-top: 50px;
+
+                p{
+                    &.paragraph{
+                        color: #fff;
+                    }
+                }
+
+                ul{
+                    list-style: none;
+                    text-align: right;
+
+                    li{
+                        display: inline-block;
+                        color: #fff;
+
+                        a{
+                            color: #fff;
+
+                            &.active{
+                                font-family: "webFont-b";
+                                font-size: 1.25rem;
+                            }
+
+                            i{
+                                font-size: 1.25rem;
+
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

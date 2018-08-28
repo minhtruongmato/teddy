@@ -1,0 +1,1127 @@
+/*
+===========================
+===========================
+
+MAIN STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+/*
+===========================
+===========================
+
+MAIN VARIABLES
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+/*
+===========================
+===========================
+
+MAIN MINXINS
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+/*
+===========================
+===========================
+
+MAIN FONT SETTINGS
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+@font-face {
+  font-family: 'webFont-r';
+  src: url("../fonts/Exo-Regular.ttf"); }
+@font-face {
+  font-family: 'webFont-b';
+  src: url("../fonts/Exo-Black.ttf"); }
+body {
+  font-family: 'webFont-r';
+  font-size: 1em; }
+
+h1 {
+  font-family: "webFont-b"; }
+  h1.title-xlg {
+    font-size: 14.375rem; }
+  h1.title-lg {
+    font-size: 4.375rem; }
+
+h2 {
+  font-family: "webFont-b"; }
+  h2.title-md {
+    font-size: 2.1875rem; }
+  h2.title-post {
+    font-size: 1.875rem; }
+  h2.heading-post {
+    font-size: 1.875rem; }
+
+h3 {
+  font-family: "webFont-b"; }
+  h3.title-sm {
+    font-size: 1.125rem; }
+  h3.subtitle-md {
+    font-family: "webFont-r";
+    font-size: 1.125rem;
+    text-transform: uppercase; }
+
+h4.subtitle-sm {
+  font-family: "webFont-r";
+  font-size: 0.875rem; }
+
+p.paragraph {
+  font-size: 1rem; }
+p.paragraph-md {
+  font-size: 1.125rem; }
+
+.nav-items {
+  font-family: "webFont-b";
+  font-size: 1.125rem; }
+
+.image-caption {
+  font-size: 0.875rem; }
+
+.btn.btn-primary {
+  font-family: "webFont-b";
+  font-size: 1.125rem; }
+
+.text-wrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; }
+
+/*
+===========================
+===========================
+
+RESET BOOTSTRAP
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+ul {
+  padding-left: 0;
+  list-style: none; }
+
+a:hover {
+  text-decoration: none; }
+
+.btn.btn-primary {
+  background-color: #ED2024;
+  border: none;
+  padding: 10px 20px; }
+
+/* Master Layout */
+/*
+===========================
+===========================
+
+MAIN HEADER STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+header {
+  width: 100px;
+  height: 100vh;
+  -webkit-transition: all ease-in-out 300ms;
+  -moz-transition: all ease-in-out 300ms;
+  -ms-transition: all ease-in-out 300ms;
+  -o-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px; }
+  header nav {
+    width: 100%;
+    height: 100%;
+    position: relative; }
+    header nav .background {
+      width: 100%;
+      height: 100%;
+      background-color: #ED2024;
+      -webkit-transition: all ease-in-out 300ms;
+      -moz-transition: all ease-in-out 300ms;
+      -ms-transition: all ease-in-out 300ms;
+      -o-transition: all ease-in-out 300ms;
+      transition: all ease-in-out 300ms; }
+    header nav .nav-brand {
+      position: absolute;
+      top: 50px;
+      left: 0px; }
+      header nav .nav-brand img {
+        width: 80px; }
+    header nav #expand-nav {
+      position: absolute;
+      bottom: 50px;
+      left: 20px;
+      width: 100%; }
+      header nav #expand-nav #btn-nav-expand {
+        -webkit-transition: all ease-in-out 300ms;
+        -moz-transition: all ease-in-out 300ms;
+        -ms-transition: all ease-in-out 300ms;
+        -o-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms; }
+        header nav #expand-nav #btn-nav-expand:hover {
+          cursor: pointer; }
+        header nav #expand-nav #btn-nav-expand span.nav-icon {
+          width: 25px;
+          height: 5px;
+          background-color: #fff;
+          display: block;
+          position: relative;
+          -webkit-transition: all ease-in-out 300ms;
+          -moz-transition: all ease-in-out 300ms;
+          -ms-transition: all ease-in-out 300ms;
+          -o-transition: all ease-in-out 300ms;
+          transition: all ease-in-out 300ms; }
+          header nav #expand-nav #btn-nav-expand span.nav-icon:before, header nav #expand-nav #btn-nav-expand span.nav-icon:after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 5px;
+            background-color: #fff;
+            position: absolute;
+            -webkit-transition: all ease-in-out 300ms;
+            -moz-transition: all ease-in-out 300ms;
+            -ms-transition: all ease-in-out 300ms;
+            -o-transition: all ease-in-out 300ms;
+            transition: all ease-in-out 300ms; }
+          header nav #expand-nav #btn-nav-expand span.nav-icon:before {
+            margin-top: -10px; }
+          header nav #expand-nav #btn-nav-expand span.nav-icon:after {
+            margin-top: 10px; }
+        header nav #expand-nav #btn-nav-expand.active {
+          margin-right: 15px;
+          -webkit-transition: all ease-in-out 300ms;
+          -moz-transition: all ease-in-out 300ms;
+          -ms-transition: all ease-in-out 300ms;
+          -o-transition: all ease-in-out 300ms;
+          transition: all ease-in-out 300ms; }
+          header nav #expand-nav #btn-nav-expand.active span.nav-icon {
+            background-color: transparent; }
+            header nav #expand-nav #btn-nav-expand.active span.nav-icon:before {
+              margin-top: 0;
+              transform: rotate(45deg); }
+            header nav #expand-nav #btn-nav-expand.active span.nav-icon:after {
+              margin-top: 0;
+              transform: rotate(-45deg); }
+    header nav .nav-main {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 85%;
+      height: 100%;
+      padding: 200px 50px;
+      display: none;
+      -webkit-transition: all ease-in-out 300ms;
+      -moz-transition: all ease-in-out 300ms;
+      -ms-transition: all ease-in-out 300ms;
+      -o-transition: all ease-in-out 300ms;
+      transition: all ease-in-out 300ms; }
+      header nav .nav-main .row.head {
+        padding-bottom: 50px; }
+        header nav .nav-main .row.head .item h3 {
+          margin-bottom: 30px; }
+          header nav .nav-main .row.head .item h3.subtitle-md {
+            color: #fff; }
+        header nav .nav-main .row.head .item ul li a {
+          color: #fff; }
+      header nav .nav-main .row.body .item {
+        /* Change color of input */ }
+        header nav .nav-main .row.body .item p.paragraph {
+          color: #fff; }
+        header nav .nav-main .row.body .item table tr td {
+          border-top-color: transparent;
+          color: #fff;
+          padding-top: 0; }
+          header nav .nav-main .row.body .item table tr td:first-of-type {
+            padding-left: 0; }
+          header nav .nav-main .row.body .item table tr td a {
+            color: #fff; }
+        header nav .nav-main .row.body .item .form-control {
+          color: #fff;
+          border: none;
+          background-color: transparent;
+          padding-left: 0;
+          margin-top: -7px; }
+          header nav .nav-main .row.body .item .form-control:focus {
+            box-shadow: none; }
+        header nav .nav-main .row.body .item ::-webkit-input-placeholder {
+          color: #fff; }
+        header nav .nav-main .row.body .item ::-moz-placeholder {
+          color: #fff; }
+        header nav .nav-main .row.body .item :-ms-input-placeholder {
+          color: #fff; }
+        header nav .nav-main .row.body .item :-moz-placeholder {
+          color: #fff; }
+        header nav .nav-main .row.body .item .btn-link {
+          color: #fff;
+          padding-left: 0; }
+      header nav .nav-main .row.foot .item ul {
+        list-style: none; }
+        header nav .nav-main .row.foot .item ul li {
+          display: inline-block;
+          color: #fff; }
+          header nav .nav-main .row.foot .item ul li a {
+            color: #fff; }
+            header nav .nav-main .row.foot .item ul li a.active {
+              font-family: "webFont-b";
+              font-size: 1.25rem; }
+            header nav .nav-main .row.foot .item ul li a i {
+              font-size: 1.25rem;
+              margin-right: 10px; }
+  header.active {
+    width: 100%;
+    -webkit-transition: all ease-in-out 300ms;
+    -moz-transition: all ease-in-out 300ms;
+    -ms-transition: all ease-in-out 300ms;
+    -o-transition: all ease-in-out 300ms;
+    transition: all ease-in-out 300ms; }
+    header.active nav .background {
+      width: 100%;
+      background-color: #29256A;
+      -webkit-transition: all ease-in-out 300ms;
+      -moz-transition: all ease-in-out 300ms;
+      -ms-transition: all ease-in-out 300ms;
+      -o-transition: all ease-in-out 300ms;
+      transition: all ease-in-out 300ms; }
+    header.active nav .nav-main {
+      display: block;
+      -webkit-transition: all ease-in-out 300ms;
+      -moz-transition: all ease-in-out 300ms;
+      -ms-transition: all ease-in-out 300ms;
+      -o-transition: all ease-in-out 300ms;
+      transition: all ease-in-out 300ms; }
+
+/*
+===========================
+===========================
+
+MAIN STYLE FOR ALL PAGES
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+/* Mask */
+.mask {
+  overflow: hidden; }
+  .mask img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+
+/*
+===========================
+===========================
+
+FOOTER STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+footer {
+  clear: both;
+  background-color: #2e2e2e; }
+  footer .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+    position: relative; }
+    footer .container-fluid .image {
+      height: 100%;
+      position: absolute;
+      top: 0; }
+      footer .container-fluid .image .mask {
+        width: 100%;
+        height: 100%; }
+      footer .container-fluid .image.left {
+        width: 300px;
+        left: 0; }
+      footer .container-fluid .image.right {
+        width: 150px;
+        right: 0; }
+  footer .container {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    footer .container .row.head .item {
+      /* Change color of input */ }
+      footer .container .row.head .item ul li a {
+        font-family: "webFont-b";
+        font-size: 1.25rem;
+        color: #666; }
+        footer .container .row.head .item ul li a:hover {
+          color: #fff; }
+      footer .container .row.head .item ul li:last-of-type a {
+        color: #fff; }
+      footer .container .row.head .item p.paragraph {
+        color: #fff; }
+      footer .container .row.head .item table tr td {
+        border-top-color: transparent;
+        color: #fff;
+        padding-top: 0; }
+        footer .container .row.head .item table tr td:first-of-type {
+          padding-left: 0; }
+        footer .container .row.head .item table tr td a {
+          color: #fff; }
+      footer .container .row.head .item .form-control {
+        color: #fff;
+        border: none;
+        background-color: transparent;
+        padding-left: 0;
+        margin-top: -7px; }
+        footer .container .row.head .item .form-control:focus {
+          box-shadow: none; }
+      footer .container .row.head .item ::-webkit-input-placeholder {
+        color: #fff; }
+      footer .container .row.head .item ::-moz-placeholder {
+        color: #fff; }
+      footer .container .row.head .item :-ms-input-placeholder {
+        color: #fff; }
+      footer .container .row.head .item :-moz-placeholder {
+        color: #fff; }
+      footer .container .row.head .item .btn-link {
+        color: #fff;
+        padding-left: 0; }
+    footer .container .row.foot {
+      margin-top: 50px; }
+      footer .container .row.foot p.paragraph {
+        color: #fff; }
+      footer .container .row.foot ul {
+        list-style: none;
+        text-align: right; }
+        footer .container .row.foot ul li {
+          display: inline-block;
+          color: #fff; }
+          footer .container .row.foot ul li a {
+            color: #fff; }
+            footer .container .row.foot ul li a.active {
+              font-family: "webFont-b";
+              font-size: 1.25rem; }
+            footer .container .row.foot ul li a i {
+              font-size: 1.25rem;
+              margin-right: 10px; }
+
+/* Pages */
+/*
+===========================
+===========================
+
+HOMEPAGE STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+#homepage {
+  width: 100%;
+  height: 100vh;
+  position: relative; }
+  #homepage .container-fluid {
+    width: 100%;
+    height: 100%;
+    padding-left: 0;
+    padding-right: 0; }
+    #homepage .container-fluid .slide#homepageSlider {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0; }
+      #homepage .container-fluid .slide#homepageSlider .carousel-inner {
+        height: 100%; }
+        #homepage .container-fluid .slide#homepageSlider .carousel-inner .background {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-image: url("../img/texture-concrete.jpg");
+          background-blend-mode: multiply;
+          background-color: #fff;
+          filter: opacity(10%); }
+        #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item {
+          height: 100%; }
+          #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .mask {
+            width: 100%;
+            height: 60%;
+            position: absolute;
+            top: 40%;
+            left: 0; }
+          #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption {
+            width: 75%;
+            height: 40%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding-top: 70px;
+            padding-bottom: 70px;
+            padding-left: 150px;
+            padding-right: 150px; }
+            #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h3.subtitle-md {
+              margin-bottom: 50px; }
+            #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h2.title-md {
+              margin-bottom: 50px;
+              line-height: 1.2;
+              height: 2.5em;
+              -webkit-line-clamp: 2; }
+        #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra {
+          position: absolute;
+          bottom: 0;
+          right: 0; }
+          #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item {
+            display: inline-block;
+            padding: 15px 50px; }
+            #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item.controllers {
+              background-color: #FAAE1A; }
+              #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item.controllers a {
+                font-family: "webFont-b";
+                font-size: 1.25rem;
+                text-transform: uppercase;
+                color: #333; }
+                #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item.controllers a:hover {
+                  color: #666; }
+            #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item.hotline {
+              background-color: #fff;
+              font-family: "webFont-b";
+              font-size: 1.25rem;
+              text-transform: uppercase; }
+              #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item.hotline a {
+                color: #333; }
+                #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item.hotline a:hover {
+                  color: #666; }
+    #homepage .container-fluid .slide#homepageSliderCaption {
+      width: 100%;
+      height: 40%;
+      position: absolute;
+      top: 0;
+      left: 0; }
+      #homepage .container-fluid .slide#homepageSliderCaption .carousel-inner {
+        padding-left: calc(15vw + 50px);
+        padding-right: 50px;
+        padding-top: 70px;
+        padding-bottom: 70px; }
+  #homepage #reservation {
+    width: 25%;
+    height: 40%;
+    background-color: #e7e7e7;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 70px 30px; }
+    #homepage #reservation h3.subtitle-md {
+      margin-bottom: 50px; }
+    #homepage #reservation h2.title-md {
+      margin-bottom: 50px; }
+
+/*
+===========================
+===========================
+
+ABOUT STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+#about {
+  width: 100%;
+  height: 100vh; }
+  #about .background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../img/texture-concrete.jpg");
+    background-blend-mode: multiply;
+    background-color: #fff;
+    filter: opacity(10%); }
+  #about .container-fluid {
+    height: 100%;
+    padding-right: 0;
+    padding-left: 150px; }
+    #about .container-fluid .row {
+      height: 100%;
+      margin-left: 0;
+      margin-right: 0; }
+      #about .container-fluid .row .item {
+        padding-left: 0;
+        padding-right: 0; }
+        #about .container-fluid .row .item .mask {
+          width: 100%;
+          height: 100%;
+          position: relative; }
+          #about .container-fluid .row .item .mask .cover-title {
+            position: absolute;
+            bottom: 30px;
+            left: 30px; }
+            #about .container-fluid .row .item .mask .cover-title h1.title-lg {
+              color: #fff;
+              text-shadow: 4px 4px 15px #333; }
+          #about .container-fluid .row .item .mask img {
+            filter: grayscale(100%);
+            -webkit-transition: all ease-in-out 300ms;
+            -moz-transition: all ease-in-out 300ms;
+            -ms-transition: all ease-in-out 300ms;
+            -o-transition: all ease-in-out 300ms;
+            transition: all ease-in-out 300ms; }
+        #about .container-fluid .row .item:hover img {
+          filter: grayscale(0%);
+          -webkit-transition: all ease-in-out 300ms;
+          -moz-transition: all ease-in-out 300ms;
+          -ms-transition: all ease-in-out 300ms;
+          -o-transition: all ease-in-out 300ms;
+          transition: all ease-in-out 300ms; }
+
+#about-detail .cover {
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 40px;
+  position: relative; }
+  #about-detail .cover .mask {
+    width: 100%;
+    height: 100%; }
+  #about-detail .cover .cover-title {
+    width: 50%;
+    padding: 70px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 40px;
+    right: 0; }
+    #about-detail .cover .cover-title h3.subtitle-md {
+      margin-bottom: 50px; }
+    #about-detail .cover .cover-title h2.title-md {
+      margin-bottom: 30px; }
+    #about-detail .cover .cover-title p.paragraph {
+      color: #999; }
+#about-detail #description {
+  padding-top: 100px;
+  padding-bottom: 100px; }
+#about-detail .break-image {
+  width: 100%;
+  height: 500px; }
+  #about-detail .break-image .mask {
+    width: 100%;
+    height: 100%; }
+#about-detail .content {
+  padding-top: 100px;
+  padding-bottom: 100px; }
+  #about-detail .content article h2.heading-post {
+    width: 25%;
+    float: left;
+    margin-left: 8.33%;
+    padding: 0 15px; }
+  #about-detail .content article p.paragraph {
+    width: 58.33%;
+    float: right;
+    margin-right: 8.33%;
+    padding: 0 15px; }
+  #about-detail .content article img {
+    width: 100%;
+    margin: 30px 0; }
+#about-detail .recommend {
+  clear: both;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #e7e7e7; }
+  #about-detail .recommend .container {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    #about-detail .recommend .container .row {
+      margin-top: 30px; }
+      #about-detail .recommend .container .row .item h2.title-md {
+        margin-bottom: 15px;
+        color: #333; }
+      #about-detail .recommend .container .row .item p.paragraph {
+        color: #999;
+        height: fit-content;
+        -webkit-line-clamp: 3; }
+      #about-detail .recommend .container .row .item a {
+        color: #999; }
+        #about-detail .recommend .container .row .item a:hover {
+          color: #333; }
+      #about-detail .recommend .container .row .item .mask {
+        width: 100%;
+        height: 150px;
+        margin-top: 15px; }
+
+/*
+===========================
+===========================
+
+MENU STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+#menu {
+  height: 100vh;
+  position: relative; }
+  #menu .background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../img/texture-concrete.jpg");
+    background-blend-mode: multiply;
+    background-color: #fff;
+    filter: opacity(10%); }
+  #menu .container-fluid {
+    height: 100%; }
+    #menu .container-fluid .row {
+      height: 100%; }
+      #menu .container-fluid .row .left {
+        height: 100%; }
+        #menu .container-fluid .row .left .row {
+          padding-bottom: 100px; }
+      #menu .container-fluid .row .right .row .left {
+        padding-left: 0;
+        padding-right: 0; }
+        #menu .container-fluid .row .right .row .left .item:first-of-type {
+          width: 100%;
+          height: 66.66%; }
+        #menu .container-fluid .row .right .row .left .item:nth-of-type(2) {
+          width: 100%;
+          height: 33.33%; }
+      #menu .container-fluid .row .right .row .right {
+        padding-left: 0;
+        padding-right: 0; }
+        #menu .container-fluid .row .right .row .right .item {
+          width: 100%;
+          height: 33.33%; }
+      #menu .container-fluid .row .right .item .mask {
+        width: 100%;
+        height: 100%;
+        position: relative; }
+        #menu .container-fluid .row .right .item .mask .cover-title {
+          position: absolute;
+          bottom: 30px;
+          left: 30px; }
+          #menu .container-fluid .row .right .item .mask .cover-title h1.title-lg {
+            color: #fff;
+            text-shadow: 4px 4px 15px #333; }
+        #menu .container-fluid .row .right .item .mask img {
+          filter: grayscale(100%);
+          -webkit-transition: all ease-in-out 300ms;
+          -moz-transition: all ease-in-out 300ms;
+          -ms-transition: all ease-in-out 300ms;
+          -o-transition: all ease-in-out 300ms;
+          transition: all ease-in-out 300ms; }
+      #menu .container-fluid .row .right .item:hover img {
+        filter: grayscale(0%);
+        -webkit-transition: all ease-in-out 300ms;
+        -moz-transition: all ease-in-out 300ms;
+        -ms-transition: all ease-in-out 300ms;
+        -o-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms; }
+
+#menu-detail .cover {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  position: relative; }
+  #menu-detail .cover #leftImage {
+    width: 50%;
+    height: 100%; }
+    #menu-detail .cover #leftImage .mask {
+      width: 100%;
+      height: 100%;
+      position: relative; }
+      #menu-detail .cover #leftImage .mask .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #a9a9a9;
+        opacity: 0.9; }
+  #menu-detail .cover #mainImage {
+    width: 60%;
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    z-index: 3; }
+    #menu-detail .cover #mainImage .mask {
+      width: 100%;
+      height: 60vh;
+      position: relative; }
+      #menu-detail .cover #mainImage .mask .cover-title {
+        position: absolute;
+        bottom: 30px;
+        left: 30px; }
+        #menu-detail .cover #mainImage .mask .cover-title h1.title-lg {
+          color: #fff; }
+  #menu-detail .cover #side-title {
+    position: absolute;
+    top: 25%;
+    left: 75vw;
+    -webkit-transform: rotateZ(90deg);
+    -moz-transform: rotateZ(90deg);
+    -ms-transform: rotateZ(90deg);
+    -o-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+    -webkit-transform-origin: top;
+    -moz-transform-origin: top;
+    -ms-transform-origin: top;
+    -o-transform-origin: top;
+    transform-origin: top;
+    text-align: right;
+    width: 100vh;
+    height: 25vw;
+    overflow: hidden; }
+    #menu-detail .cover #side-title h1.title-xlg {
+      color: #e7e7e7; }
+#menu-detail #description {
+  background-color: #e7e7e7;
+  padding-top: 100px;
+  padding-bottom: 100px; }
+#menu-detail #menu-list {
+  padding-top: 50px;
+  padding-bottom: 50px; }
+  #menu-detail #menu-list > h2 {
+    margin-bottom: 50px; }
+  #menu-detail #menu-list .row .item {
+    margin-bottom: 30px; }
+    #menu-detail #menu-list .row .item .inner {
+      background-color: #e7e7e7;
+      -webkit-box-shadow: 0px 0px 0px #999;
+      -moz-box-shadow: 0px 0px 0px #999;
+      box-shadow: 0px 0px 0px #999;
+      -webkit-transition: all ease-in-out 300ms;
+      -moz-transition: all ease-in-out 300ms;
+      -ms-transition: all ease-in-out 300ms;
+      -o-transition: all ease-in-out 300ms;
+      transition: all ease-in-out 300ms; }
+      #menu-detail #menu-list .row .item .inner h3.subtitle-md {
+        padding: 15px; }
+      #menu-detail #menu-list .row .item .inner h2.title-md {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #333;
+        height: fit-content;
+        -webkit-line-clamp: 4; }
+      #menu-detail #menu-list .row .item .inner p.paragraph {
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #999;
+        height: fit-content;
+        -webkit-line-clamp: 3; }
+      #menu-detail #menu-list .row .item .inner a {
+        color: #999; }
+        #menu-detail #menu-list .row .item .inner a:hover {
+          color: #333; }
+      #menu-detail #menu-list .row .item .inner .mask {
+        width: 100%;
+        height: 230px;
+        margin-top: 15px;
+        border-bottom: 5px solid #ED2024; }
+      #menu-detail #menu-list .row .item .inner:hover {
+        -webkit-transform: translateY(-15px);
+        -moz-transform: translateY(-15px);
+        -ms-transform: translateY(-15px);
+        -o-transform: translateY(-15px);
+        transform: translateY(-15px);
+        -webkit-box-shadow: 0px 4px 15px #999;
+        -moz-box-shadow: 0px 4px 15px #999;
+        box-shadow: 0px 4px 15px #999;
+        -webkit-transition: all ease-in-out 300ms;
+        -moz-transition: all ease-in-out 300ms;
+        -ms-transition: all ease-in-out 300ms;
+        -o-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms; }
+
+/*
+===========================
+===========================
+
+BLOGS STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+#blogs .cover {
+  width: 100%;
+  height: 75vh;
+  padding-bottom: 40px;
+  position: relative; }
+  #blogs .cover .mask {
+    width: 100%;
+    height: 100%; }
+  #blogs .cover .cover-title {
+    width: 50%;
+    padding: 70px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: 0; }
+    #blogs .cover .cover-title h3.subtitle-md {
+      margin-bottom: 50px; }
+    #blogs .cover .cover-title h2.title-md {
+      margin-bottom: 30px; }
+    #blogs .cover .cover-title p.paragraph {
+      color: #999; }
+#blogs .container {
+  padding-top: 100px;
+  padding-bottom: 150px; }
+  #blogs .container .row .left .row .item .inner {
+    background-color: #e7e7e7; }
+    #blogs .container .row .left .row .item .inner .badge {
+      color: #fff;
+      margin: 20px 15px;
+      padding: 0.5em 1em;
+      font-family: "webFont-r";
+      font-size: 0.875rem;
+      text-transform: uppercase; }
+      #blogs .container .row .left .row .item .inner .badge.news {
+        background-color: #ED2024; }
+      #blogs .container .row .left .row .item .inner .badge.recruitment {
+        background-color: #29256A; }
+    #blogs .container .row .left .row .item .inner h2.heading-post {
+      margin-bottom: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+      color: #333;
+      height: fit-content;
+      -webkit-line-clamp: 2; }
+    #blogs .container .row .left .row .item .inner p.paragraph {
+      padding-left: 15px;
+      padding-right: 15px;
+      color: #999;
+      height: fit-content;
+      -webkit-line-clamp: 3; }
+    #blogs .container .row .left .row .item .inner a {
+      padding-left: 15px;
+      padding-right: 15px;
+      color: #999; }
+      #blogs .container .row .left .row .item .inner a:hover {
+        color: #333; }
+    #blogs .container .row .left .row .item .inner .mask {
+      width: 100%;
+      height: 230px;
+      margin-top: 15px;
+      border-bottom: 5px solid #ED2024; }
+      #blogs .container .row .left .row .item .inner .mask a {
+        padding-left: 0; }
+  #blogs .container .row .right ul li a {
+    font-family: "webFont-b";
+    font-size: 1.5rem;
+    color: #999; }
+    #blogs .container .row .right ul li a:hover {
+      color: #333; }
+
+#blogs-detail .cover {
+  width: 100%;
+  height: 75vh;
+  position: relative; }
+  #blogs-detail .cover .mask {
+    width: 100%;
+    height: 100%; }
+  #blogs-detail .cover .cover-title {
+    width: 50%;
+    padding: 70px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: 0; }
+    #blogs-detail .cover .cover-title h3.subtitle-md {
+      margin-bottom: 50px; }
+    #blogs-detail .cover .cover-title h2.title-md {
+      margin-bottom: 30px; }
+    #blogs-detail .cover .cover-title p.paragraph {
+      color: #999; }
+#blogs-detail #description {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #e7e7e7; }
+#blogs-detail .content {
+  padding-top: 100px;
+  padding-bottom: 100px; }
+  #blogs-detail .content article h2.heading-post {
+    width: 25%;
+    float: left;
+    margin-left: 8.33%;
+    padding: 0 15px; }
+  #blogs-detail .content article p.paragraph {
+    width: 58.33%;
+    float: right;
+    margin-right: 8.33%;
+    padding: 0 15px; }
+  #blogs-detail .content article img {
+    width: 100%;
+    margin: 30px 0; }
+#blogs-detail .recommend {
+  clear: both;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #e7e7e7; }
+  #blogs-detail .recommend .container {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    #blogs-detail .recommend .container .row {
+      margin-top: 30px; }
+      #blogs-detail .recommend .container .row .item h2.title-md {
+        margin-bottom: 15px;
+        color: #333; }
+      #blogs-detail .recommend .container .row .item p.paragraph {
+        color: #999;
+        height: fit-content;
+        -webkit-line-clamp: 3; }
+      #blogs-detail .recommend .container .row .item a {
+        color: #999; }
+        #blogs-detail .recommend .container .row .item a:hover {
+          color: #333; }
+      #blogs-detail .recommend .container .row .item .mask {
+        width: 100%;
+        height: 150px;
+        margin-top: 15px; }
+
+/*
+===========================
+===========================
+
+CONTACT STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+#contact {
+  width: 100%;
+  height: 100vh;
+  position: relative; }
+  #contact .container {
+    height: 100%;
+    padding-left: 150px; }
+    #contact .container .row {
+      height: 100%; }
+  #contact .cover {
+    width: 50%;
+    height: 83.33%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%); }
+    #contact .cover .mask {
+      width: 100%;
+      height: 100%; }
+  #contact #side-title {
+    position: absolute;
+    top: 25%;
+    left: 75vw;
+    -webkit-transform: rotateZ(90deg);
+    -moz-transform: rotateZ(90deg);
+    -ms-transform: rotateZ(90deg);
+    -o-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+    -webkit-transform-origin: top;
+    -moz-transform-origin: top;
+    -ms-transform-origin: top;
+    -o-transform-origin: top;
+    transform-origin: top;
+    text-align: left;
+    width: 100vh;
+    height: 25vw;
+    overflow: hidden; }
+    #contact #side-title h1.title-xlg {
+      color: #e7e7e7; }
+
+/*
+===========================
+===========================
+
+RESERVATIONS STYLE
+
+Author: hung.luong@matocreative.vn
+
+===========================
+===========================
+ */
+#reservations {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative; }
+  #reservations .container {
+    padding-left: 150px;
+    padding-bottom: 50px; }
+    #reservations .container .row.head .right {
+      padding-top: 70px; }
+    #reservations .container .row.body form {
+      width: 100%; }
+  #reservations .cover {
+    width: 50%;
+    height: 83.33%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%); }
+    #reservations .cover .mask {
+      width: 100%;
+      height: 100%; }
+  #reservations #side-title {
+    position: absolute;
+    top: 25%;
+    left: 75vw;
+    -webkit-transform: rotateZ(90deg);
+    -moz-transform: rotateZ(90deg);
+    -ms-transform: rotateZ(90deg);
+    -o-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+    -webkit-transform-origin: top;
+    -moz-transform-origin: top;
+    -ms-transform-origin: top;
+    -o-transform-origin: top;
+    transform-origin: top;
+    text-align: right;
+    width: 100vh;
+    height: 25vw;
+    overflow: hidden; }
+    #reservations #side-title h1.title-xlg {
+      color: #e7e7e7; }
+
+/*# sourceMappingURL=style.css.map */
