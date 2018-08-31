@@ -12,17 +12,17 @@ Author: hung.luong@matocreative.vn
 
 #contact{
     width: 100%;
-    height: 100vh;
+
+    overflow-x: hidden;
 
     position: relative;
 
     .container{
-        height: 100%;
-
         padding-left: 150px;
+        padding-bottom: 50px;
 
         .row{
-            height: 100%;
+            padding-top: 70px;
         }
     }
 
@@ -72,6 +72,39 @@ Author: hung.luong@matocreative.vn
         h1{
             &.title-xlg{
                 color: $gray-lighter;
+            }
+        }
+    }
+}
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    #contact {
+        .container {
+            padding-left: 50px;
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 767px){
+    #contact {
+        .container {
+            padding-left: 30px;
+            padding-right: 30px;
+
+            .row{
+                padding-top: 130px;
             }
         }
     }

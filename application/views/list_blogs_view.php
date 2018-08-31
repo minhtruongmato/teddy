@@ -19,7 +19,7 @@
         <div class="row">
             <div class="left col-xs-12 col-sm-8 col-md-9">
                 <div class="row">
-                    <div class="item col-xs-12 col-sm-6">
+                    <div class="item col-xs-12 col-lg-6">
 						<div class="inner">
 
 							<div class="badge news">News</div>
@@ -36,7 +36,7 @@
 								Read more
 							</a>
 
-							<div class="mask">
+							<div class="mask news">
 								<a href="<?php echo base_url('blogs/detail/')?>">
 									<img src="https://images.unsplash.com/photo-1516865131505-4dabf2efc692?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=380a2b91ee844c3d6ee349952f672eaf&auto=format&fit=crop&w=1490&q=80" alt="post image">
 								</a>
@@ -44,7 +44,7 @@
 						</div>
                     </div>
 
-					<div class="item col-xs-12 col-sm-6">
+					<div class="item col-xs-12 col-lg-6">
 						<div class="inner">
 
 							<div class="badge recruitment">Recruitment</div>
@@ -61,7 +61,7 @@
 								Read more
 							</a>
 
-							<div class="mask">
+							<div class="mask recruitment">
 								<a href="<?php echo base_url('blogs/detail/')?>">
 									<img src="https://images.unsplash.com/photo-1523309996740-d5315f9cc28b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4e730fb540ec2179da6b26b94e4ddd9b&auto=format&fit=crop&w=1351&q=80" alt="post image">
 								</a>

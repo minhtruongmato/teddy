@@ -54,6 +54,8 @@ header{
             bottom: 50px;
             left: 20px;
 
+            z-index: 1051;
+
             width: 100%;
 
             #btn-nav-expand{
@@ -99,7 +101,6 @@ header{
                 }
 
                 &.active{
-                    margin-right: 15px;
 
                     @include transition(300ms);
 
@@ -276,3 +277,102 @@ header{
         }
     }
 }
+
+/*
+=========================================
+SMALL DESKTOPS (UNDER 1600px)
+=========================================
+ */
+
+@media (max-width: 1600px) and (min-width: 1025px){
+    header{
+        nav{
+            .nav-main{
+                padding: 130px 50px;
+            }
+        }
+    }
+}
+
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+
+@media (max-width: 1024px) and (min-width: 993px){
+    header{
+        nav{
+            .nav-main{
+                padding: 100px 50px;
+
+                .row{
+                    &.head{
+                        .item{
+                            ul{
+                                li{
+                                    a{
+                                        h2{
+                                            &.title-md{
+                                                font-size: 1.5rem;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 767px){
+    header {
+        width: 100vw;
+        height: 100px;
+
+        padding: 0 10px 10px 10px;
+
+        nav{
+            .nav-brand{
+                top: 10px;
+            }
+
+            #expand-nav{
+                bottom: auto;
+                top: 45px;
+                left: calc(100% - 50px);
+            }
+
+            .nav-main{
+                width: 100%;
+
+                padding: 130px 50px;
+
+                .row{
+                    &.head{
+                        flex-direction: column;
+
+                        .item{
+                            margin-bottom: 30px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.active{
+            width: 100vw;
+            height: 100%;
+        }
+    }
+}
+

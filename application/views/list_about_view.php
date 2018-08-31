@@ -10,7 +10,7 @@
                 );
             ?>
             <?php for($i = 0; $i < count($value); $i++){ ?>
-            <div class="item col-xs-12 col-sm-4">
+            <div class="item col">
                 <a href="<?php echo base_url('about/detail')?>">
                     <div class="mask">
                         <img src="<?php echo $value[$i][0] ?>" alt="image about">
