@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="<?php echo base_url('about/') ?>">
 						<h3 class="subtitle-md">About Us</h3>
 					</a>
-					<ul>
+					<ul class="d-none d-sm-block">
 						<li>
 							<a href="<?php echo base_url('') ?>">
 								<h2 class="title-md">The story of us</h2>
@@ -70,7 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="<?php echo base_url('menu/') ?>">
 						<h3 class="subtitle-md">Menu</h3>
 					</a>
-					<ul>
+					<ul class="d-none d-sm-block">
 						<li>
 							<a href="<?php echo base_url('') ?>">
 								<h2 class="title-md">Chef's Choice</h2>
@@ -103,7 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="<?php echo base_url('blogs/') ?>">
 						<h3 class="subtitle-md">Blogs</h3>
 					</a>
-					<ul>
+					<ul class="d-none d-sm-block">
 						<li>
 							<a href="<?php echo base_url('') ?>">
 								<h2 class="title-md">News</h2>
@@ -121,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="<?php echo base_url('contact/') ?>">
 						<h3 class="subtitle-md">Contact Us</h3>
 					</a>
-					<ul>
+					<ul class="d-none d-sm-block">
 						<li>
 							<a href="<?php echo base_url('contact/') ?>">
 								<h2 class="title-md">Contact</h2>
@@ -137,8 +137,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 
 			<div class="row body">
-				<div class="col"></div>
-
 				<div class="col item">
 					<p class="paragraph">Location</p>
 					<p class="paragraph">

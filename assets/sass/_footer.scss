@@ -173,3 +173,77 @@ footer{
         }
     }
 }
+
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+
+@media (max-width: 1024px) and (min-width: 993px){
+    footer{
+        .container-fluid{
+            .container{
+                .row{
+                    padding-left: 100px;
+                    padding-right: 100px;
+
+                    .item{
+                        &:first-of-type{
+                            order: 1;
+                        }
+
+                        &:nth-of-type(2){
+                            order: 3;
+                        }
+
+                        &:nth-of-type(3){
+                            order: 2;
+                        }
+
+                        &:last-of-type{
+                            order: 4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    footer {
+        .container-fluid {
+            .container {
+                .row {
+                    padding-left: 75px;
+                    padding-right: 75px;
+
+                    .item{
+                        &:first-of-type{
+                            order: 1;
+                        }
+
+                        &:nth-of-type(2){
+                            order: 3;
+                        }
+
+                        &:nth-of-type(3){
+                            order: 2;
+                        }
+
+                        &:last-of-type{
+                            order: 4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

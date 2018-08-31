@@ -303,3 +303,167 @@ Author: hung.luong@matocreative.vn
         }
     }
 }
+
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+
+@media (max-width: 1024px) and (min-width: 993px){
+    #menu{
+        .container-fluid{
+            .row{
+                .right{
+                    .item{
+                        .mask{
+                            .cover-title{
+                                h1{
+                                    &.title-lg{
+                                        font-size: 2.3rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #menu-detail{
+        .cover{
+            #side-title{
+                top: 20%;
+                left: 65vw;
+            }
+        }
+
+        #menu-list{
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+    }
+}
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    #menu{
+        height: auto;
+
+        .container-fluid{
+            height: auto;
+
+            .row{
+                height: auto;
+
+                .left{
+                    .row{
+                        padding-top: 50px;
+                        padding-bottom: 50px;
+                    }
+                }
+
+                .right{
+                    .item{
+                        .mask{
+                            .cover-title{
+                                bottom: 50px;
+                                left: 100px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #menu-detail{
+        .cover{
+            #side-title{
+                top: 0;
+                left: 35vw;
+            }
+        }
+
+        #menu-list{
+            padding-left: 75px;
+            padding-right: 75px;
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 767px){
+    #menu{
+        height: auto;
+
+        .container-fluid{
+            height: auto;
+
+            padding-top: 100px;
+
+            .row{
+                height: auto;
+
+                .left{
+                    padding-left: 30px;
+
+                    .row{
+                        padding-top: 50px;
+                        padding-bottom: 50px;
+                    }
+                }
+
+                .right{
+                    .item{
+                        .mask{
+                            .cover-title{
+                                bottom: 50px;
+                                left: 30px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #menu-detail{
+        .cover{
+            #leftImage{
+                width: 75%;
+                height: 75%;
+            }
+
+            #mainImage{
+                width: 80%;
+                left: 20%;
+            }
+
+            #side-title{
+                -webkit-transform: rotateZ(0deg);
+                -moz-transform: rotateZ(0deg);
+                -ms-transform: rotateZ(0deg);
+                -o-transform: rotateZ(0deg);
+                transform: rotateZ(0deg);
+
+                top: auto;
+                bottom: 0;
+                left: 0;
+
+                text-align: left;
+            }
+        }
+    }
+}

@@ -104,6 +104,52 @@ p.paragraph-md {
   -webkit-box-orient: vertical; }
 
 /*
+=========================================
+SMALL DESKTOPS (UNDER 1600px)
+=========================================
+ */
+@media (max-width: 1600px) and (min-width: 1025px) {
+  h1.title-xlg {
+    font-size: 10rem; }
+  h1.title-lg {
+    font-size: 3rem; }
+
+  h2.title-md {
+    font-size: 1.875rem; } }
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  h1.title-xlg {
+    font-size: 10rem; }
+  h1.title-lg {
+    font-size: 3rem; }
+
+  h2.title-md {
+    font-size: 1.75rem; } }
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  h1.title-xlg {
+    font-size: 10rem; }
+  h1.title-lg {
+    font-size: 3rem; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 768px) {
+  h1.title-xlg {
+    font-size: 10rem; }
+  h1.title-lg {
+    font-size: 2.75rem; } }
+/*
 ===========================
 ===========================
 
@@ -176,6 +222,7 @@ header {
       position: absolute;
       bottom: 50px;
       left: 20px;
+      z-index: 1051;
       width: 100%; }
       header nav #expand-nav #btn-nav-expand {
         -webkit-transition: all ease-in-out 300ms;
@@ -213,7 +260,6 @@ header {
           header nav #expand-nav #btn-nav-expand span.nav-icon:after {
             margin-top: 10px; }
         header nav #expand-nav #btn-nav-expand.active {
-          margin-right: 15px;
           -webkit-transition: all ease-in-out 300ms;
           -moz-transition: all ease-in-out 300ms;
           -ms-transition: all ease-in-out 300ms;
@@ -315,6 +361,50 @@ header {
       -o-transition: all ease-in-out 300ms;
       transition: all ease-in-out 300ms; }
 
+/*
+=========================================
+SMALL DESKTOPS (UNDER 1600px)
+=========================================
+ */
+@media (max-width: 1600px) and (min-width: 1025px) {
+  header nav .nav-main {
+    padding: 130px 50px; } }
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  header nav .nav-main {
+    padding: 100px 50px; }
+    header nav .nav-main .row.head .item ul li a h2.title-md {
+      font-size: 1.5rem; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  header {
+    width: 100vw;
+    height: 100px;
+    padding: 0 10px 10px 10px; }
+    header nav .nav-brand {
+      top: 10px; }
+    header nav #expand-nav {
+      bottom: auto;
+      top: 45px;
+      left: calc(100% - 50px); }
+    header nav .nav-main {
+      width: 100%;
+      padding: 130px 50px; }
+      header nav .nav-main .row.head {
+        flex-direction: column; }
+        header nav .nav-main .row.head .item {
+          margin-bottom: 30px; }
+    header.active {
+      width: 100vw;
+      height: 100%; } }
 /*
 ===========================
 ===========================
@@ -426,6 +516,40 @@ footer {
               font-size: 1.25rem;
               margin-right: 10px; }
 
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  footer .container-fluid .container .row {
+    padding-left: 100px;
+    padding-right: 100px; }
+    footer .container-fluid .container .row .item:first-of-type {
+      order: 1; }
+    footer .container-fluid .container .row .item:nth-of-type(2) {
+      order: 3; }
+    footer .container-fluid .container .row .item:nth-of-type(3) {
+      order: 2; }
+    footer .container-fluid .container .row .item:last-of-type {
+      order: 4; } }
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  footer .container-fluid .container .row {
+    padding-left: 75px;
+    padding-right: 75px; }
+    footer .container-fluid .container .row .item:first-of-type {
+      order: 1; }
+    footer .container-fluid .container .row .item:nth-of-type(2) {
+      order: 3; }
+    footer .container-fluid .container .row .item:nth-of-type(3) {
+      order: 2; }
+    footer .container-fluid .container .row .item:last-of-type {
+      order: 4; } }
 /* Pages */
 /*
 ===========================
@@ -539,6 +663,83 @@ Author: hung.luong@matocreative.vn
     #homepage #reservation h2.title-md {
       margin-bottom: 50px; }
 
+/*
+=========================================
+SMALL DESKTOPS (UNDER 1600px)
+=========================================
+ */
+@media (max-width: 1600px) and (min-width: 1025px) {
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h3.subtitle-md {
+    margin-bottom: 30px; }
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h2.title-md {
+    margin-bottom: 30px; }
+  #homepage #reservation h3.subtitle-md {
+    margin-bottom: 30px; }
+  #homepage #reservation h2.title-md {
+    margin-bottom: 30px; } }
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h3.subtitle-md {
+    margin-bottom: 15px; }
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h2.title-md {
+    margin-bottom: 30px; }
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item {
+    padding: 10px 30px; }
+  #homepage #reservation {
+    width: 35%; }
+    #homepage #reservation h3.subtitle-md {
+      margin-bottom: 15px; }
+    #homepage #reservation h2.title-md {
+      margin-bottom: 30px; } }
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption {
+    width: 65%;
+    padding-left: 100px;
+    padding-right: 100px; }
+    #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h3.subtitle-md {
+      margin-bottom: 15px; }
+    #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h2.title-md {
+      margin-bottom: 30px; }
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-extra .item {
+    padding: 10px 30px; }
+  #homepage #reservation {
+    width: 35%; }
+    #homepage #reservation h3.subtitle-md {
+      margin-bottom: 15px; }
+    #homepage #reservation h2.title-md {
+      margin-bottom: 30px; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .mask {
+    height: 50%;
+    top: 50%; }
+  #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption {
+    width: 100%;
+    height: 50%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 100px; }
+    #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h3.subtitle-md {
+      margin-bottom: 15px; }
+    #homepage .container-fluid .slide#homepageSlider .carousel-inner .carousel-item .caption h2.title-md {
+      margin-bottom: 30px; }
+  #homepage #reservation {
+    width: 100%;
+    height: auto;
+    position: static; } }
 /*
 ===========================
 ===========================
@@ -658,22 +859,80 @@ Author: hung.luong@matocreative.vn
     padding-bottom: 50px; }
     #about-detail .recommend .container .row {
       margin-top: 30px; }
-      #about-detail .recommend .container .row .item h2.title-md {
-        margin-bottom: 15px;
-        color: #333; }
-      #about-detail .recommend .container .row .item p.paragraph {
-        color: #999;
-        height: fit-content;
-        -webkit-line-clamp: 3; }
-      #about-detail .recommend .container .row .item a {
-        color: #999; }
-        #about-detail .recommend .container .row .item a:hover {
+      #about-detail .recommend .container .row .item {
+        margin-bottom: 30px; }
+        #about-detail .recommend .container .row .item h2.title-md {
+          margin-bottom: 15px;
           color: #333; }
-      #about-detail .recommend .container .row .item .mask {
-        width: 100%;
-        height: 150px;
-        margin-top: 15px; }
+        #about-detail .recommend .container .row .item p.paragraph {
+          color: #999;
+          height: fit-content;
+          -webkit-line-clamp: 3; }
+        #about-detail .recommend .container .row .item a {
+          color: #999; }
+          #about-detail .recommend .container .row .item a:hover {
+            color: #333; }
+        #about-detail .recommend .container .row .item .mask {
+          width: 100%;
+          height: 150px;
+          margin-top: 15px; }
 
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  #about-detail .recommend .container {
+    padding-left: 100px;
+    padding-right: 100px; } }
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  #about .container-fluid .row {
+    flex-direction: column; }
+    #about .container-fluid .row .item {
+      height: 33.33%; }
+
+  #about-detail .recommend .container {
+    padding-left: 75px;
+    padding-right: 75px; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  #about .container-fluid {
+    padding-left: 0;
+    padding-top: 100px; }
+    #about .container-fluid .row {
+      flex-direction: column; }
+      #about .container-fluid .row .item {
+        height: 33.33%; }
+
+  #about-detail .cover .cover-title {
+    width: 100%;
+    padding: 30px; }
+  #about-detail #description {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+  #about-detail .content {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    #about-detail .content article h2.heading-post {
+      width: 100%;
+      float: none;
+      margin-left: 0;
+      padding: 0 30px; }
+    #about-detail .content article p.paragraph {
+      width: 100%;
+      float: none;
+      margin-left: 0;
+      padding: 0 30px; } }
 /*
 ===========================
 ===========================
@@ -864,6 +1123,84 @@ Author: hung.luong@matocreative.vn
         transition: all ease-in-out 300ms; }
 
 /*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  #menu .container-fluid .row .right .item .mask .cover-title h1.title-lg {
+    font-size: 2.3rem; }
+
+  #menu-detail .cover #side-title {
+    top: 20%;
+    left: 65vw; }
+  #menu-detail #menu-list {
+    padding-left: 100px;
+    padding-right: 100px; } }
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  #menu {
+    height: auto; }
+    #menu .container-fluid {
+      height: auto; }
+      #menu .container-fluid .row {
+        height: auto; }
+        #menu .container-fluid .row .left .row {
+          padding-top: 50px;
+          padding-bottom: 50px; }
+        #menu .container-fluid .row .right .item .mask .cover-title {
+          bottom: 50px;
+          left: 100px; }
+
+  #menu-detail .cover #side-title {
+    top: 0;
+    left: 35vw; }
+  #menu-detail #menu-list {
+    padding-left: 75px;
+    padding-right: 75px; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  #menu {
+    height: auto; }
+    #menu .container-fluid {
+      height: auto;
+      padding-top: 100px; }
+      #menu .container-fluid .row {
+        height: auto; }
+        #menu .container-fluid .row .left {
+          padding-left: 30px; }
+          #menu .container-fluid .row .left .row {
+            padding-top: 50px;
+            padding-bottom: 50px; }
+        #menu .container-fluid .row .right .item .mask .cover-title {
+          bottom: 50px;
+          left: 30px; }
+
+  #menu-detail .cover #leftImage {
+    width: 75%;
+    height: 75%; }
+  #menu-detail .cover #mainImage {
+    width: 80%;
+    left: 20%; }
+  #menu-detail .cover #side-title {
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+    top: auto;
+    bottom: 0;
+    left: 0;
+    text-align: left; } }
+/*
 ===========================
 ===========================
 
@@ -898,45 +1235,50 @@ Author: hung.luong@matocreative.vn
 #blogs .container {
   padding-top: 100px;
   padding-bottom: 150px; }
-  #blogs .container .row .left .row .item .inner {
-    background-color: #e7e7e7; }
-    #blogs .container .row .left .row .item .inner .badge {
-      color: #fff;
-      margin: 20px 15px;
-      padding: 0.5em 1em;
-      font-family: "webFont-r";
-      font-size: 0.875rem;
-      text-transform: uppercase; }
-      #blogs .container .row .left .row .item .inner .badge.news {
-        background-color: #ED2024; }
-      #blogs .container .row .left .row .item .inner .badge.recruitment {
-        background-color: #29256A; }
-    #blogs .container .row .left .row .item .inner h2.heading-post {
-      margin-bottom: 15px;
-      padding-left: 15px;
-      padding-right: 15px;
-      color: #333;
-      height: fit-content;
-      -webkit-line-clamp: 2; }
-    #blogs .container .row .left .row .item .inner p.paragraph {
-      padding-left: 15px;
-      padding-right: 15px;
-      color: #999;
-      height: fit-content;
-      -webkit-line-clamp: 3; }
-    #blogs .container .row .left .row .item .inner a {
-      padding-left: 15px;
-      padding-right: 15px;
-      color: #999; }
-      #blogs .container .row .left .row .item .inner a:hover {
-        color: #333; }
-    #blogs .container .row .left .row .item .inner .mask {
-      width: 100%;
-      height: 230px;
-      margin-top: 15px;
-      border-bottom: 5px solid #ED2024; }
-      #blogs .container .row .left .row .item .inner .mask a {
-        padding-left: 0; }
+  #blogs .container .row .left .row .item {
+    margin-bottom: 30px; }
+    #blogs .container .row .left .row .item .inner {
+      background-color: #e7e7e7; }
+      #blogs .container .row .left .row .item .inner .badge {
+        color: #fff;
+        margin: 20px 15px;
+        padding: 0.5em 1em;
+        font-family: "webFont-r";
+        font-size: 0.875rem;
+        text-transform: uppercase; }
+        #blogs .container .row .left .row .item .inner .badge.news {
+          background-color: #ED2024; }
+        #blogs .container .row .left .row .item .inner .badge.recruitment {
+          background-color: #29256A; }
+      #blogs .container .row .left .row .item .inner h2.heading-post {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #333;
+        height: fit-content;
+        -webkit-line-clamp: 2; }
+      #blogs .container .row .left .row .item .inner p.paragraph {
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #999;
+        height: fit-content;
+        -webkit-line-clamp: 3; }
+      #blogs .container .row .left .row .item .inner a {
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #999; }
+        #blogs .container .row .left .row .item .inner a:hover {
+          color: #333; }
+      #blogs .container .row .left .row .item .inner .mask {
+        width: 100%;
+        height: 230px;
+        margin-top: 15px; }
+        #blogs .container .row .left .row .item .inner .mask a {
+          padding-left: 0; }
+        #blogs .container .row .left .row .item .inner .mask.news {
+          border-bottom: 5px solid #ED2024; }
+        #blogs .container .row .left .row .item .inner .mask.recruitment {
+          border-bottom: 5px solid #29256A; }
   #blogs .container .row .right ul li a {
     font-family: "webFont-b";
     font-size: 1.5rem;
@@ -996,22 +1338,91 @@ Author: hung.luong@matocreative.vn
     padding-bottom: 50px; }
     #blogs-detail .recommend .container .row {
       margin-top: 30px; }
-      #blogs-detail .recommend .container .row .item h2.title-md {
-        margin-bottom: 15px;
-        color: #333; }
-      #blogs-detail .recommend .container .row .item p.paragraph {
-        color: #999;
-        height: fit-content;
-        -webkit-line-clamp: 3; }
-      #blogs-detail .recommend .container .row .item a {
-        color: #999; }
-        #blogs-detail .recommend .container .row .item a:hover {
+      #blogs-detail .recommend .container .row .item {
+        margin-bottom: 30px; }
+        #blogs-detail .recommend .container .row .item h2.title-md {
+          margin-bottom: 15px;
           color: #333; }
-      #blogs-detail .recommend .container .row .item .mask {
-        width: 100%;
-        height: 150px;
-        margin-top: 15px; }
+        #blogs-detail .recommend .container .row .item p.paragraph {
+          color: #999;
+          height: fit-content;
+          -webkit-line-clamp: 3; }
+        #blogs-detail .recommend .container .row .item a {
+          color: #999; }
+          #blogs-detail .recommend .container .row .item a:hover {
+            color: #333; }
+        #blogs-detail .recommend .container .row .item .mask {
+          width: 100%;
+          height: 150px;
+          margin-top: 15px; }
 
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+@media (max-width: 1024px) and (min-width: 993px) {
+  #blogs .container {
+    padding-left: 100px;
+    padding-right: 100px; }
+
+  #blogs-detail .recommend .container {
+    padding-left: 100px;
+    padding-right: 100px; } }
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  #blogs .container {
+    padding-left: 75px;
+    padding-right: 75px; }
+
+  #blogs-detail .recommend .container {
+    padding-left: 75px;
+    padding-right: 75px; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  #blogs .cover {
+    height: 100vh; }
+    #blogs .cover .cover-title {
+      width: 100%;
+      padding: 30px; }
+  #blogs #blogs-list {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    #blogs #blogs-list .row .left {
+      order: 2; }
+    #blogs #blogs-list .row .right {
+      order: 1;
+      margin-bottom: 50px; }
+
+  #blogs-detail .cover {
+    height: 100vh; }
+    #blogs-detail .cover .cover-title {
+      width: 100%;
+      padding: 30px; }
+  #blogs-detail #description {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+  #blogs-detail .content {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    #blogs-detail .content article h2.heading-post {
+      width: 100%;
+      float: none;
+      margin-left: 0;
+      padding: 0 30px; }
+    #blogs-detail .content article p.paragraph {
+      width: 100%;
+      float: none;
+      margin-left: 0;
+      padding: 0 30px; } }
 /*
 ===========================
 ===========================
@@ -1025,13 +1436,13 @@ Author: hung.luong@matocreative.vn
  */
 #contact {
   width: 100%;
-  height: 100vh;
+  overflow-x: hidden;
   position: relative; }
   #contact .container {
-    height: 100%;
-    padding-left: 150px; }
+    padding-left: 150px;
+    padding-bottom: 50px; }
     #contact .container .row {
-      height: 100%; }
+      padding-top: 70px; }
   #contact .cover {
     width: 50%;
     height: 83.33%;
@@ -1067,6 +1478,25 @@ Author: hung.luong@matocreative.vn
     #contact #side-title h1.title-xlg {
       color: #e7e7e7; }
 
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  #contact .container {
+    padding-left: 50px; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  #contact .container {
+    padding-left: 30px;
+    padding-right: 30px; }
+    #contact .container .row {
+      padding-top: 130px; } }
 /*
 ===========================
 ===========================
@@ -1123,5 +1553,27 @@ Author: hung.luong@matocreative.vn
     overflow: hidden; }
     #reservations #side-title h1.title-xlg {
       color: #e7e7e7; }
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+@media (max-width: 992px) and (min-width: 768px) {
+  #reservations .container {
+    padding-left: 50px; } }
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+@media (max-width: 767px) {
+  #reservations .container {
+    padding-left: 30px;
+    padding-right: 30px; }
+    #reservations .container .row.head {
+      padding-top: 130px; }
+      #reservations .container .row.head .right {
+        padding-top: 0; } }
 
 /*# sourceMappingURL=style.css.map */

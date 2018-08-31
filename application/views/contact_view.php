@@ -1,6 +1,6 @@
 <section id="contact">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row">
             <div class="col-xs-12 col-sm-6 offset-sm-6">
                 <h3 class="subtitle-md">Contact Us</h3>
 
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="cover">
+    <div class="cover d-none d-sm-block">
         <div class="mask">
             <img src="https://images.unsplash.com/photo-1520218576172-c1a2df3fa5fc?ixlib=rb-0.3.5&s=0a0cd3b2d02209eb9efb15325386d4c8&auto=format&fit=crop&w=675&q=80" alt="contact cover image">
         </div>

@@ -111,3 +111,87 @@ p{
     -webkit-box-orient: vertical;
 }
 
+/*
+=========================================
+SMALL DESKTOPS (UNDER 1600px)
+=========================================
+ */
+
+@media (max-width: 1600px) and (min-width: 1025px) {
+    h1{
+        &.title-xlg{
+            font-size: 10rem;
+        }
+
+        &.title-lg{
+            font-size: 3rem;
+        }
+    }
+
+    h2{
+        &.title-md{
+            font-size: 1.875rem;
+        }
+    }
+}
+
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+
+@media (max-width: 1024px) and (min-width: 993px){
+    h1{
+        &.title-xlg{
+            font-size: 10rem;
+        }
+
+        &.title-lg{
+            font-size: 3rem;
+        }
+    }
+
+    h2{
+        &.title-md{
+            font-size: 1.75rem;
+        }
+    }
+}
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    h1{
+        &.title-xlg{
+            font-size: 10rem;
+        }
+
+        &.title-lg{
+            font-size: 3rem;
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 768px){
+    h1{
+        &.title-xlg{
+            font-size: 10rem;
+        }
+
+        &.title-lg{
+            font-size: 2.75rem;
+        }
+    }
+}
+

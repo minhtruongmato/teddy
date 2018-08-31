@@ -194,6 +194,8 @@ Author: hung.luong@matocreative.vn
                 margin-top: 30px;
 
                 .item{
+                    margin-bottom: 30px;
+
                     h3{
                         &.subtitle-md{
 
@@ -230,6 +232,119 @@ Author: hung.luong@matocreative.vn
                         height: 150px;
 
                         margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+
+@media (max-width: 1024px) and (min-width: 993px){
+    #about-detail{
+        .recommend{
+            .container{
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+        }
+    }
+}
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    #about{
+        .container-fluid{
+            .row{
+                flex-direction: column;
+
+                .item{
+                    height: 33.33%;
+                }
+            }
+        }
+    }
+
+    #about-detail{
+        .recommend{
+            .container{
+                padding-left: 75px;
+                padding-right: 75px;
+            }
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 767px){
+    #about{
+        .container-fluid{
+            padding-left: 0;
+            padding-top: 100px;
+
+            .row{
+                flex-direction: column;
+
+                .item{
+                    height: 33.33%;
+                }
+            }
+        }
+    }
+
+    #about-detail{
+        .cover{
+            .cover-title{
+                width: 100%;
+
+                padding: 30px;
+            }
+        }
+
+        #description{
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .content{
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+            article{
+                h2{
+                    &.heading-post{
+                        width: 100%;
+
+                        float: none;
+
+                        margin-left: 0;
+                        padding: 0 30px;
+                    }
+                }
+
+                p{
+                    &.paragraph{
+                        width: 100%;
+
+                        float: none;
+
+                        margin-left: 0;
+                        padding: 0 30px;
                     }
                 }
             }

@@ -51,7 +51,7 @@
             ?>
 
             <?php for ($i = 0; $i < count($value); $i ++){ ?>
-				<div class="item col-xs-12 col-sm-6">
+				<div class="item col-xs-12 col-lg-6">
 					<div class="inner">
 						<h3 class="subtitle-md"><?php echo $value[$i][0] ?></h3>
 

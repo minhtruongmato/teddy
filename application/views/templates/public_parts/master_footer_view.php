@@ -15,7 +15,7 @@
 
 		<div class="container">
 			<div class="row head">
-				<div class="col-xs-12 col-sm-6 col-md-3 item">
+				<div class="col-xs-12 col-sm-6 col-xl-3 item">
 					<ul>
 						<li>
 							<a href="<?php echo base_url('about/') ?>">
@@ -48,14 +48,14 @@
 					</ul>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-3 item">
+				<div class="col-xs-12 col-sm-6 col-xl-3 item">
 					<p class="paragraph">Location</p>
 					<p class="paragraph">
 						917 Rosenbaum Lodge Apt. 831
 					</p>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-3 item">
+				<div class="col-xs-12 col-sm-6 col-xl-3 item">
 					<p class="paragraph">Reservations</p>
 					<table class="table">
 						<tr>
@@ -69,7 +69,7 @@
 					</table>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-3 item">
+				<div class="col-xs-12 col-sm-6 col-xl-3 item">
 					<p class="paragraph">Subscribe</p>
 					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
 					<button type="button" class="btn btn-link">Subscribe</button>

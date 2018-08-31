@@ -2,7 +2,7 @@
     <div class="background"></div>
     <div class="container-fluid">
         <div class="row">
-            <div class="left col-xs-12 col-sm-3">
+            <div class="left col-xs-12 col-lg-3">
                 <div class="row align-items-end">
                     <div class="col-xs-12 col-sm-8 offset-sm-4">
                         <h3 class="subtitle-md">Menu</h3>
@@ -12,9 +12,9 @@
                 </div>
             </div>
 
-            <div class="right col-xs-12 col-sm-9">
+            <div class="right col-xs-12 col-lg-9">
                 <div class="row">
-					<div class="left col-xs-12 col-sm-8">
+					<div class="left col-xs-12 col-lg-8">
 						<div class="item">
 							<div class="mask">
 								<a href="<?php echo base_url('menu/detail') ?>">
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 					</div>
-					<div class=" right col-xs-12 col-sm-4">
+					<div class=" right col-xs-12 col-lg-4">
 						<div class="item">
 							<div class="mask">
 								<a href="<?php echo base_url('menu/detail') ?>">

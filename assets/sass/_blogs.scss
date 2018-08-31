@@ -63,6 +63,8 @@ Author: hung.luong@matocreative.vn
             .left{
                 .row{
                     .item{
+                        margin-bottom: 30px;
+
                         .inner{
                             background-color: $gray-lighter;
 
@@ -127,10 +129,16 @@ Author: hung.luong@matocreative.vn
 
                                 margin-top: 15px;
 
-                                border-bottom: 5px solid $primary;
-
                                 a{
                                     padding-left: 0;
+                                }
+
+                                &.news{
+                                    border-bottom: 5px solid $primary;
+                                }
+
+                                &.recruitment{
+                                    border-bottom: 5px solid $secondary;
                                 }
                             }
                         }
@@ -260,6 +268,8 @@ Author: hung.luong@matocreative.vn
                 margin-top: 30px;
 
                 .item{
+                    margin-bottom: 30px;
+
                     h3{
                         &.subtitle-md{
 
@@ -296,6 +306,137 @@ Author: hung.luong@matocreative.vn
                         height: 150px;
 
                         margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+=========================================
+TABLETS (Under 1024px)
+=========================================
+ */
+
+@media (max-width: 1024px) and (min-width: 993px){
+    #blogs{
+        .container{
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+    }
+
+    #blogs-detail{
+        .recommend{
+            .container{
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+        }
+    }
+}
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    #blogs{
+        .container{
+            padding-left: 75px;
+            padding-right: 75px;
+        }
+    }
+
+    #blogs-detail{
+        .recommend{
+            .container{
+                padding-left: 75px;
+                padding-right: 75px;
+            }
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 767px){
+    #blogs{
+        .cover{
+            height: 100vh;
+
+            .cover-title{
+                width: 100%;
+
+                padding: 30px;
+            }
+        }
+
+        #blogs-list{
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+            .row{
+                .left{
+                    order: 2;
+                }
+
+                .right{
+                    order: 1;
+
+                    margin-bottom: 50px;
+                }
+            }
+        }
+    }
+
+    #blogs-detail{
+        .cover{
+            height: 100vh;
+
+            .cover-title{
+                width: 100%;
+
+                padding: 30px;
+            }
+        }
+
+        #description{
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .content{
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+            article{
+                h2{
+                    &.heading-post{
+                        width: 100%;
+
+                        float: none;
+
+                        margin-left: 0;
+                        padding: 0 30px;
+                    }
+                }
+
+                p{
+                    &.paragraph{
+                        width: 100%;
+
+                        float: none;
+
+                        margin-left: 0;
+                        padding: 0 30px;
                     }
                 }
             }

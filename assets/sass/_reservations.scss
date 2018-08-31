@@ -86,3 +86,42 @@ Author: hung.luong@matocreative.vn
         }
     }
 }
+
+/*
+=========================================
+VERTICAL TABLETS (Under 992px)
+=========================================
+ */
+
+@media (max-width: 992px) and (min-width: 768px){
+    #reservations {
+        .container {
+            padding-left: 50px;
+        }
+    }
+}
+
+/*
+=========================================
+MOBILE DEVICES (Under 768px)
+=========================================
+ */
+
+@media (max-width: 767px){
+    #reservations {
+        .container {
+            padding-left: 30px;
+            padding-right: 30px;
+
+            .row{
+                &.head{
+                    padding-top: 130px;
+
+                    .right{
+                        padding-top: 0;
+                    }
+                }
+            }
+        }
+    }
+}
