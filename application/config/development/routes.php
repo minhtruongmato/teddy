@@ -53,18 +53,30 @@ $route['default_controller'] = 'homepage';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
-$route['^vi/(.+)$'] = "$1";
-$route['^en/(.+)$'] = "$1";
-$route['^cn/(.+)$'] = "$1";
-
-$route['^vi$'] = $route['default_controller'];
-$route['^en$'] = $route['default_controller'];
-$route['^cn$'] = $route['default_controller'];
-
+$route['thuc-don'] = "menu/index";
+$route['thuc-don/(:any)'] = "menu/detail/$1";
+$route['gioi-thieu'] = 'about/index/';
+$route['gioi-thieu/(:any)'] = 'about/detail/$1';
+$route['bai-viet'] = 'blogs/index/';
+$route['bai-viet/(:num)'] = 'blogs/index/$1';
+$route['bai-viet/chi-tiet/(:any)'] = 'blogs/detail/$1';
+$route['(:any)/danh-sach'] = "blogs/category/$1";
+// $route['(:any)/chi-tiet/(:any)'] = "blogs/detail/$2";
 
 if($this->uri->segment(1) == "admin"){
 	$route['admin'] = 'admin/user/login';
 }
+
+// $route['^vi/(.+)$'] = "$1";
+// $route['^en/(.+)$'] = "$1";
+// $route['^cn/(.+)$'] = "$1";
+
+// $route['^vi$'] = $route['default_controller'];
+// $route['^en$'] = $route['default_controller'];
+// $route['^cn$'] = $route['default_controller'];
+
+
+
 //else{
 //	$route['([a-zA-Z0-9-_]+)'] = 'test/index/$1';
 //	$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)'] = 'test/index/$1/$2';

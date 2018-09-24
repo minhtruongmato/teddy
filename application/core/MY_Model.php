@@ -65,6 +65,40 @@ class MY_Model extends CI_Model {
         return $result = $this->db->get()->result_array();
     }
 
+    public function get_all_when_active($order = 'desc',$lang = '') {
+        $this->db->select($this->table .'.*, '. $this->table_lang .'.title');
+        $this->db->from($this->table);
+        $this->db->join($this->table_lang, $this->table_lang .'.'. $this->table .'_id = '. $this->table .'.id');
+        $this->db->where($this->table .'.is_deleted', 0);
+        $this->db->where($this->table .'.is_activated', 0);
+        if($lang != ''){
+            $this->db->where($this->table_lang .'.language', $lang);
+        }
+        $this->db->group_by($this->table_lang .'.'. $this->table .'_id');
+        $this->db->order_by($this->table .".sort", $order);
+
+        return $result = $this->db->get()->result_array();
+    }
+
+    public function get_all_with_pagination_and_special_join_category($order = 'desc',$lang = '', $limit = NULL, $start = NULL, $keywords = '') {
+        $this->db->select($this->table .'.*, '. $this->table_lang .'.*, '. $this->table .'_category_lang.title as '. $this->table .'_category_title');
+        $this->db->from($this->table);
+        $this->db->join($this->table_lang, $this->table_lang .'.'. $this->table .'_id = '. $this->table .'.id');
+        $this->db->join($this->table .'_category_lang', ''. $this->table .'_category_lang.'. $this->table .'_category_id = '. $this->table .'.'. $this->table .'_category_id');
+        $this->db->like($this->table_lang .'.title', $keywords);
+        $this->db->where($this->table .'.is_deleted', 0);
+        $this->db->where($this->table .'.is_activated', 0);
+        $this->db->where($this->table .'.isspecial', 1);
+        if($lang != ''){
+            $this->db->where($this->table_lang .'.language', $lang);
+            $this->db->where($this->table .'_category_lang.language', $lang);
+        }
+        $this->db->limit($limit, $start);
+        $this->db->group_by($this->table_lang .'.'. $this->table .'_id');
+
+        return $result = $this->db->get()->result_array();
+    }
+
     public function get_all_with_pagination_and_search_by_parent_id($parent_id,$order = 'desc',$lang = '', $limit = NULL, $start = NULL, $keywords = '') {
         $this->db->select($this->table .'.*, '. $this->table_lang .'.title');
         $this->db->from($this->table);
@@ -200,7 +234,10 @@ class MY_Model extends CI_Model {
         return $temp_slug;
     }
 
-
+    public function get_total_by_parent_id($parent_id){
+        $this->db->where(['parent_id' =>  $parent_id, 'is_deleted' => 0]);
+        return $this->db->count_all_results($this->table);
+    }
     public function find_rows($data=array()){
         $this->db->where($data);
         return $this->db->count_all_results($this->table);

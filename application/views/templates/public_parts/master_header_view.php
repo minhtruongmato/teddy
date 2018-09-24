@@ -8,7 +8,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<?php if ($this->uri->segment(1) == 'gioi-thieu' && $this->uri->segment(2) != '' && $this->uri->segment(2) != 'danh-sach'): ?>
+		<meta name="keywords" content="<?php echo $detail['about_metakeywords'] ?>">
+		<meta name="description" content="<?php echo $detail['about_metadescription'] ?>">
+	<?php endif ?>
 
+	<?php if ($this->uri->segment(1) == 'bai-viet' && $this->uri->segment(2) == 'chi-tiet'): ?>
+		<meta name="keywords" content="<?php echo $detail['post_metakeywords'] ?>">
+		<meta name="description" content="<?php echo $detail['post_metadescription'] ?>">
+	<?php endif ?>
+	
 	<!-- TITLE -->
 	<title>Teddy's Grill House</title>
 
@@ -22,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<!-- Style -->
 	<link rel="stylesheet" href="<?php echo site_url('assets/sass/') ?>style.css">
-
+	
 </head>
 
 <body>
@@ -40,80 +50,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<span class="nav-icon"></span>
 			</a>
 		</div>
-
 		<div class="nav-main">
 			<div class="row head">
 				<div class="col item">
-					<a href="<?php echo base_url('about/') ?>">
+					<a href="<?php echo base_url('gioi-thieu/') ?>">
 						<h3 class="subtitle-md">About Us</h3>
 					</a>
 					<ul class="d-none d-sm-block">
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">The story of us</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Our Food</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Our Place</h2>
-							</a>
-						</li>
+						<?php if ($about_menu): ?>
+							<?php foreach ($about_menu as $key => $value): ?>
+								<li>
+									<a href="<?php echo base_url('gioi-thieu/' . $value['slug']) ?>">
+										<h2 class="title-md"><?php echo $value['title'] ?></h2>
+									</a>
+								</li>
+							<?php endforeach ?>
+						<?php endif ?>
 					</ul>
 				</div>
 
 				<div class="col item">
-					<a href="<?php echo base_url('menu/') ?>">
+					<a href="<?php echo base_url('thuc-don/') ?>">
 						<h3 class="subtitle-md">Menu</h3>
 					</a>
 					<ul class="d-none d-sm-block">
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Chef's Choice</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Steak</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Hamburger</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Craft Beer</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Other</h2>
-							</a>
-						</li>
+						<?php if ($category_menu): ?>
+							<?php foreach ($category_menu as $key => $value): ?>
+								<li>
+									<a href="<?php echo base_url('thuc-don/' . $value['slug']) ?>">
+										<h2 class="title-md"><?php echo $value['title'] ?></h2>
+									</a>
+								</li>
+							<?php endforeach ?>
+						<?php endif ?>
 					</ul>
 				</div>
 
 				<div class="col item">
-					<a href="<?php echo base_url('blogs/') ?>">
+					<a href="<?php echo base_url('bai-viet/') ?>">
 						<h3 class="subtitle-md">Blogs</h3>
 					</a>
 					<ul class="d-none d-sm-block">
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">News</h2>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('') ?>">
-								<h2 class="title-md">Recruitment</h2>
-							</a>
-						</li>
+						<?php if ($blog_menu): ?>
+							<?php foreach ($blog_menu as $key => $value): ?>
+								<li>
+									<a href="<?php echo base_url($value['slug'] . '/danh-sach/') ?>">
+										<h2 class="title-md"><?php echo $value['title'] ?></h2>
+									</a>
+								</li>
+							<?php endforeach ?>
+						<?php endif ?>
 					</ul>
 				</div>
 
@@ -169,11 +155,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="left col-sm-9 item">
 					<ul>
 						<li>
-							<a class="active" href="<?php echo base_url('')?>">En</a>
+							<a class="active change-language" data-language="en" href="javascript:void(0)">En</a>
 						</li>
 						<li> / </li>
 						<li>
-							<a href="<?php echo base_url('')?>">Vi</a>
+							<a class="change-language" data-language="vi" href="javascript:void(0)">Vi</a>
 						</li>
 					</ul>
 				</div>

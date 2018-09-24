@@ -2,9 +2,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Thêm mới
+            Cập Nhật
             <small>
-                Thực Đơn
+                Bài Viết Giới Thiệu
             </small>
         </h1>
     </section>
@@ -13,13 +13,6 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <?php if ($this->session->flashdata('message_error')): ?>
-                    <div class="alert alert-warning alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                        <?php echo $this->session->flashdata('message_error'); ?>
-                    </div>
-                <?php endif ?>
                 <div class="box box-default">
                     <div class="box-body">
                         <?php
@@ -32,51 +25,29 @@
                             <span><?php echo $this->session->flashdata('message'); ?></span>
                         </div>
                         <div class="form-group col-xs-12">
+                            <label for="image_shared">Hình ảnh đang dùng</label>
+                            <br>
+                            <img src="<?php echo base_url('assets/upload/about/'. $detail['image']); ?>" width=250px>
+                            <br>
+                        </div>
+                        <div class="form-group col-xs-12">
                             <?php
-                            echo form_label('Hình ảnh', 'image_shared');
+                            echo form_label('Ảnh đại diện', 'image_shared');
                             echo form_error('image_shared');
-                            echo form_upload('image_shared[]', set_value('image_shared'), 'class="form-control" multiple');
+                            echo form_upload('image_shared', set_value('image_shared'), 'class="form-control"');
                             ?>
                             <br>
                         </div>
                         <div class="form-group col-xs-12">
-                            <?php
-                            echo form_label('Sản phẩm đặc biệt', 'isspecial_shared');
-                            echo form_error('isspecial_shared');
-                            echo '<br />';
-                            ?>
-                            <input type="checkbox" name="isspecial_shared" value="1">
-                            <br>
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <?php
-                            echo form_label('Slug', 'slug_shared');
-                            echo form_error('slug_shared');
-                            echo form_input('slug_shared', set_value('slug_shared'), 'class="form-control" id="slug_shared" readonly');
-                            ?>
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <select name="parent_id_shared" class="form-control">
-                                <option selected="">Chọn danh mục</option>
-                                <?php echo $product_category; ?>
-                            </select>
+                            <div class="form-group col-xs-12">
+                                <?php
+                                echo form_label('Slug', 'slug_shared');
+                                echo form_error('slug_shared');
+                                echo form_input('slug_shared', $detail['slug'], 'class="form-control" id="slug_shared" readonly');
+                                ?>
+                            </div>
                         </div>
 
-                        <div class="form-group col-xs-12">
-                            <?php
-                            echo form_label('Giá', 'price_shared');
-                            echo form_error('price_shared');
-                            echo form_input('price_shared', $detail['price'], 'class="form-control" id="price_shared"');
-                            ?>
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <?php
-                            echo form_label('Giảm Giá', 'discount_shared');
-                            echo form_error('discount_shared');
-                            echo form_input('discount_shared', $detail['discount'], 'class="form-control" id="discount_shared"');
-                            ?>
-                        </div>
-                        
                         <div>
                             <ul class="nav nav-pills nav-justified" role="tablist">
                                 <?php $i = 0; ?>
@@ -100,15 +71,23 @@
                                                     if($k == 'title' && in_array($k, $request_language_template)){
                                                         echo form_label($val, $k .'_'. $key);
                                                         echo form_error($k .'_'. $key);
-                                                        echo form_input($k .'_'. $key, set_value($k .'_'. $key), 'class="form-control" id="title_'.$key.'"');
+                                                        echo form_input($k .'_'. $key, $detail['title_'. $key], 'class="form-control" id="title_'.$key.'"');
                                                     }elseif($k == 'description' && in_array($k, $request_language_template)){
                                                         echo form_label($val, $k .'_'. $key);
                                                         echo form_error($k .'_'. $key);
-                                                        echo form_textarea($k .'_'. $key, set_value($k .'_'. $key, '', false), 'class="form-control" rows="5"');
+                                                        echo form_textarea($k .'_'. $key, $detail['description_'. $key], 'class="form-control" rows="5"');
                                                     }elseif($k == 'content' && in_array($k, $request_language_template)){
                                                         echo form_label($val, $k .'_'. $key);
                                                         echo form_error($k .'_'. $key);
-                                                        echo form_textarea($k .'_'. $key, set_value($k .'_'. $key, '', false), 'class="tinymce-area form-control" rows="5"');
+                                                        echo form_textarea($k .'_'. $key, $detail['content_'. $key], 'class="tinymce-area form-control" rows="5"');
+                                                    }elseif($k == 'metakeywords' && in_array($k, $request_language_template)){
+                                                        echo form_label($val, $k .'_'. $key);
+                                                        echo form_error($k .'_'. $key);
+                                                        echo form_input($k .'_'. $key, $detail['metakeywords_'. $key], 'class="form-control"');
+                                                    }elseif($k == 'metadescription' && in_array($k, $request_language_template)){
+                                                        echo form_label($val, $k .'_'. $key);
+                                                        echo form_error($k .'_'. $key);
+                                                        echo form_input($k .'_'. $key, $detail['metadescription_'. $key], 'class="form-control"');
                                                     }
                                                 ?>
                                             </div>
@@ -126,5 +105,3 @@
         </div>
     </section>
 </div>
-<script type="text/javascript" src="<?php echo base_url('assets/js/admin/script.js') ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/admin/common.js') ?>"></script>
