@@ -18,17 +18,17 @@
 				<div class="col-xs-12 col-sm-6 col-xl-3 item">
 					<ul>
 						<li>
-							<a href="<?php echo base_url('about/') ?>">
+							<a href="<?php echo base_url('gioi-thieu') ?>">
 								About Us
 							</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url('menu/') ?>">
+							<a href="<?php echo base_url('thuc-don/') ?>">
 								Menu
 							</a>
 						</li>
 						<li>
-							<a href="<?php echo base_url('blogs/') ?>">
+							<a href="<?php echo base_url('bai-viet/') ?>">
 								Blogs
 							</a>
 						</li>
@@ -37,9 +37,6 @@
 								Contact Us
 							</a>
 						</li>
-						<li> </li>
-						<li> </li>
-						<li> </li>
 						<li>
 							<a href="<?php echo base_url('reservations/') ?>">
 								Reservation
@@ -113,6 +110,8 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>	
+
 <!-- popper js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
@@ -121,7 +120,25 @@
 
 <!-- Script -->
 <script src="<?php echo site_url('assets/js/') ?>script.js"></script>
+<script>
+    $(".change-language").click(function(){
+        $.ajax({
+            method: "GET",
+            url: "http://localhost/teddy/homepage/change_language",
+            data: {
+                lang: $(this).data('language')
+            },
+            async:false,
+            success: function(res){
+                if(res.message == 'changed'){
+                    window.location.reload();
+                }
+            },
+            error: function(){
 
-
+            }
+        });
+    });
+</script>
 </body>
 </html>

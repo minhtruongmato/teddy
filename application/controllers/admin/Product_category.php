@@ -197,7 +197,7 @@ class Product_category extends Admin_Controller{
             $where = array('product_category_id' => $id,'is_deleted' => 0);
             $product = $this->product_model->find_rows($where);// lấy số bài viết thuộc về category
             $where = array('parent_id' => $id);
-            $parent_id = $this->product_category_model->find_rows($where);//lấy số con của category
+            $parent_id = $this->product_category_model->get_total_by_parent_id($id);//lấy số con của category
             if($product == 0 && $parent_id == 0){
                 $data = array('is_deleted' => 1);
                 $update = $this->product_category_model->common_update($id, $data);

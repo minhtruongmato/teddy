@@ -70,10 +70,14 @@ class Product extends Admin_Controller{
                 }
                 $shared_request = array(
                     'slug' => $unique_slug,
-                    'product_category_id' => $this->input->post('parent_id_shared')
+                    'product_category_id' => $this->input->post('parent_id_shared'),
+                    'isspecial' => ($this->input->post('isspecial_shared')) ? $this->input->post('isspecial_shared') : 0,
+                    'price' => $this->input->post('price_shared'),
+                    'discount' => $this->input->post('discount_shared'),
                 );
                 if(isset($image)){
                     $shared_request['image'] = $image_json;
+                    $shared_request['avatar'] = $image[0];
                 }
                 $this->db->trans_begin();
                 $insert = $this->product_model->common_insert(array_merge($shared_request,$this->author_data));
@@ -204,7 +208,10 @@ class Product extends Admin_Controller{
                         
                     }
                     $shared_request = array(
-                        'product_category_id' => $this->input->post('parent_id_shared')
+                        'product_category_id' => $this->input->post('parent_id_shared'),
+                        'isspecial' => ($this->input->post('isspecial_shared')) ? $this->input->post('isspecial_shared') : 0,
+                        'price' => $this->input->post('price_shared'),
+                        'discount' => $this->input->post('discount_shared'),
                     );
                     if($unique_slug != $this->data['detail']['slug']){
                         $shared_request['slug'] = $unique_slug;
@@ -295,7 +302,7 @@ class Product extends Admin_Controller{
         foreach ($upload as $key => $value) {
             $newUpload[] = $value;
         }
-        
+
         $image_json = json_encode($newUpload);
         $data = array('image' => $image_json);
 

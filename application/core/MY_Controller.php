@@ -38,6 +38,13 @@ class MY_Controller extends CI_Controller {
         return $config;
     }
 
+    function return_api($status, $message='', $data = null,$isExisted= true){
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header($status)
+            ->set_output(json_encode(array('status' => $status,'message' => $message , 'reponse' => $data, 'isExisted' => $isExisted)));
+    }
+
 }
 
 class Admin_Controller extends MY_Controller {
@@ -163,9 +170,12 @@ class Public_Controller extends MY_Controller {
         parent::__construct();
         $this->load->helper('form');
         $this->load->library('session');
+        $this->load->model('about_model');
+        $this->load->model('product_category_model');
+        $this->load->model('post_category_model');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-        $this->langAbbreviation = $this->uri->segment(1) ? $this->uri->segment(1) : 'vi';
+        $this->langAbbreviation = $this->session->userdata('langAbbreviation') ? $this->session->userdata('langAbbreviation') : 'vi';
         if($this->langAbbreviation == 'vi' || $this->langAbbreviation == 'en' || $this->langAbbreviation == ''){
             $this->session->set_userdata('langAbbreviation', $this->langAbbreviation);
         }
@@ -183,11 +193,23 @@ class Public_Controller extends MY_Controller {
             $this->session->set_userdata("langAbbreviation",'en');
             $this->lang->load('english_lang', 'english');
         }
-
-
+        $this->data['about_menu'] = $this->fetch_about();
+        $this->data['category_menu'] = $this->fetch_menu();
+        $this->data['blog_menu'] = $this->fetch_blog();
     }
 
     protected function render($the_view = NULL, $template = 'master') {
         parent::render($the_view, $template);
+    }
+
+    private function fetch_about(){
+        return $this->about_model->get_all_with_pagination_search('desc', $this->session->userdata('langAbbreviation'), 3);
+    }
+
+    private function fetch_menu(){
+        return $this->product_category_model->get_all_with_pagination_search('asc', $this->session->userdata('langAbbreviation'), 5);
+    }
+    private function fetch_blog(){
+        return $this->post_category_model->get_all_with_pagination_search('desc', $this->session->userdata('langAbbreviation'), 5);
     }
 }

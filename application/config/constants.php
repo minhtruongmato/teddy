@@ -228,3 +228,9 @@ defined('MESSAGE_ERROR_SELECT_ORIGINAL_CATEGORY') OR define('MESSAGE_ERROR_SELEC
 defined('MESSAGE_ERROR_TURN_ON_POST_CATEGORY_FOR_SELECTED') OR define('MESSAGE_ERROR_TURN_ON_POST_CATEGORY_FOR_SELECTED', 'Bạn phải bật danh mục bài viết mà menu đã chọn (tên danh mục là: %s)');
 defined('MESSAGE_ERROR_TURN_ON_POST_FOR_SELECTED') OR define('MESSAGE_ERROR_TURN_ON_POST_FOR_SELECTED', 'Bạn phải bật bài viết mà bạn đã chọn làm đường dẫn cho menu (tên bài viết là: %s)');
 /*=====  End of Message for Create  ======*/
+
+/**
+ * Change Language
+ */
+defined('MESSAGE_CHANGE_LANGUAGE_SUCCESS') OR define('MESSAGE_CHANGE_LANGUAGE_SUCCESS', 'changed');
+defined('MESSAGE_CHANGE_LANGUAGE_FAIL') OR define('MESSAGE_CHANGE_LANGUAGE_FAIL', 'keep');

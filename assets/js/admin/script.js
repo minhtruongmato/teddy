@@ -38,6 +38,7 @@ $(document).ready(function(){
         ],
         external_filemanager_path: HOSTNAME + "filemanager/",
         filemanager_title: "Responsive Filemanager",
+        filemanager_access_key:'myPrivateKey',
         external_plugins: {"filemanager": HOSTNAME + "filemanager/plugin.min.js"}
     });
 
