@@ -11,33 +11,33 @@
                 </p>
 
                 <?php
-                echo form_open_multipart('homepage/get_data_to_send_mail', array('class' => 'form-horizontal'));
+                echo form_open_multipart('', array('class' => 'form-horizontal'));
                 ?>
 
                 <div class="form-group col-xs-12">
                     <?php
-                    echo form_error('contact_name');
+                    echo form_error('contact_name', '<div class="error">', '</div>');
                     echo form_input('contact_name', set_value('contact_name'), 'class="form-control" id="contact_name" placeholder="Họ và tên (*)"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
-                    echo form_error('contact_mail');
+                    echo form_error('contact_mail', '<div class="error">', '</div>');
                     echo form_input('contact_mail', set_value('contact_mail'), 'class="form-control" id="contact_mail" placeholder="Nhập Email của bạn (*)"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
-                    echo form_error('contact_phone');
+                    echo form_error('contact_phone', '<div class="error">', '</div>');
                     echo form_input('contact_phone', set_value('contact_phone'), 'class="form-control" id="contact_phone" placeholder="Nhập số điện thoại của bạn (*)"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
-                    echo form_error('contact_address');
+                    echo form_error('contact_address', '<div class="error">', '</div>');
                     echo form_input('contact_address', set_value('contact_address'), 'class="form-control" id="contact_address" placeholder="Địa chỉ (*)"');
                     ?>
                 </div>
