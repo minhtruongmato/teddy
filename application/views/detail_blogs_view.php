@@ -33,7 +33,9 @@
 
 	<div class="recommend container-fluid">
 		<div class="container">
-			<h2 class="title-md">Recommended Posts</h2>
+			<h2 class="title-md">
+                <?php echo $this->lang->line('recommended') ?>
+			</h2>
 			<div class="row">
                 <?php if ($recommended): ?>
                     <?php foreach ($recommended as $key => $value): ?>
@@ -46,7 +48,7 @@
 
                             <p class="paragraph text-wrapper"><?php echo $value['post_description'] ?></p>
 
-                            <a href="<?php echo base_url('bai-viet/chi-tiet/' . $value['slug'])?>">Read more</a>
+                            <a href="<?php echo base_url('bai-viet/chi-tiet/' . $value['slug'])?>"><?php echo $this->lang->line('read-more') ?></a>
 
                             <div class="mask">
                                 <a href="<?php echo base_url('bai-viet/chi-tiet/' . $value['slug'])?>">

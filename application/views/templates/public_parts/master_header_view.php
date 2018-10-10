@@ -54,7 +54,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row head">
 				<div class="col item">
 					<a href="<?php echo base_url('gioi-thieu/') ?>">
-						<h3 class="subtitle-md">About Us</h3>
+						<h3 class="subtitle-md">
+							<?php echo $this->lang->line('about')?>
+						</h3>
 					</a>
 					<ul class="d-none d-sm-block">
 						<?php if ($about_menu): ?>
@@ -71,7 +73,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				<div class="col item">
 					<a href="<?php echo base_url('thuc-don/') ?>">
-						<h3 class="subtitle-md">Menu</h3>
+						<h3 class="subtitle-md">
+                            <?php echo $this->lang->line('menu')?>
+						</h3>
 					</a>
 					<ul class="d-none d-sm-block">
 						<?php if ($category_menu): ?>
@@ -88,7 +92,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				<div class="col item">
 					<a href="<?php echo base_url('bai-viet/') ?>">
-						<h3 class="subtitle-md">Blogs</h3>
+						<h3 class="subtitle-md">
+                            <?php echo $this->lang->line('blogs')?>
+						</h3>
 					</a>
 					<ul class="d-none d-sm-block">
 						<?php if ($blog_menu): ?>
@@ -105,17 +111,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				<div class="col item">
 					<a href="<?php echo base_url('contact/') ?>">
-						<h3 class="subtitle-md">Contact Us</h3>
+						<h3 class="subtitle-md">
+                            <?php echo $this->lang->line('contact')?>
+						</h3>
 					</a>
 					<ul class="d-none d-sm-block">
 						<li>
 							<a href="<?php echo base_url('contact/') ?>">
-								<h2 class="title-md">Contact</h2>
+								<h2 class="title-md">
+									<?php echo $this->lang->line('contact')?>
+								</h2>
 							</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url('reservations/') ?>">
-								<h2 class="title-md">Reservations</h2>
+								<h2 class="title-md">
+									<?php echo $this->lang->line('reservations')?>
+								</h2>
 							</a>
 						</li>
 					</ul>
@@ -124,14 +136,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<div class="row body">
 				<div class="col item">
-					<p class="paragraph">Location</p>
+					<p class="paragraph"><?php echo $this->lang->line('location')?></p>
 					<p class="paragraph">
 						917 Rosenbaum Lodge Apt. 831
 					</p>
 				</div>
 
 				<div class="col item">
-					<p class="paragraph">Reservations</p>
+					<p class="paragraph"><?php echo $this->lang->line('reservations')?></p>
 					<table class="table">
 						<tr>
 							<td>Phone</td>
@@ -145,9 +157,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</div>
 
 				<div class="col item">
-					<p class="paragraph">Subscribe</p>
-					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-					<button type="button" class="btn btn-link">Subscribe</button>
+					<p class="paragraph"><?php echo $this->lang->line('subscribe-us')?></p>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<?php echo $this->lang->line('form-email')?>">
+					<button type="button" class="btn btn-link"><?php echo $this->lang->line('subscribe')?></button>
 				</div>
 			</div>
 

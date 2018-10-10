@@ -22,7 +22,7 @@
 							<h2 class="title-md text-wrapper"><?php echo $value['description'] ?></h2>
 
 							<a href="<?php echo base_url('menu/danh-sach/'. $value['slug']) ?>" class="btn btn-primary" role="button">
-								View Detail
+								<?php echo $this->lang->line('view-detail') ?>
 							</a>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 		<h2 class="title-md">Get 5% off when booking online</h2>
 
 		<a href="<?php echo base_url('reservations/') ?>" class="btn btn-primary" role="button">
-			Book now
+            <?php echo $this->lang->line('booking-now') ?>
 		</a>
 	</div>
 </section>
