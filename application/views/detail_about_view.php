@@ -5,7 +5,7 @@
         </div>
 
         <div class="cover-title">
-            <h3 class="subtitle-md">About Us</h3>
+            <h3 class="subtitle-md"><?php echo $this->lang->line('about') ?></h3>
 
             <h2 class="title-md"><?php echo $detail['about_title'] ?></h2>
         </div>
@@ -37,12 +37,12 @@
 
     <div class="recommend container-fluid">
         <div class="container">
-            <h2 class="title-md">Recommended Posts</h2>
+            <h2 class="title-md"><?php echo $this->lang->line('recommended') ?></h2>
             <div class="row">
                 <?php if ($recommended): ?>
                     <?php foreach ($recommended as $key => $value): ?>
                         <div class="item col-xs-12 col-sm-6">
-                            <h3 class="subtitle-md">ABOUT US</h3>
+                            <h3 class="subtitle-md"><?php echo $this->lang->line('about') ?></h3>
 
                             <a href="<?php echo base_url('gioi-thieu/' . $value['slug'])?>">
                                 <h2 class="title-md"><?php echo $value['about_title'] ?></h2>
@@ -50,7 +50,7 @@
 
                             <p class="paragraph text-wrapper"><?php echo $value['about_description'] ?></p>
 
-                            <a href="<?php echo base_url('gioi-thieu/' . $value['slug'])?>">Read more</a>
+                            <a href="<?php echo base_url('gioi-thieu/' . $value['slug'])?>"><?php echo $this->lang->line('read-more') ?></a>
 
                             <div class="mask">
                                 <a href="<?php echo base_url('gioi-thieu/' . $value['slug'])?>">

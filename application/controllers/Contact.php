@@ -40,7 +40,7 @@ class Contact extends Public_Controller {
             $this->render('contact_view');
         }
 
-        $this->render('contact_view');
+        //$this->render('contact_view');
     }
 
     public function send_mail($data) {

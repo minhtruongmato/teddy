@@ -19,41 +19,41 @@
 					<ul>
 						<li>
 							<a href="<?php echo base_url('gioi-thieu') ?>">
-								About Us
+                                <?php echo $this->lang->line('about')?>
 							</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url('thuc-don/') ?>">
-								Menu
+                                <?php echo $this->lang->line('menu')?>
 							</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url('bai-viet/') ?>">
-								Blogs
+                                <?php echo $this->lang->line('blogs')?>
 							</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url('contact/') ?>">
-								Contact Us
+                                <?php echo $this->lang->line('contact')?>
 							</a>
 						</li>
 						<li>
 							<a href="<?php echo base_url('reservations/') ?>">
-								Reservation
+                                <?php echo $this->lang->line('reservations')?>
 							</a>
 						</li>
 					</ul>
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-xl-3 item">
-					<p class="paragraph">Location</p>
+					<p class="paragraph"><?php echo $this->lang->line('location')?></p>
 					<p class="paragraph">
 						917 Rosenbaum Lodge Apt. 831
 					</p>
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-xl-3 item">
-					<p class="paragraph">Reservations</p>
+					<p class="paragraph"><?php echo $this->lang->line('reservations')?></p>
 					<table class="table">
 						<tr>
 							<td>Phone</td>
@@ -67,9 +67,9 @@
 				</div>
 
 				<div class="col-xs-12 col-sm-6 col-xl-3 item">
-					<p class="paragraph">Subscribe</p>
-					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-					<button type="button" class="btn btn-link">Subscribe</button>
+					<p class="paragraph"><?php echo $this->lang->line('subscribe-us')?></p>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<?php echo $this->lang->line('form-email')?>">
+					<button type="button" class="btn btn-link"><?php echo $this->lang->line('subscribe')?></button>
 				</div>
 			</div>
 

@@ -2,12 +2,16 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 offset-sm-6">
-                <h3 class="subtitle-md">Contact Us</h3>
+                <h3 class="subtitle-md">
+                    <?php echo $this->lang->line('contact') ?>
+				</h3>
 
-                <h2 class="title-md">Feeling free to say "Hello" to us</h2>
+                <h2 class="title-md">
+					<?php echo $this->lang->line('contact-title') ?>
+				</h2>
 
                 <p class="paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget tristique augue. Donec laoreet nec quam et semper. Integer ut felis euismod, tempus dolor vel, gravida ante. Nulla facilisi.
+                    <?php echo $this->lang->line('contact-description') ?>
                 </p>
 
                 <?php
@@ -17,40 +21,40 @@
                 <div class="form-group col-xs-12">
                     <?php
                     echo form_error('contact_name', '<div class="error">', '</div>');
-                    echo form_input('contact_name', set_value('contact_name'), 'class="form-control" id="contact_name" placeholder="Họ và tên (*)"');
+                    echo form_input('contact_name', set_value('contact_name'), 'class="form-control" id="contact_name" placeholder="' . $this->lang->line('form-name') . '"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
                     echo form_error('contact_mail', '<div class="error">', '</div>');
-                    echo form_input('contact_mail', set_value('contact_mail'), 'class="form-control" id="contact_mail" placeholder="Nhập Email của bạn (*)"');
+                    echo form_input('contact_mail', set_value('contact_mail'), 'class="form-control" id="contact_mail" placeholder="' . $this->lang->line('form-email') . '"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
                     echo form_error('contact_phone', '<div class="error">', '</div>');
-                    echo form_input('contact_phone', set_value('contact_phone'), 'class="form-control" id="contact_phone" placeholder="Nhập số điện thoại của bạn (*)"');
+                    echo form_input('contact_phone', set_value('contact_phone'), 'class="form-control" id="contact_phone" placeholder="' . $this->lang->line('form-phone') . '"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
                     echo form_error('contact_address', '<div class="error">', '</div>');
-                    echo form_input('contact_address', set_value('contact_address'), 'class="form-control" id="contact_address" placeholder="Địa chỉ (*)"');
+                    echo form_input('contact_address', set_value('contact_address'), 'class="form-control" id="contact_address" placeholder="' . $this->lang->line('form-address') . '"');
                     ?>
                 </div>
 
                 <div class="form-group col-xs-12">
                     <?php
                     echo form_error('contact_message');
-                    echo form_textarea('contact_message', set_value('contact_message'), 'class="form-control" id="contact_message" placeholder="Để lại lời nhắn đến với chúng tôi ..."');
+                    echo form_textarea('contact_message', set_value('contact_message'), 'class="form-control" id="contact_message" placeholder="' . $this->lang->line('form-message') . '"');
                     ?>
                 </div>
 
                 <div class="col-xs-12">
-                    <?php echo form_submit('submit', 'Gửi đăng ký', 'class="btn btn-primary"'); ?>
+                    <?php echo form_submit('submit', $this->lang->line('send'), 'class="btn btn-primary"'); ?>
                 </div>
                 <?php echo form_close(); ?>
             </div>

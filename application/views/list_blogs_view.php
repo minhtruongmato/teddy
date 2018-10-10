@@ -5,12 +5,14 @@
         </div>
 
         <div class="cover-title">
-            <h3 class="subtitle-md">Blogs</h3>
+            <h3 class="subtitle-md"><?php echo $this->lang->line('blogs') ?></h3>
 
-            <h2 class="title-md">Get the latest news about us</h2>
+            <h2 class="title-md">
+                <?php echo $this->lang->line('blogs-title') ?>
+			</h2>
 
             <p class="paragraph">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget tristique augue. Donec laoreet nec quam et semper. Integer ut felis euismod, tempus dolor vel, gravida ante. Nulla facilisi.
+                <?php echo $this->lang->line('blogs-description') ?>
             </p>
         </div>
     </div>
@@ -34,7 +36,7 @@
                                 </p>
 
                                 <a href="<?php echo base_url('bai-viet/chi-tiet/' . $value['slug'])?>">
-                                    Read more
+                                    <?php echo $this->lang->line('read-more') ?>
                                 </a>
 
                                 <div class="mask news">
