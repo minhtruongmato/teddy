@@ -168,9 +168,11 @@ a:hover {
   text-decoration: none; }
 
 .btn.btn-primary {
-  background-color: #ED2024;
+  background-color: #c7212b;
   border: none;
   padding: 10px 20px; }
+  .btn.btn-primary:hover {
+    background-color: #a0262a; }
 
 /* Master Layout */
 /*
@@ -206,7 +208,14 @@ header {
     header nav .background {
       width: 100%;
       height: 100%;
-      background-color: #ED2024;
+      background: #c7212c;
+      background: -moz-linear-gradient(-45deg, #c7212c 0%, #a0262a 100%);
+      background: -webkit-gradient(left top, right bottom, color-stop(0%, #c7212c), color-stop(100%, #a0262a));
+      background: -webkit-linear-gradient(-45deg, #c7212c 0%, #a0262a 100%);
+      background: -o-linear-gradient(-45deg, #c7212c 0%, #a0262a 100%);
+      background: -ms-linear-gradient(-45deg, #c7212c 0%, #a0262a 100%);
+      background: linear-gradient(135deg, #c7212c 0%, #a0262a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c7212c', endColorstr='#a0262a', GradientType=1 );
       -webkit-transition: all ease-in-out 300ms;
       -moz-transition: all ease-in-out 300ms;
       -ms-transition: all ease-in-out 300ms;
@@ -347,7 +356,17 @@ header {
     transition: all ease-in-out 300ms; }
     header.active nav .background {
       width: 100%;
-      background-color: #29256A;
+      background-color: #2f2e7d;
+      background-color: -moz-linear-gradient(-45deg, #2f2e7d 0%, #24214a 100%);
+      background-color: -webkit-gradient(left top, right bottom, color-stop(0%, #2f2e7d), color-stop(100%, #24214a));
+      background-color: -webkit-linear-gradient(-45deg, #2f2e7d 0%, #24214a 100%);
+      background-color: -o-linear-gradient(-45deg, #2f2e7d 0%, #24214a 100%);
+      background-color: -ms-linear-gradient(-45deg, #2f2e7d 0%, #24214a 100%);
+      background-color: linear-gradient(135deg, #2f2e7d 0%, #24214a 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2e7d', endColorstr='#24214a', GradientType=1 );
+      background-image: url("../img/pattern_bg.png");
+      background-size: cover;
+      background-position: center;
       -webkit-transition: all ease-in-out 300ms;
       -moz-transition: all ease-in-out 300ms;
       -ms-transition: all ease-in-out 300ms;
@@ -1106,7 +1125,7 @@ Author: hung.luong@matocreative.vn
         width: 100%;
         height: 230px;
         margin-top: 15px;
-        border-bottom: 5px solid #ED2024; }
+        border-bottom: 5px solid #c7212b; }
       #menu-detail #menu-list .row .item .inner:hover {
         -webkit-transform: translateY(-15px);
         -moz-transform: translateY(-15px);
@@ -1247,9 +1266,9 @@ Author: hung.luong@matocreative.vn
         font-size: 0.875rem;
         text-transform: uppercase; }
         #blogs .container .row .left .row .item .inner .badge.news {
-          background-color: #ED2024; }
+          background-color: #c7212b; }
         #blogs .container .row .left .row .item .inner .badge.recruitment {
-          background-color: #29256A; }
+          background-color: #2f2e7d; }
       #blogs .container .row .left .row .item .inner h2.heading-post {
         margin-bottom: 15px;
         padding-left: 15px;
@@ -1276,9 +1295,9 @@ Author: hung.luong@matocreative.vn
         #blogs .container .row .left .row .item .inner .mask a {
           padding-left: 0; }
         #blogs .container .row .left .row .item .inner .mask.news {
-          border-bottom: 5px solid #ED2024; }
+          border-bottom: 5px solid #c7212b; }
         #blogs .container .row .left .row .item .inner .mask.recruitment {
-          border-bottom: 5px solid #29256A; }
+          border-bottom: 5px solid #2f2e7d; }
   #blogs .container .row .right ul li a {
     font-family: "webFont-b";
     font-size: 1.5rem;

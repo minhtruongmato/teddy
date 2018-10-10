@@ -34,7 +34,7 @@ header{
         .background{
             width: 100%;
             height: 100%;
-            background-color: $primary;
+            @include gradient-red;
 
             @include transition(300ms);
         }
@@ -264,7 +264,11 @@ header{
         nav{
             .background{
                 width: 100%;
-                background-color: $secondary;
+                @include gradient-blue;
+
+                background-image: url("../img/pattern_bg.png");
+                background-size: cover;
+                background-position: center center;
 
                 @include transition(300ms);
             }

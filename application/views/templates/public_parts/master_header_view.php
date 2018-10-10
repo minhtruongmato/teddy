@@ -32,6 +32,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<!-- Style -->
 	<link rel="stylesheet" href="<?php echo site_url('assets/sass/') ?>style.css">
+
+	<!--favicon -->
+	<link rel="shortcut icon" href="<?php echo site_url('assets/img/') ?>favicon.png" />
 	
 </head>
 
