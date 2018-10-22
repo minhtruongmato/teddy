@@ -1,13 +1,13 @@
 switch(window.location.origin){
-    case 'http://teddy.com':
-        var HOSTNAME = 'http://teddy.com/';
+    case 'http://teddy.matocreative.vn':
+        var HOSTNAME = 'http://teddy.matocreative.vn';
         break;
     default:
         var HOSTNAME = 'http://localhost/teddy/';
 }
 switch(window.location.origin){
     case 'http://teddy.com':
-        var HOSTNAMEADMIN = 'http://teddy.com/admin';
+        var HOSTNAMEADMIN = 'http://teddy.matocreative.vnadmin';
         break;
     default:
         var HOSTNAMEADMIN = 'http://localhost/teddy/admin';

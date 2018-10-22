@@ -28,6 +28,11 @@ if($this->ion_auth->logged_in()) {
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
+				<li class="active">
+					<a href="<?php echo base_url('admin/about') ?>">
+						<i class="fa fa-bars"></i> <span>Giới thiệu</span>
+					</a>
+				</li>
                 <li class="treeview post" style="border-bottom: none;">
                     <a href="">
                         <i class="fa fa-bars"></i>
